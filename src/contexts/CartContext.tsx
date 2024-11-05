@@ -34,9 +34,9 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
         fetchCart();
     }, [token]);
 
-    const addToCart = async (productId: string, variantId: string,title: string = '', quantity: number,  size: string, price: number, isGuest: boolean = false, image: IImage = { url: '' } ) => {
+    const addToCart = async (productId: string, variantId: string, title: string = '', quantity: number,  size: string, price: number, isGuest: boolean = false, image: IImage = { url: '' } ) => {
         try {
-            console.log('Sending request to add to cart:', { productId, variantId, quantity, size, price, isGuest , image });
+            console.log('Sending request to add to cart:', { productId, title,variantId, quantity, size, price, isGuest , image });
             if (isGuest) {
                 // הוספה לעגלה בלוקל סטורג' עבור משתמש אורח
                 const guestCart = localStorage.getItem('guestCart');
@@ -46,7 +46,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
                 if (itemIndex > -1) {
                     cart.items[itemIndex].quantity += quantity;
                 } else {
-                    cart.items.push({ productId, variantId, quantity, size, title: '', price, image });
+                    cart.items.push({ productId, variantId, quantity, size, title, price, image });
                 }
 
                 // עדכון סה"כ כמות ומחיר
