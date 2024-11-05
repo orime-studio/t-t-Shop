@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { ICartItem } from '../@Types/productType';
+import { ICartItem, IImage } from '../@Types/productType';
 
 const baseUrl = "https://node-tandt-shop.onrender.com/api/v1";
+
 const cartUrl = `${baseUrl}/cart`;
 
 export const getCart = () => {
@@ -12,13 +13,15 @@ export const getCart = () => {
     });
 };
 
-export const addProductToCart = (productId: string, variantId: string, quantity: number, size: string, price: number) => {
+export const addProductToCart = (productId: string, variantId: string,title: string, quantity: number, size: string, price: number,image: IImage) => {
     return axios.post(`${cartUrl}/add`, {
         productId,
         variantId,
+        title,
         quantity,
         size,
-        price
+        price,
+        image
     }, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),

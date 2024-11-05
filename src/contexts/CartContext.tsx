@@ -4,7 +4,6 @@ import { CartContextProps, ICartWithTotals, ICartItem, IImage } from '../@Types/
 import { ContextProviderProps } from '../@Types/types';
 import { useAuth } from '../hooks/useAuth';
 
-
 export const CartContext = createContext<CartContextProps | undefined>(undefined);
 
 export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
@@ -34,9 +33,9 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
         fetchCart();
     }, [token]);
 
-    const addToCart = async (productId: string, variantId: string, title: string = '', quantity: number,  size: string, price: number, isGuest: boolean = false, image: IImage = { url: '' } ) => {
+    const addToCart = async (productId: string, variantId: string, productTitle: string = '', quantity: number, size: string, price: number, isGuest: boolean = false, image: IImage = { url: '' } ) => {
         try {
-            console.log('Sending request to add to cart:', { productId, title,variantId, quantity, size, price, isGuest , image });
+            console.log('Sending request to add to cart:', { productId, productTitle, variantId, quantity, size, price, isGuest, image });
             if (isGuest) {
                 // הוספה לעגלה בלוקל סטורג' עבור משתמש אורח
                 const guestCart = localStorage.getItem('guestCart');
@@ -46,7 +45,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
                 if (itemIndex > -1) {
                     cart.items[itemIndex].quantity += quantity;
                 } else {
-                    cart.items.push({ productId, variantId, quantity, size, title, price, image });
+                    cart.items.push({ productId, variantId, quantity, size, title: productTitle, price, image });
                 }
 
                 // עדכון סה"כ כמות ומחיר
@@ -57,7 +56,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
                 setCart(cart);
             } else {
                 // הוספה לעגלה בשרת עבור משתמש מחובר
-                await cartService.addProductToCart(productId, variantId, quantity, size, price);
+                await cartService.addProductToCart(productId, variantId, productTitle, quantity, size, price, image);
                 fetchCart();
             }
         } catch (error) {
@@ -70,7 +69,11 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
         if (guestCart && token) {
             const cartItems: ICartItem[] = JSON.parse(guestCart).items;
             for (const item of cartItems) {
-                await addToCart(item.productId, item.title, item.variantId, item.quantity, item.size, item.price, false , item.image);
+                try {
+                    await addToCart(item.productId, item.variantId, item.title, item.quantity, item.size, item.price, false, item.image);
+                } catch (error) {
+                    console.error('Error merging item to user cart', error);
+                }
             }
             localStorage.removeItem('guestCart');
             fetchCart();
@@ -80,6 +83,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
     useEffect(() => {
         if (token) {
             mergeGuestCartToUserCart();
+            console.log('Merged guest cart to user cart');
         }
     }, [token]);
 
