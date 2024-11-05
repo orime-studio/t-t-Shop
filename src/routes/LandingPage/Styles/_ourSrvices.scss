@@ -1,0 +1,135 @@
+.services-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #faf8f8;
+    padding: 40px;
+    font-family: 'Montserrat', sans-serif;
+    margin-top: 16px;
+    border-radius: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.left-side {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    text-align: right;
+
+}
+
+.description {
+    font-size: 16px;
+    color: #2B2E37;
+    line-height: 1.6;
+    margin-bottom: 20px;
+direction: rtl;
+    unicode-bidi: plaintext;
+}
+
+.gold-button {
+    background-color: #C8BEA0;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end;
+        text-decoration: none;
+
+}
+
+.gold-button:hover {
+    background-color: #C8BEA0;
+}
+
+.right-side {
+    width: 60%;
+    direction: rtl;
+        unicode-bidi: plaintext;
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 columns */
+    gap: 20px;
+        text-align: right;
+    
+}
+
+.card {
+    /* Remove background color */
+    padding: 10px;
+    border-radius: 10px;
+    text-align: right;
+}
+
+.icon-circle {
+    background-color: #EBE1F7;
+    /* Light purple */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.icon-circle img {
+    width: 25px;
+    height: 25px;
+}
+
+.card h3 {
+    font-size: 16px;
+    /* Adjust font size */
+    color: #2B2E37;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.card p {
+    font-size: 12px;
+    /* Adjust font size */
+    color: #000000;
+    line-height: 1.4;
+}
+
+@media screen and (max-width: 1000px) {
+    .cards-container {
+            grid-template-columns: repeat(2, 1fr);
+
+    }
+
+        .gold-button {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+}
+    
+
+@media screen and (max-width: 680px) {
+    .services-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+        .gold-button {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+}

@@ -1,0 +1,25 @@
+.add-to-cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* מרכז את התוכן */
+    width: 100%;
+    /* הכפתור יתפוס את כל הרוחב */
+    border: 1px solid #1b1b1b;
+    background-color: transparent;
+    color: #1b1b1b;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 20px;
+
+    &:hover {
+        background-color: #1b1b1b;
+        color: white;
+    }
+
+    svg {
+        margin-right: 8px;
+    }
+}

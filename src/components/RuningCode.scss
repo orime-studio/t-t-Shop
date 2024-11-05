@@ -1,0 +1,61 @@
+.code-container {
+    position: relative;
+    padding: 20px;
+    color: #dcdcdc; // text color
+    background-color: transparent; // no background color 
+    font-family: 'Source Code Pro', monospace;
+    font-size: 16px;
+    z-index: 1;
+    overflow: hidden;
+
+    .keyword {
+        color: #c792ea;
+    }
+
+    .function-name {
+        color: #82AAFF;
+    }
+
+    .function {
+        color: #ffffff;
+    }
+
+    .string {
+        color: #ecc48d;
+    }
+
+    .parameter {
+        color: #F07178;
+    }
+
+    .property {
+        color: #89DDFF;
+    }
+
+    .method {
+        color: #82AAFF;
+    }
+
+    .cursor {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background-color: #ffffff;
+        animation: blink 1s step-end infinite;
+        vertical-align: bottom;
+    }
+}
+
+// אנימציית הבהוב לסמן
+@keyframes blink {
+
+    0%,
+    50% {
+        background-color: #ffffff;
+    }
+
+    51%,
+    100% {
+        background-color: transparent;
+    }
+}

@@ -1,0 +1,24 @@
+/* הסרת המסגרת הכחולה בעת מעבר עכבר */
+.tabs [role="tab"]:focus,
+.tabs [role="tab"]:active,
+.tabs [role="tab"]:hover {
+    outline: none !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+}
+
+
+.tabs [role="tab"][aria-selected="true"] {
+    background-color: #f0f0f0 !important;
+    color: #333 !important;
+}
+
+.tabs [role="tab"]:hover {
+    background-color: #e0e0e0 !important;
+    color: #555 !important;
+}
+
+.tabs [role="tab"] {
+    background-color: #fff !important;
+    color: #777 !important;
+}
