@@ -34,7 +34,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
         fetchCart();
     }, [token]);
 
-    const addToCart = async (productId: string, variantId: string, quantity: number, size: string, price: number, isGuest: boolean = false, image: IImage = { url: '' } ) => {
+    const addToCart = async (productId: string, variantId: string,title: string = '', quantity: number,  size: string, price: number, isGuest: boolean = false, image: IImage = { url: '' } ) => {
         try {
             console.log('Sending request to add to cart:', { productId, variantId, quantity, size, price, isGuest , image });
             if (isGuest) {
@@ -70,7 +70,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
         if (guestCart && token) {
             const cartItems: ICartItem[] = JSON.parse(guestCart).items;
             for (const item of cartItems) {
-                await addToCart(item.productId, item.variantId, item.quantity, item.size, item.price, false , item.image);
+                await addToCart(item.productId, item.title, item.variantId, item.quantity, item.size, item.price, false , item.image);
             }
             localStorage.removeItem('guestCart');
             fetchCart();

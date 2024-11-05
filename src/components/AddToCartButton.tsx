@@ -15,7 +15,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
         if (selectedVariant) {
             console.log("Adding product to cart:", selectedVariant);
             try {
-                await addToCart(productId, selectedVariant._id, 1, selectedVariant.size, selectedVariant.price, !isLoggedIn,image);
+                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price, !isLoggedIn,image);
 
                 dialogs.success(
                     "Product Added",
