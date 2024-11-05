@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { getUserById, updateUser } from '../services/auth';
+import { getUserById, updateUser } from '../services/auth-service';
 import { useParams } from 'react-router-dom';
 import { updateUserType } from '../@Types/types';
 import './Register.scss';
@@ -30,8 +30,8 @@ const UpdateUser = () => {
                     setValue('address.houseNumber', user.address.houseNumber);
                     setValue('address.country', user.address.country);
                     setValue('address.zip', user.address.zip);
-                  /*   setValue('image.url', user.image?.url || '');
-                    setValue('alt', user.image?.alt || ''); */
+                    /*   setValue('image.url', user.image?.url || '');
+                      setValue('alt', user.image?.alt || ''); */
                     setValue('address.state', user.address.state || '');
                     setLoading(false);
                 })
@@ -210,8 +210,8 @@ const UpdateUser = () => {
                     )}
                 </section>
 
-               
-              {/*   <section>
+
+                {/*   <section>
                     <input
                         placeholder="Image URL"
                         type="url"
@@ -242,7 +242,7 @@ const UpdateUser = () => {
                     )}
                 </section> */}
 
-              
+
                 <section>
                     <input
                         placeholder="State"

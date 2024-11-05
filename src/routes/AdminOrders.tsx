@@ -5,8 +5,8 @@ import { useEffect, useState, MouseEvent } from 'react';
 import { IOrder } from '../@Types/productType';
 import dialogs from '../ui/dialogs';
 import { useSearch } from '../hooks/useSearch';
-import { getAllOrders, updateOrderStatus } from '../services/analytics';
-import orderService from '../services/order';
+import { getAllOrders, updateOrderStatus } from '../services/analytics-service';
+import orderService from '../services/order-service';
 import { FiTrash2 } from 'react-icons/fi';
 
 const statusOptions = [

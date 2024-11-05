@@ -2,7 +2,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import "./CreateProduct.scss";
 import dialogs from "../ui/dialogs";
-import { getProductById, updateProduct } from "../services/product";
+import { getProductById, updateProduct } from "../services/product-service";
 import { IProductInput } from "../@Types/productType";
 import { useState, useEffect } from "react";
 

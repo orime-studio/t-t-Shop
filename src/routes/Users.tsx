@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { deleteUserById, getAllUsers } from '../services/auth';
+import { deleteUserById, getAllUsers } from '../services/auth-service';
 import { IUser } from '../@Types/types';
 import { Table } from 'flowbite-react';
 import dialogs from '../ui/dialogs';

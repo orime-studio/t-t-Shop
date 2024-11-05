@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import orderService from '../services/order';
+import orderService from '../services/order-service';
 import { IOrder } from '../@Types/productType';
 import './OrderConfirmation.scss';
 import { useAuth } from '../hooks/useAuth';
@@ -40,7 +40,7 @@ const UserOrders = () => {
                         <div className="summary-total">
                             <span>Total Amount</span>
                             <span>${order.totalAmount.toFixed(2)}</span>
-                           
+
                         </div>
                     </div>
                 </div>

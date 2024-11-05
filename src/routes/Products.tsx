@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { IProduct } from '../@Types/productType';
 import AddToCartButton from '../components/AddToCartButton';
 import { useSearch } from '../hooks/useSearch';
-import { getAllProducts } from '../services/product';
+import { getAllProducts } from '../services/product-service';
 import './Products.scss';
 
 const Products: FC = () => {

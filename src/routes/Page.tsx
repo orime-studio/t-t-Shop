@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import pagesService from '../services/pages';
+import pagesService from '../services/pages-service';
 
 const PageDetail = () => {
     const { id } = useParams<{ id: string }>();

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const pagesUrl = 'https://nodeapiproject-shop.onrender.com/api/v1/pages';
+const pagesUrl = 'https://node-tandt-shop.onrender.com/api/v1/pages';
 
 // יצירת עמוד חדש
 export const createPage = (pageData: any) => {

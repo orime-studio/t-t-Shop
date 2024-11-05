@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getProductById } from '../services/product';
+import { getProductById } from '../services/product-service';
 import { IProduct } from '../@Types/productType';
 import './Product.scss';
 import AddToCartButton from '../components/AddToCartButton';
 import { Accordion } from 'flowbite-react';
-import cart from '../services/cart';
+import cart from '../services/cart-service';
 
 const Product = () => {
     const { id } = useParams();

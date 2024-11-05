@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'; // מייבא את הרכיב Link ליצירת קישורים
-import pagesService from '../services/pages';
+import pagesService from '../services/pages-service';
 
 const PagesList = () => {
     const [pages, setPages] = useState<any[]>([]);

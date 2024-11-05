@@ -1,6 +1,6 @@
 import { useEffect, useState, MouseEvent } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import orderService from '../services/order';
+import orderService from '../services/order-service';
 import { IOrder } from '../@Types/productType';
 import './OrderConfirmation.scss';
 import { useAuth } from '../hooks/useAuth';
@@ -32,7 +32,7 @@ const OrderConfirmation = () => {
                         event: 'purchase',
                         transactionId: res.data.orderNumber,
                         purchaseValue: res.data.totalAmount,
-                        currencyCode: 'USD', 
+                        currencyCode: 'USD',
                         items: res.data.products.map(product => ({
                             item_name: product.title,
                             item_id: product.productId,

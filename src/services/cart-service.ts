@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ICartItem } from '../@Types/productType';
 
-const baseUrl = "https://nodeapiproject-shop.onrender.com/api/v1";
+const baseUrl = "https://node-tandt-shop.onrender.com/api/v1";
 const cartUrl = `${baseUrl}/cart`;
 
 export const getCart = () => {

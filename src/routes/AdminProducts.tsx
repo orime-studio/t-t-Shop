@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { deleteProductById, getAllProducts } from '../services/product';
+import { deleteProductById, getAllProducts } from '../services/product-service';
 import { IProduct } from '../@Types/productType';
 import { Table, Tooltip } from 'flowbite-react';
 import { Link } from 'react-router-dom';

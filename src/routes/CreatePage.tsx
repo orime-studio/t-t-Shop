@@ -3,7 +3,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import dialogs from "../ui/dialogs";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import pagesService from '../services/pages';
+import pagesService from '../services/pages-service';
 import './CreatePage.scss';
 
 const COMPONENT = 'COMPONENT';

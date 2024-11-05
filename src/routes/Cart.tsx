@@ -6,8 +6,8 @@ import { Tooltip } from 'flowbite-react';
 import { useAuth } from '../hooks/useAuth';
 import dialogs from '../ui/dialogs';
 import './Cart.scss';
-import { cartService } from '../services/cart';
-import { createOrder } from '../services/order';
+import { cartService } from '../services/cart-service';
+import { createOrder } from '../services/order-service';
 import { useSearch } from '../hooks/useSearch';
 import { ICartItem } from '../@Types/productType';
 

@@ -5,8 +5,8 @@ import dialogs from "../ui/dialogs";
 import { useAuth } from "../hooks/useAuth";
 import { IProductInput } from "../@Types/productType";
 import { useState } from "react";
-import { createNewProduct } from "../services/product";
-    
+import { createNewProduct } from "../services/product-service";
+
 const CreateProduct = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
@@ -80,7 +80,7 @@ const CreateProduct = () => {
                     <input placeholder="Description" {...register("description", { required: "Description is required" })} />
                     {errors.description && <p className="text-red-500">{errors.description.message}</p>}
                 </section>
-        
+
                 <section>
                     <input
                         type="file"
@@ -117,4 +117,3 @@ const CreateProduct = () => {
 };
 
 export default CreateProduct;
- 
