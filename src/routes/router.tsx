@@ -25,22 +25,8 @@ import About from "./About";
 import PagesList from "./Pages";
 import CreatePage from "./CreatePage";
 import PageDetail from "./Page";
-import LandingPage from "./LandingPage/LandingPage";
-import LandingPageHeb from "./LandingPage/LP";
-
 
 export const router = createBrowserRouter([
-
-    {
-        path: "/studio",
-        element: <LandingPage/>,
-        errorElement: <Error />,
-    },
-    {
-        path: "/studio-heb",
-        element: <LandingPageHeb/>,
-        errorElement: <Error />,
-    },
 
     {
         path: "/",
