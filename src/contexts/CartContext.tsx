@@ -34,9 +34,9 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
         fetchCart();
     }, [token]);
 
-    const addToCart = async (productId: string, variantId: string, quantity: number, size: string, price: number, isGuest: boolean = false) => {
+    const addToCart = async (productId: string, variantId: string, quantity: number, size: string, price: number, isGuest: boolean = false, imageUrl: string ) => {
         try {
-            console.log('Sending request to add to cart:', { productId, variantId, quantity, size, price, isGuest });
+            console.log('Sending request to add to cart:', { productId, variantId, quantity, size, price, isGuest , imageUrl });
             if (isGuest) {
                 // הוספה לעגלה בלוקל סטורג' עבור משתמש אורח
                 const guestCart = localStorage.getItem('guestCart');
@@ -46,7 +46,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
                 if (itemIndex > -1) {
                     cart.items[itemIndex].quantity += quantity;
                 } else {
-                    cart.items.push({ productId, variantId, quantity, size, title: '', price, image: { url: '' } });
+                    cart.items.push({ productId, variantId, quantity, size, title: '', price, image: { url: imageUrl } });
                 }
 
                 // עדכון סה"כ כמות ומחיר
@@ -70,7 +70,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
         if (guestCart && token) {
             const cartItems: ICartItem[] = JSON.parse(guestCart).items;
             for (const item of cartItems) {
-                await addToCart(item.productId, item.variantId, item.quantity, item.size, item.price, false);
+                await addToCart(item.productId, item.variantId, item.quantity, item.size, item.price, false , item.image.url);
             }
             localStorage.removeItem('guestCart');
             fetchCart();

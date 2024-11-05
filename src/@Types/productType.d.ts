@@ -58,7 +58,7 @@ export interface CartContextProps {
     cart: ICartWithTotals | null;
     setCart: Dispatch<SetStateAction<ICartWithTotals | null>>;
     fetchCart: () => void;
-    addToCart: (productId: string, variantId: string, quantity: number, size: string, price: number, isGuest?: boolean) => Promise<void>;
+    addToCart: (productId: string, variantId: string, quantity: number, size: string, price: number, isGuest?: boolean, imageUrl?: string) => Promise<void>;
     mergeGuestCartToUserCart: () => void; // הוספת פונקציה למיזוג עגלת אורח
 }
 
