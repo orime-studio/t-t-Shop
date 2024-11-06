@@ -67,8 +67,7 @@ const Cart = () => {
 
         try {
             if (!token) {
-                dialogs.error("Error", "You must be logged in to checkout.");
-                return;
+                navigate('/login');
             }
 
             const orderProducts = cart.items.map((item: ICartItem) => ({
