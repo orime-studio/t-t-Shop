@@ -7,7 +7,7 @@ function Footer() {
         <footer className="footer text-slate-600 dark:bg-[#374151]">
             <div className="full-footer-content">
                 <span className="text-sm md:p-6 p-4 sm:text-center dark:text-gray-200 font-medium">
-                    2024 All Rights Reserved To Tsofiya Osadchi ©
+                    2024 orime-Studio ©
                 </span>
                 <ul className="flex flex-wrap items-center text-sm font-medium mr-3 dark:text-slate-200">
                     <li>
