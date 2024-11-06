@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import dialogs from "../ui/dialogs";
 import patterns from "../validations/patterns";
-import './Login.scss';  
+import './Login.scss';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -19,20 +19,17 @@ const Register = () => {
     const { register: registerUser } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
 
-
     const onRegister = (data: IUser) => {
-        console.log(data)
+        console.log(data);
         registerUser(data).then(() => {
-            dialogs.success("Success", "Register").then(() => {
+            dialogs.success("Welcome!", "Registration was successful").then(() => {
                 navigate("/login");
             });
         })
             .catch((e) => {
-                dialogs.error("Register Error", e.response.data.message);
-            })
+                dialogs.error("Something went wrong", e.response.data.message);
+            });
     };
-
- 
 
     return (
         <div className="create-card-container">
@@ -43,13 +40,14 @@ const Register = () => {
                     <input
                         placeholder="First Name"
                         type="text"
+                        className={errors.name?.first ? 'input-error' : ''}
                         {...register("name.first", {
-                            required: "This field is mandatory",
-                            minLength: { value: 2, message: "Too short" },
-                            maxLength: { value: 255, message: "Too long" },
+                            required: "Please provide your first name",
+                            minLength: { value: 2, message: "First name is too short" },
+                            maxLength: { value: 255, message: "First name is too long" },
                         })}
                     />
-                    {errors.name?.last && (
+                    {errors.name?.first && (
                         <p className="text-red-500">{errors.name?.first?.message}</p>
                     )}
                 </section>
@@ -59,9 +57,10 @@ const Register = () => {
                     <input
                         placeholder="Middle Name"
                         type="text"
+                        className={errors.name?.middle ? 'input-error' : ''}
                         {...register("name.middle", {
-                            minLength: { value: 2, message: "Too short" },
-                            maxLength: { value: 255, message: "Too long" },
+                            minLength: { value: 2, message: "Middle name is too short" },
+                            maxLength: { value: 255, message: "Middle name is too long" },
                         })}
                     />
                     {errors.name?.middle && (
@@ -74,10 +73,11 @@ const Register = () => {
                     <input
                         placeholder="Last Name"
                         type="text"
+                        className={errors.name?.last ? 'input-error' : ''}
                         {...register("name.last", {
-                            required: "This field is mandatory",
-                            minLength: { value: 2, message: "Too short" },
-                            maxLength: { value: 255, message: "Too long" },
+                            required: "Please provide your last name",
+                            minLength: { value: 2, message: "Last name is too short" },
+                            maxLength: { value: 255, message: "Last name is too long" },
                         })}
                     />
                     {errors.name?.last && (
@@ -88,12 +88,13 @@ const Register = () => {
                 {/* phone */}
                 <section>
                     <input
-                        placeholder="Phone"
+                        placeholder="Phone Number"
                         type="tel"
+                        className={errors.phone ? 'input-error' : ''}
                         {...register("phone", {
-                            required: "This field is mandatory",
-                            minLength: { value: 9, message: "Too short" },
-                            maxLength: { value: 14, message: "Too long" },
+                            required: "Please provide your phone number",
+                            minLength: { value: 9, message: "Phone number is too short" },
+                            maxLength: { value: 14, message: "Phone number is too long" },
                         })}
                     />
                     {errors.phone && (
@@ -106,11 +107,12 @@ const Register = () => {
                     <input
                         placeholder="Email"
                         type="email"
+                        className={errors.email ? 'input-error' : ''}
                         {...register("email", {
-                            required: "This field is mandatory",
+                            required: "Please provide your email address",
                             pattern: {
                                 value: patterns.email,
-                                message: "Invalid email",
+                                message: "Please enter a valid email address",
                             },
                         })}
                     />
@@ -125,20 +127,19 @@ const Register = () => {
                         <input
                             placeholder="Password"
                             type={showPassword ? `text` : `password`}
+                            className={errors.password ? 'input-error' : ''}
                             {...register("password", {
-                                required: "This field is mandatory",
+                                required: "Please provide a password",
                                 pattern: {
                                     value: patterns.password,
                                     message:
-                                        "Password must be at least 9 characters long and contain an uppercase letter, a lowercase letter, a number and one of the following characters !@#$%^&*-",
+                                        "Password must be at least 9 characters long and include an uppercase letter, lowercase letter, number, and one of the following special characters: !@#$%^&*-",
                                 },
                             })}
                         />
                         <button
                             type="button"
-                            onClick={() => {
-                                setShowPassword((s) => !s);
-                            }}
+                            onClick={() => setShowPassword((s) => !s)}
                         >
                             {showPassword ? <BsEyeSlashFill /> : <BsEye />}
                         </button>
@@ -147,17 +148,17 @@ const Register = () => {
                         <p className="text-red-500">{errors.password?.message}</p>
                     )}
                 </section>
-  
 
                 {/* address.country */}
                 <section>
                     <input
                         placeholder="Country"
                         type="text"
+                        className={errors.address?.country ? 'input-error' : ''}
                         {...register("address.country", {
-                            required: "This field is mandatory",
-                            minLength: { value: 2, message: "Too short" },
-                            maxLength: { value: 255, message: "Too long" },
+                            required: "Please provide your country",
+                            minLength: { value: 2, message: "Country name is too short" },
+                            maxLength: { value: 255, message: "Country name is too long" },
                         })}
                     />
                     {errors.address?.country && (
@@ -170,10 +171,11 @@ const Register = () => {
                     <input
                         placeholder="City"
                         type="text"
+                        className={errors.address?.city ? 'input-error' : ''}
                         {...register("address.city", {
-                            required: "This field is mandatory",
-                            minLength: { value: 2, message: "Too short" },
-                            maxLength: { value: 255, message: "Too long" },
+                            required: "Please provide your city",
+                            minLength: { value: 2, message: "City name is too short" },
+                            maxLength: { value: 255, message: "City name is too long" },
                         })}
                     />
                     {errors.address?.city && (
@@ -186,10 +188,11 @@ const Register = () => {
                     <input
                         placeholder="Street"
                         type="text"
+                        className={errors.address?.street ? 'input-error' : ''}
                         {...register("address.street", {
-                            required: "This field is mandatory",
-                            minLength: { value: 2, message: "Too short" },
-                            maxLength: { value: 255, message: "Too long" },
+                            required: "Please provide your street name",
+                            minLength: { value: 2, message: "Street name is too short" },
+                            maxLength: { value: 255, message: "Street name is too long" },
                         })}
                     />
                     {errors.address?.street && (
@@ -202,27 +205,27 @@ const Register = () => {
                     <input
                         placeholder="House Number"
                         type="number"
+                        className={errors.address?.houseNumber ? 'input-error' : ''}
                         {...register("address.houseNumber", {
-                            required: "This field is mandatory",
-                            min: { value: 2, message: "Too small" },
-                            max: { value: 256, message: "Too big" },
+                            required: "Please provide your house number",
+                            min: { value: 1, message: "House number must be at least 1" },
+                            max: { value: 9999, message: "House number is too large" },
                         })}
                     />
                     {errors.address?.houseNumber && (
-                        <p className="text-red-500">
-                            {errors.address?.houseNumber?.message}
-                        </p>
+                        <p className="text-red-500">{errors.address?.houseNumber?.message}</p>
                     )}
                 </section>
 
                 {/* address.zip */}
                 <section>
                     <input
-                        placeholder="Zip"
+                        placeholder="Zip Code"
                         type="text"
+                        className={errors.address?.zip ? 'input-error' : ''}
                         {...register("address.zip", {
-                            required: "This field is mandatory",
-                            minLength: { value: 5, message: "Zip code must be at least 5 characters" },
+                            required: "Please provide your zip code",
+                            minLength: { value: 5, message: "Zip code is too short" },
                             maxLength: { value: 10, message: "Zip code is too long" },
                         })}
                     />
@@ -231,7 +234,7 @@ const Register = () => {
                     )}
                 </section>
 
-                <button type="submit" className=" bg-slate-600 text-white dark:bg-slate-900">Register</button>
+                <button type="submit" className=" bg-slate-600 text-white dark:bg-slate-900">Sign Up</button>
             </form>
         </div>
     );
