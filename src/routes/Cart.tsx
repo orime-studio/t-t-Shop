@@ -67,7 +67,7 @@ const Cart = () => {
 
         try {
             if (!token) {
-                navigate('/login');
+              return navigate('/login');
             }
 
             const orderProducts = cart.items.map((item: ICartItem) => ({
