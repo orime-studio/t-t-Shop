@@ -15,14 +15,15 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
         if (selectedVariant) {
             console.log("Adding product to cart:", selectedVariant);
             try {
-                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price, !isLoggedIn,image);
+                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price,image);
+                console.log("yyyyy:",productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price,image );
 
                 dialogs.success(
                     "Product Added",
                     `<div style="display: flex; align-items: center;">
                         <img src="${image.url}" alt="${title}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" />
                         <div>
-                            <p>${title} has been added to your cart${!isLoggedIn ? " (Guest)" : ""}.</p>
+                            <p>${title} has been added to your cart.</p>
                         </div>
                     </div>`
                 );

@@ -54,13 +54,21 @@ export interface ICart {
     isGuest?: boolean; // הוספת שדה חדש לזיהוי האם מדובר במשתמש אורח
 }
 
+import { Dispatch, SetStateAction } from 'react';
+import { ICartWithTotals, ICartItem, IImage } from '../@Types/productType';
+
 export interface CartContextProps {
     cart: ICartWithTotals | null;
     setCart: Dispatch<SetStateAction<ICartWithTotals | null>>;
     fetchCart: () => void;
-    addToCart: (productId: string, variantId: string,title: string, quantity: number, size: string, price: number, isGuest?: boolean, image?: IImage) => Promise<void>;
-    mergeGuestCartToUserCart: () => void; // הוספת פונקציה למיזוג עגלת אורח
+    addToCart: (productId: string, variantId: string, title: string, quantity: number, size: string, price: number, image?: IImage) => Promise<void>;
+    mergeGuestCartToUserCart: () => void; // פונקציה למיזוג עגלת אורח
+    removeFromCart: (variantId: string) => void; // פונקציה להסרת מוצר מהעגלה, מתבססת רק על variantId
+    clearGuestCart: () => void; // פונקציה לניקוי כל העגלה
+    updateItemQuantity: (variantId: string, newQuantity: number) => void; // פונקציה לעדכון כמות של מוצר בעגלה, מתבססת רק על variantId ו-newQuantity
+    isGuest: boolean;
 }
+
 
 // טיפוס עבור עגלת קניות עם סיכומים
 export interface ICartWithTotals extends ICart {

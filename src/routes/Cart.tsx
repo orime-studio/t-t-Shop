@@ -1,18 +1,18 @@
-import { useCart } from '../hooks/useCart';
+import { Tooltip } from 'flowbite-react';
+import { useEffect, useState } from 'react';
 import { FiArrowLeft, FiTrash } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Tooltip } from 'flowbite-react';
+import { ICartItem } from '../@Types/productType';
 import { useAuth } from '../hooks/useAuth';
+import { useCart } from '../hooks/useCart';
+import { useSearch } from '../hooks/useSearch';
+import { cartService, clearCart } from '../services/cart-service';
+import { createOrder } from '../services/order-service';
 import dialogs from '../ui/dialogs';
 import './Cart.scss';
-import { cartService } from '../services/cart-service';
-import { createOrder } from '../services/order-service';
-import { useSearch } from '../hooks/useSearch';
-import { ICartItem } from '../@Types/productType';
 
 const Cart = () => {
-    const { cart, fetchCart } = useCart();
+    const { cart, fetchCart,removeFromCart,updateItemQuantity } = useCart();
     const { searchTerm } = useSearch();
     const { token } = useAuth();
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Cart = () => {
 
     const handleRemoveItem = async (variantId: string) => {
         try {
-            await cartService.removeProductFromCart(variantId);
+            removeFromCart( variantId,);
             fetchCart(); // Refresh cart after removal
         } catch (error) {
             console.error('Failed to remove product from cart.', error);
@@ -38,7 +38,7 @@ const Cart = () => {
         const result = await dialogs.confirm("Clear Cart", "Are you sure you want to clear the cart?");
         if (result.isConfirmed) {
             try {
-                await cartService.clearCart();
+                await clearCart();
                 fetchCart(); // Refresh cart after clearing
                 dialogs.success("Cart Cleared", "Your cart has been cleared successfully.");
             } catch (error) {
@@ -55,7 +55,7 @@ const Cart = () => {
             return;
         }
         try {
-            await cartService.updateProductQuantity(variantId, newQuantity);
+            await updateItemQuantity(variantId, newQuantity);
             fetchCart(); // עדכן את הסל כדי לשקף את השינויים
         } catch (error) {
             console.error('שגיאה בעדכון כמות המוצר:', error.response?.data || error.message);
