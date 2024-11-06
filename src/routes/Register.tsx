@@ -219,11 +219,11 @@ const Register = () => {
                 <section>
                     <input
                         placeholder="Zip"
-                        type="string"
+                        type="text"
                         {...register("address.zip", {
                             required: "This field is mandatory",
-                            minLength: { value: 2, message: "Too small" },
-                            maxLength: { value: 256, message: "Too big" },
+                            minLength: { value: 5, message: "Zip code must be at least 5 characters" },
+                            maxLength: { value: 10, message: "Zip code is too long" },
                         })}
                     />
                     {errors.address?.zip && (
