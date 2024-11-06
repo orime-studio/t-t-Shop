@@ -64,7 +64,7 @@ export interface CartContextProps {
     addToCart: (productId: string, variantId: string, title: string, quantity: number, size: string, price: number, image?: IImage) => Promise<void>;
     mergeGuestCartToUserCart: () => void; // פונקציה למיזוג עגלת אורח
     removeFromCart: (variantId: string) => void; // פונקציה להסרת מוצר מהעגלה, מתבססת רק על variantId
-    clearGuestCart: () => void; // פונקציה לניקוי כל העגלה
+    clearCart: () => void; // פונקציה לניקוי כל העגלה
     updateItemQuantity: (variantId: string, newQuantity: number) => void; // פונקציה לעדכון כמות של מוצר בעגלה, מתבססת רק על variantId ו-newQuantity
     isGuest: boolean;
 }

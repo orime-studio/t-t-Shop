@@ -52,7 +52,7 @@ export const removeProductFromCart = (variantId: string) => {
     });
 };
 
-export const clearCart = (/* token: string */) => {
+export const clearCartFromDb = (/* token: string */) => {
     return axios.delete(`${cartUrl}/clear`, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),
@@ -74,7 +74,7 @@ export const cartService = {
     addProductToCart,
     updateProductQuantity,
     removeProductFromCart,
-    clearCart,
+    clearCartFromDb,
 /*     bulkAddToCart
  */};
 

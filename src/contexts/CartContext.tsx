@@ -2,7 +2,7 @@ import { createContext, FC, useEffect, useState } from 'react';
 import { CartContextProps, ICartItem, ICartWithTotals, IImage } from '../@Types/productType';
 import { ContextProviderProps } from '../@Types/types';
 import { useAuth } from '../hooks/useAuth';
-import { addProductToCart, getCart, removeProductFromCart, updateProductQuantity } from '../services/cart-service';
+import { addProductToCart, clearCartFromDb, getCart, removeProductFromCart, updateProductQuantity } from '../services/cart-service';
 
 export const CartContext = createContext<CartContextProps | undefined>(undefined);
 
@@ -166,11 +166,18 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
     };
 
     // פונקציה לנקות את כל העגלה עבור משתמש אורח
-    const clearGuestCart = () => {
-        localStorage.removeItem('guestCart');
-        setCart(null);
+    const clearCart = () => {
+        if (isGuest) {
+            // נקות את כל העגלה בלוקל סטורג' עבור משתמש אורח
+            localStorage.removeItem('guestCart');
+            setCart(null);
+        } else {
+            // נקות את כל העגלה בשרת עבור משתמש מחובר
+            clearCartFromDb();
+            fetchCart();
+        }
     };
-    
+ 
     
     return (
         <CartContext.Provider value={{
@@ -180,7 +187,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
             addToCart,
             mergeGuestCartToUserCart,
             removeFromCart,
-            clearGuestCart,
+            clearCart,
             updateItemQuantity,
             isGuest // מוסיף את state של משתמש אורח
         }}>

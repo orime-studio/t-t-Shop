@@ -6,13 +6,13 @@ import { ICartItem } from '../@Types/productType';
 import { useAuth } from '../hooks/useAuth';
 import { useCart } from '../hooks/useCart';
 import { useSearch } from '../hooks/useSearch';
-import { cartService, clearCart } from '../services/cart-service';
+import { cartService } from '../services/cart-service';
 import { createOrder } from '../services/order-service';
 import dialogs from '../ui/dialogs';
 import './Cart.scss';
 
 const Cart = () => {
-    const { cart, fetchCart,removeFromCart,updateItemQuantity } = useCart();
+    const { cart, fetchCart,removeFromCart,updateItemQuantity, clearCart } = useCart();
     const { searchTerm } = useSearch();
     const { token } = useAuth();
     const navigate = useNavigate();
@@ -82,7 +82,7 @@ const Cart = () => {
             const response = await createOrder(orderProducts);
             const orderId = response.data._id;
             dialogs.success("Order Successful", "Your order has been placed successfully.").then(async () => {
-                await cartService.clearCart();
+                await cartService.clearCartFromDb();
                 fetchCart(); // Refresh cart after order placement
                 navigate(`/order-confirmation/${orderId}`);
             });
