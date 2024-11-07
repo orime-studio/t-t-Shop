@@ -1,24 +1,38 @@
+/* סגנונות בסיסיים */
 .custom-carousel {
-    height: 40vw;
-    // עיצוב כללי של התמונות
-    .carousel img {
-      object-fit: cover;  // התמונות יתפסו את כל רוחב הקונטיינר
-      width: 100%;
-      height: 100%;
+    width: 100%;
+    height: 41vw;
+}
+
+.carousel-image {
+    width: 100%;
+    height: auto; /* התאמת גובה אוטומטי לכל התמונה */
+}
+
+.bg-white\/30 {
+    background-color: #000;
+}
+
+/* כאשר המסך קטן מ-768px */
+@media (max-width: 768px) {
+    .desktop-image {
+        display: none; /* הסתרת התמונות של דסקטופ */
     }
-  
-    // התאמה למובייל
-    @media (max-width: 767px) {
-      .carousel img {
-        height: auto; // גובה גמיש למובייל
-      }
+
+    /* הוספת תמונה מותאמת למובייל */
+    .carousel-image.mobile-image {
+        display: block;
     }
-  
-    // התאמה ל-Desktop
-    @media (min-width: 768px) {
-      .carousel img {
-        height: auto; // גובה גמיש ל-Desktop
-      }
+}
+
+/* כאשר המסך גדול מ-768px */
+@media (min-width: 769px) {
+    .mobile-image {
+        display: none; /* הסתרת תמונה למובייל */
     }
-  }
-  
+
+    /* הוספת תמונות דסקטופ */
+    .carousel-image.desktop-image {
+        display: block;
+    }
+}
