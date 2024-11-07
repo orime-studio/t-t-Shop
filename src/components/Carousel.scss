@@ -13,26 +13,3 @@
     background-color: #000;
 }
 
-/* כאשר המסך קטן מ-768px */
-@media (max-width: 768px) {
-    .desktop-image {
-        display: none; /* הסתרת התמונות של דסקטופ */
-    }
-
-    /* הוספת תמונה מותאמת למובייל */
-    .carousel-image.mobile-image {
-        display: block;
-    }
-}
-
-/* כאשר המסך גדול מ-768px */
-@media (min-width: 769px) {
-    .mobile-image {
-        display: none; /* הסתרת תמונה למובייל */
-    }
-
-    /* הוספת תמונות דסקטופ */
-    .carousel-image.desktop-image {
-        display: block;
-    }
-}
