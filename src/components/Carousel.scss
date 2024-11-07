@@ -1,5 +1,24 @@
-.carousel-control-prev,
-.carousel-control-next,
-.carousel-indicators {
-    display: none !important;
-}
+.custom-carousel {
+    height: 40vw;
+    // עיצוב כללי של התמונות
+    .carousel img {
+      object-fit: cover;  // התמונות יתפסו את כל רוחב הקונטיינר
+      width: 100%;
+      height: 100%;
+    }
+  
+    // התאמה למובייל
+    @media (max-width: 767px) {
+      .carousel img {
+        height: auto; // גובה גמיש למובייל
+      }
+    }
+  
+    // התאמה ל-Desktop
+    @media (min-width: 768px) {
+      .carousel img {
+        height: auto; // גובה גמיש ל-Desktop
+      }
+    }
+  }
+  
