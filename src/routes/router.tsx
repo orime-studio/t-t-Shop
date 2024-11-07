@@ -3,7 +3,6 @@ import Root from "../layout/root";
 import Products from "./Products";
 import Register from "./Register";
 import Login from "./Login";
-import { CarouselComponent } from "../components/Carousel";
 import Profile from "./Profile";
 import Product from "./Product";
 import Error from "./Error";
@@ -25,6 +24,7 @@ import About from "./About";
 import PagesList from "./Pages";
 import CreatePage from "./CreatePage";
 import PageDetail from "./Page";
+import CarouselComponent from "../components/Carousel";
 
 export const router = createBrowserRouter([
 

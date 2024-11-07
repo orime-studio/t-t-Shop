@@ -34,4 +34,4 @@ const CarouselComponent: React.FC = () => {
     );
 }
 
-export { CarouselComponent };
+export default CarouselComponent;
