@@ -25,6 +25,10 @@ import PagesList from "./Pages";
 import CreatePage from "./CreatePage";
 import PageDetail from "./Page";
 import CarouselComponent from "../components/Carousel";
+import ParashaDetail from "./BeitHabad/ParashaDetail";
+import EditParasha from "./BeitHabad/EditParasha";
+import CreateParasha from "./BeitHabad/CreateParashatShavua";
+import ParashaList from "./BeitHabad/ParashaList";
 
 export const router = createBrowserRouter([
 
@@ -112,7 +116,24 @@ export const router = createBrowserRouter([
                 path: "/create-page", element: <CreatePage />
             },
             
-            
+            {
+                path: "/parasha/create", element:
+                    <ProtectedRouteAdmin>
+                        <CreateParasha />
+                    </ProtectedRouteAdmin>
+            },
+            {
+                path: "/parasha/edit/:id", element:
+                    <ProtectedRouteAdmin>
+                        <EditParasha />
+                    </ProtectedRouteAdmin>
+            },
+            {
+                path: "/parasha/:id", element: <ParashaDetail />
+            },
+             {
+                path: "/parasha", element: <ParashaList />
+            }, 
 
 
 

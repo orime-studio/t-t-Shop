@@ -1,33 +1,52 @@
-import { useForm, useFieldArray } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useFieldArray, useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+import "./EditParasha.scss";
 import { IParashaInput } from "../../@Types/productType";
-import { createNewParasha } from "../../services/parasha-service";
+import { getParashaById, updateParasha } from "../../services/parasha-service";
 import dialogs from "../../ui/dialogs";
 
-
-const CreateParasha = () => {
-    const { register, handleSubmit, control, formState: { errors } } = useForm<IParashaInput>();
+const EditParasha = () => {
+    const { id } = useParams<{ id: string }>();
+    const { register, handleSubmit, setValue, control, formState: { errors } } = useForm<IParashaInput>();
     const { fields, append, remove } = useFieldArray({
         control,
         name: "components"
     });
+    const [error, setError] = useState<Error | null>(null);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (id) {
+            getParashaById(id)
+                .then(res => {
+                    const parasha = res.data;
+                    setValue('title', parasha.title);
+                    setValue('components', parasha.components);
+                })
+                .catch(err => setError(err));
+        }
+    }, [id, setValue]);
 
     const onSubmit = async (data: IParashaInput) => {
         try {
-            await createNewParasha(data);
-            dialogs.success("Success", "Parasha Created Successfully")
-                .then(() => {
+            if (id) {
+                await updateParasha(id, data);
+                dialogs.success("Success", "Parasha updated successfully").then(() => {
                     navigate("/parasha");
                 });
+            }
         } catch (error: any) {
-            dialogs.error("Error", error.response?.data?.message || "Failed to create Parasha");
+            dialogs.error("Error", error.response?.data?.message || "Failed to update Parasha");
         }
     };
 
+    if (error) return <div>Error: {error.message}</div>;
+
     return (
-        <div className="create-parasha-container bg-[#ffffff] text-gray-800 dark:bg-slate-600">
-            <h2 className="dark:text-white">Create New Parasha</h2>
+        <div className="edit-parasha-container text-gray-800 dark:bg-slate-600">
+            <h2>Edit Parasha</h2>
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <section>
                     <input placeholder="Title" {...register("title", { required: "Title is required" })} />
@@ -51,10 +70,10 @@ const CreateParasha = () => {
                     <button type="button" className="add-component-button" onClick={() => append({ type: "text", content: "" })}>Add Component</button>
                 </section>
 
-                <button type="submit" className="submit-button bg-slate-600 text-white dark:bg-slate-900">Create Parasha</button>
+                <button type="submit" className="bg-slate-600 text-white dark:bg-slate-900">Save</button>
             </form>
         </div>
     );
 };
 
-export default CreateParasha;
+export default EditParasha;

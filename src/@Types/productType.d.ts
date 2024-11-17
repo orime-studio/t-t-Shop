@@ -111,3 +111,22 @@ export interface DateRangePickerProps {
     onStartDateChange: (date: Date | null) => void;
     onEndDateChange: (date: Date | null) => void;
 }
+
+// Types עבור Parasha
+
+export type IParashaComponent = {
+    type: 'banner' | 'image' | 'title' | 'text';
+    content: string;
+    image?: IImage;
+    alt?: string;
+};
+
+export type IParashaInput = {
+    title: string;
+    components: IParashaComponent[];
+};
+
+export type IParasha = IParashaInput & {
+    _id: string;
+    createdAt: Date;
+};
