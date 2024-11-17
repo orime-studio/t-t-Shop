@@ -10,11 +10,11 @@ export const getAllParashot = () => axios.get(parashaBaseUrl);
 export const getParashaById = (id: string) => axios.get(`${parashaBaseUrl}/${id}`);
 
 // יצירת Parasha חדשה
-export const createNewParasha = (data: IParashaInput) => {
+export const createNewParasha = (data: FormData) => {
     return axios.post(parashaBaseUrl, data, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
         },
     });
 };

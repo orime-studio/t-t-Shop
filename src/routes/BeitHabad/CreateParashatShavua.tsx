@@ -3,19 +3,44 @@ import { useNavigate } from "react-router-dom";
 import { IParashaInput } from "../../@Types/productType";
 import { createNewParasha } from "../../services/parasha-service";
 import dialogs from "../../ui/dialogs";
+import { useState } from "react";
+import { useAuth } from "../../hooks/useAuth";
 
 
 const CreateParasha = () => {
-    const { register, handleSubmit, control, formState: { errors } } = useForm<IParashaInput>();
+    const { token } = useAuth();
+    const navigate = useNavigate();
+    const { register, handleSubmit, formState: { errors }, control } = useForm<IParashaInput>();
     const { fields, append, remove } = useFieldArray({
         control,
         name: "components"
     });
-    const navigate = useNavigate();
+    const [image, setImage] = useState<File | null>(null);
+    const [imageName, setImageName] = useState<string>("");
 
     const onSubmit = async (data: IParashaInput) => {
+        if (!token) {
+            dialogs.error("Error", "No authentication token found.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("title", data.title);
+
+        // הוספת רכיבי Parasha (כמו טקסט, כותרת וכו')
+        data.components.forEach((component, index) => {
+            formData.append(`components[${index}][type]`, component.type);
+            formData.append(`components[${index}][content]`, component.content);
+        });
+
+        // העלאת תמונה אם קיימת
+        if (image) {
+            formData.append("image", image);
+            formData.append("alt", data.alt);
+        }
+
         try {
-            await createNewParasha(data);
+            await createNewParasha(formData);
             dialogs.success("Success", "Parasha Created Successfully")
                 .then(() => {
                     navigate("/parasha");
@@ -32,6 +57,24 @@ const CreateParasha = () => {
                 <section>
                     <input placeholder="Title" {...register("title", { required: "Title is required" })} />
                     {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+                </section>
+
+                <section>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files?.[0] || null;
+                            setImage(file);
+                            setImageName(file ? file.name : "");
+                        }}
+                    />
+                    {imageName && <p className="file-name">{imageName}</p>}
+                </section>
+
+                <section>
+                    <input placeholder="Image Description" {...register("alt", { required: "Image description is required" })} />
+                    {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
                 </section>
 
                 <section>

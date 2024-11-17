@@ -118,11 +118,12 @@ export type IParashaComponent = {
     type: 'banner' | 'image' | 'title' | 'text';
     content: string;
     image?: IImage;
-    alt?: string;
+    
 };
 
 export type IParashaInput = {
     title: string;
+    alt?: string;
     components: IParashaComponent[];
 };
 
