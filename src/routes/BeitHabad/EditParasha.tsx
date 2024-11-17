@@ -2,7 +2,6 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import "./EditParasha.scss";
 import { IParashaInput } from "../../@Types/productType";
 import { getParashaById, updateParasha } from "../../services/parasha-service";
 import dialogs from "../../ui/dialogs";

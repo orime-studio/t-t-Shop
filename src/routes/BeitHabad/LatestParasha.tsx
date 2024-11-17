@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./LatestParasha.scss";
 import { IParasha } from "../../@Types/productType";
 import { getLatestParasha } from "../../services/parasha-service";
 
