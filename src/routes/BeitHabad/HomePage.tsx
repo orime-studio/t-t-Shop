@@ -3,7 +3,7 @@ import CandleLightingTimes from './CandleLightingTimes'
 
 const HomePage = () => {
   return (
-    <div>HomePage
+    <div>
 <CandleLightingTimes />
 
 
