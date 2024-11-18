@@ -29,6 +29,7 @@ import ParashaDetail from "./BeitHabad/ParashaDetail";
 import EditParasha from "./BeitHabad/EditParasha";
 import CreateParasha from "./BeitHabad/CreateParashatShavua";
 import ParashaList from "./BeitHabad/ParashaList";
+import HomePage from "./BeitHabad/HomePage";
 
 export const router = createBrowserRouter([
 
@@ -134,6 +135,9 @@ export const router = createBrowserRouter([
              {
                 path: "/parasha", element: <ParashaList />
             }, 
+            {
+                path:"/chabad", element: <HomePage />
+            }
 
 
 
