@@ -15,7 +15,8 @@ const CreateParasha = () => {
         control,
         name: "components"
     });
-    const [images, setImages] = useState<{ [key: number]: File | null }>({});
+    const [image, setImage] = useState<File | null>(null);
+    const [imageName, setImageName] = useState<string>("");
 
     const onSubmit = async (data: IParashaInput) => {
         if (!token) {
@@ -31,8 +32,9 @@ const CreateParasha = () => {
             formData.append(`components[${index}][type]`, component.type);
             formData.append(`components[${index}][content]`, component.content);
 
-            if (component.type === "image" && images[index]) {
-                formData.append(`components[${index}][image]`, images[index] as File);
+            // אם יש רכיב תמונה - הוסף אותו ל-FormData
+            if (component.type === "image" && image) {
+                formData.append(`components[${index}][image]`, image);
                 formData.append(`components[${index}][alt]`, component.alt || "");
             }
         });
@@ -59,6 +61,19 @@ const CreateParasha = () => {
                 </section>
 
                 <section>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files?.[0] || null;
+                            setImage(file);
+                            setImageName(file ? file.name : "");
+                        }}
+                    />
+                    {imageName && <p className="file-name">{imageName}</p>}
+                </section>
+
+                <section>
                     <h3 className="mb-2">Components:</h3>
                     {fields.map((component, index) => (
                         <div key={component.id} className="component">
@@ -70,6 +85,7 @@ const CreateParasha = () => {
                             </select>
                             <input placeholder="Content" {...register(`components.${index}.content` as const, { required: "Content is required" })} />
 
+                            {/* העלאת תמונה עבור רכיב מסוג image */}
                             {component.type === "image" && (
                                 <>
                                     <input
@@ -77,10 +93,8 @@ const CreateParasha = () => {
                                         accept="image/*"
                                         onChange={(e) => {
                                             const file = e.target.files?.[0] || null;
-                                            setImages((prev) => ({
-                                                ...prev,
-                                                [index]: file
-                                            }));
+                                            setImage(file);
+                                            setImageName(file ? file.name : "");
                                         }}
                                     />
                                     <input
