@@ -33,9 +33,8 @@ const CreateParasha = () => {
             formData.append(`components[${index}][content]`, component.content);
 
             // אם יש רכיב תמונה - הוסף אותו ל-FormData
-            if (component.type === "image" && image) {
-                formData.append(`components[${index}][image]`, image);
-                formData.append(`components[${index}][alt]`, component.alt || "");
+            if (image) {
+                formData.append("image", image);
             }
         });
 
