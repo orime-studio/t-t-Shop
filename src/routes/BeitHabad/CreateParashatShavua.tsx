@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { IParashaInput } from "../../@Types/productType";
 import { createNewParasha } from "../../services/parasha-service";
 import dialogs from "../../ui/dialogs";
-import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import CandleLightingTimes from "./CandleLightingTimes";
-
+import { useState } from "react";
 
 const CreateParasha = () => {
     const { token } = useAuth();
@@ -16,8 +15,7 @@ const CreateParasha = () => {
         control,
         name: "components"
     });
-    const [image, setImage] = useState<File | null>(null);
-    const [imageName, setImageName] = useState<string>("");
+    const [images, setImages] = useState<{ [key: number]: File | null }>({});
 
     const onSubmit = async (data: IParashaInput) => {
         if (!token) {
@@ -32,13 +30,12 @@ const CreateParasha = () => {
         data.components.forEach((component, index) => {
             formData.append(`components[${index}][type]`, component.type);
             formData.append(`components[${index}][content]`, component.content);
-        });
 
-        // העלאת תמונה אם קיימת
-        if (image) {
-            formData.append("image", image);
-            formData.append("alt", data.alt);
-        }
+            if (component.type === "image" && images[index]) {
+                formData.append(`components[${index}][image]`, images[index] as File);
+                formData.append(`components[${index}][alt]`, component.alt || "");
+            }
+        });
 
         try {
             await createNewParasha(formData);
@@ -62,24 +59,6 @@ const CreateParasha = () => {
                 </section>
 
                 <section>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                            const file = e.target.files?.[0] || null;
-                            setImage(file);
-                            setImageName(file ? file.name : "");
-                        }}
-                    />
-                    {imageName && <p className="file-name">{imageName}</p>}
-                </section>
-
-                <section>
-                    <input placeholder="Image Description" {...register("alt", { required: "Image description is required" })} />
-                    {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
-                </section>
-
-                <section>
                     <h3 className="mb-2">Components:</h3>
                     {fields.map((component, index) => (
                         <div key={component.id} className="component">
@@ -90,6 +69,27 @@ const CreateParasha = () => {
                                 <option value="text">Text</option>
                             </select>
                             <input placeholder="Content" {...register(`components.${index}.content` as const, { required: "Content is required" })} />
+
+                            {component.type === "image" && (
+                                <>
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0] || null;
+                                            setImages((prev) => ({
+                                                ...prev,
+                                                [index]: file
+                                            }));
+                                        }}
+                                    />
+                                    <input
+                                        placeholder="Image Description"
+                                        {...register(`components.${index}.alt` as const, { required: "Image description is required" })}
+                                    />
+                                </>
+                            )}
+
                             <button type="button" className="removeButton" onClick={() => remove(index)}>Remove</button>
                         </div>
                     ))}

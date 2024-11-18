@@ -27,11 +27,11 @@ const ParashaDetail = () => {
                     {component.type === "title" && <h2>{component.content}</h2>}
                     {component.type === "text" && <p>{component.content}</p>}
                     {component.type === "image" && component.image && (
-                    <img
-                        src={component.image.url}
-                        alt={parasha.alt} // שימוש ב-alt מרמת הפרשה
-                    />
-                )}                    {/* Add additional component types here */}
+                        <img
+                            src={component.image.url}
+                            alt={component.alt || "Image"} // שימוש ב-alt מרמת הרכיב
+                        />
+                    )}
                 </div>
             ))}
         </div>
