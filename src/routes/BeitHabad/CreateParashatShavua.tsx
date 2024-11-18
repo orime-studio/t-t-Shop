@@ -5,6 +5,7 @@ import { createNewParasha } from "../../services/parasha-service";
 import dialogs from "../../ui/dialogs";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import CandleLightingTimes from "./CandleLightingTimes";
 
 
 const CreateParasha = () => {
@@ -52,6 +53,7 @@ const CreateParasha = () => {
 
     return (
         <div className="create-parasha-container bg-[#ffffff] text-gray-800 dark:bg-slate-600">
+            <CandleLightingTimes />
             <h2 className="dark:text-white">Create New Parasha</h2>
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <section>
