@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IParashaInput } from "../@Types/productType";
 
-export const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/parasha/";
+export const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/parasha";
 
 // קבלת כל ה-Parashot
 export const getAllParashot = () => axios.get(parashaBaseUrl);
