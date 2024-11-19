@@ -20,7 +20,7 @@ const ParashaList = () => {
             {parashot.length === 0 ? (
                 <p>No Parashot available.</p>
             ) : (
-                parashot.map((parasha) => (
+                parashot.map(parasha => (
                     <div key={parasha.title} className="parasha-item">
                         <h2>{parasha.title}</h2>
                         <p>{parasha.miniText}</p>
