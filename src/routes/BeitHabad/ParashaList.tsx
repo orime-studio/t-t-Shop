@@ -13,7 +13,6 @@ const ParashaList = () => {
                 setParashot(res.data);
             })
             .catch(err => console.error("Error fetching Parashot:", err))
-            .finally(() => console.log("Final Parashot state:", parashot));
     }, []);
 
     return (
