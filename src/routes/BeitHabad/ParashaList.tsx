@@ -8,8 +8,10 @@ const ParashaList = () => {
 
     useEffect(() => {
         getAllParashot()
+
             .then(res => setParashot(res.data))
-            .catch(err => console.error(err));
+            .catch(err => console.error(err))
+            .finally(() => console.log(parashot));
     }, []);
 
     return (
