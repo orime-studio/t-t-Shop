@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import './CandleLightingTimes.scss';
 import { fetchCandleLightingTimes } from '../../services/candleLightingService';
+import { ShabbatData } from '../../@Types/chabadType';
 
 const CandleLightingTimes: FC = () => {
   const [shabbatData, setShabbatData] = useState<ShabbatData | null>(null);

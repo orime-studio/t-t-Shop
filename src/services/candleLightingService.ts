@@ -1,3 +1,5 @@
+import { HebcalData } from "../@Types/chabadType";
+
     export const fetchCandleLightingTimes = async () => {
     try {
       const response = await fetch(

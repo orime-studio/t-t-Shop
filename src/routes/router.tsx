@@ -30,6 +30,7 @@ import EditParasha from "./BeitHabad/EditParasha";
 import CreateParasha from "./BeitHabad/CreateParashatShavua";
 import ParashaList from "./BeitHabad/ParashaList";
 import HomePage from "./BeitHabad/HomePage";
+import CreateNewParasha from "./BeitHabad/createNewParasha";
 
 export const router = createBrowserRouter([
 
@@ -120,7 +121,7 @@ export const router = createBrowserRouter([
             {
                 path: "/parasha/create", element:
                     <ProtectedRouteAdmin>
-                        <CreateParasha />
+                        <CreateNewParasha />
                     </ProtectedRouteAdmin>
             },
             {
