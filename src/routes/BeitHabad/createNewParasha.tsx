@@ -42,14 +42,14 @@ const CreateNewParasha = () => {
         }
 
         try {
-            console.log("Form Data:", Object.fromEntries(formData.entries())); // לוג לפני שליחה
+            console.log("Form Data:", formData); // לוג לפני שליחה
             await createNewParasha(formData);
             dialogs.success("Success", "Parasha Created Successfully")
                 .then(() => {
                     navigate("/");
                 });
         } catch (error: any) {
-            console.error("Form Data Error:", Object.fromEntries(formData.entries()));
+            console.error("Form Data Error:", error);
             dialogs.error("Error", error.response?.data?.message || "Failed to create Parasha");
         }
     };
