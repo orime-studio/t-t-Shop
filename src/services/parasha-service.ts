@@ -14,7 +14,7 @@ export const createNewParasha = (data: FormData) => {
     return axios.post(parashaBaseUrl, data, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),
-            "Content-Type": "multipart/form-data",
+          
         },
     });
 };
