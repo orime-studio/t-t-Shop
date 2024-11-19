@@ -42,7 +42,7 @@ const CreateNewParasha = () => {
         }
 
         try {
-            console.log("Form Data:", formData); // לוג לפני שליחה
+            console.log("Form Data:", Object.fromEntries(formData.entries())); // לוג לפני שליחה
             await createNewParasha(formData);
             dialogs.success("Success", "Parasha Created Successfully")
                 .then(() => {
