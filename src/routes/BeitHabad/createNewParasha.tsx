@@ -1,7 +1,6 @@
 import { useForm, useFieldArray } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "./CreateParasha.scss";
 import dialogs from "../../ui/dialogs";
 import { Parasha } from "../../@Types/chabadType";
 import { createNewParasha } from "../../services/parasha-service";
