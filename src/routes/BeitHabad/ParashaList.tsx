@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IParasha } from "../../@Types/productType";
 import { getAllParashot } from "../../services/parasha-service";
+import { Parasha } from "../../@Types/chabadType";
 
 const ParashaList = () => {
-    const [parashot, setParashot] = useState<IParasha[]>([]);
+    const [parashot, setParashot] = useState<Parasha[]>([]);
 
     useEffect(() => {
         getAllParashot()
@@ -19,10 +19,15 @@ const ParashaList = () => {
                 <p>No Parashot available.</p>
             ) : (
                 parashot.map((parasha) => (
-                    <div key={parasha._id} className="parasha-item">
+                    <div key={parasha.title} className="parasha-item">
                         <h2>{parasha.title}</h2>
-                        <p>{parasha.components.find(c => c.type === 'text')?.content.substring(0, 100)}...</p>
-                        <Link to={`/parasha/${parasha._id}`}>Read More</Link>
+                        <p>{parasha.miniText}</p>
+                        <img 
+                            src={parasha.image.url} 
+                            alt={parasha.alt} 
+                            className="parasha-image" 
+                        />
+                        <Link to={`/parasha/${parasha.title}`}>Read More</Link>
                     </div>
                 ))
             )}
