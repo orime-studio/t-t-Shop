@@ -27,7 +27,7 @@ const ParashaList = () => {
                             alt={parasha.alt} 
                             className="parasha-image" 
                         />
-                        <Link to={`/parasha/${parasha._id}`}>Read More</Link>
+                        <Link to={`beitCabad/parasha/${parasha._id}`}>Read More</Link>
                     </div>
                 ))
             )}
