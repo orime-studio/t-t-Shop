@@ -8,14 +8,23 @@ const ParashaDetail = () => {
     const [parasha, setParasha] = useState<Parasha | null>(null);
 
     useEffect(() => {
+        console.log("useEffect triggered with id:", id); // בדיקה שה-id מתקבל
         if (id) {
             getParashaById(id)
-                .then(res => setParasha(res.data))
-                .catch(err => console.error("Error fetching parasha:", err));
+                .then(res => {
+                    console.log("Response from getParashaById:", res); // בדיקה שהבקשה מצליחה
+                    setParasha(res.data);
+                })
+                .catch(err => {
+                    console.error("Error fetching parasha:", err); // בדיקה של השגיאה
+                });
+        } else {
+            console.log("No id provided in useParams"); // במקרה ש-id ריק
         }
     }, [id]);
 
     if (!parasha) {
+        console.log("Parasha not loaded yet, displaying Loading..."); // מוודא מה מציגים כשה-parasha עדיין לא נטען
         return <div>Loading...</div>;
     }
 
