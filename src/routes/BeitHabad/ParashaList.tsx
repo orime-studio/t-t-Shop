@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllParashot } from "../../services/parasha-service";
 import { Parasha } from "../../@Types/chabadType";
+import './ParashaList.scss';
 
 const ParashaList = () => {
     const [parashot, setParashot] = useState<Parasha[]>([]);
