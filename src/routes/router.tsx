@@ -93,6 +93,7 @@ export const router = createBrowserRouter([
         element: <BeitChabadLayout />,
         errorElement: <Error />,
         children: [
+            { index: true, element: <HomePage /> },
             {
                 path: "parasha/create",
                 element: (
