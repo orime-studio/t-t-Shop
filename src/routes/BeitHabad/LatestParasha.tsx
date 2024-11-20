@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IParasha } from "../../@Types/productType";
 import { getLatestParasha } from "../../services/parasha-service";
 import { Parasha } from "../../@Types/chabadType";
+import './LatestParasha.scss';
 
 const LatestParasha = () => {
     const [parasha, setParasha] = useState<Parasha | null>(null);
@@ -24,7 +25,6 @@ const LatestParasha = () => {
                 alt={parasha.alt}
                 className="parasha-image"
             />
-            <h2>Latest Parasha</h2>
             <h3>{parasha.title}</h3>
             <Link to={`/parasha/${parasha._id}`}>Read More</Link>
         </div>

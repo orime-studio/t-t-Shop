@@ -1,0 +1,58 @@
+.latest-parasha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 400px; /* מתאים לכרטיס קטן */
+    text-align: center;
+
+    .parasha-image {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #34495e;
+        margin-bottom: 1rem;
+    }
+
+    a {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #3498db;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        background-color: #ecf0f1;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+    }
+
+    /* עיצוב לטעינה */
+    .loading {
+        font-size: 1.5rem;
+        color: #7f8c8d;
+        text-align: center;
+        padding: 2rem;
+    }
+}

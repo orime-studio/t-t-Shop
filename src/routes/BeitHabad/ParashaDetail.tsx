@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Parasha } from "../../@Types/chabadType";
 import { getParashaById } from "../../services/parasha-service";
+import './ParashaDetails.scss';
 
 const ParashaDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -30,12 +31,12 @@ const ParashaDetail = () => {
 
     return (
         <div className="parasha-detail">
-            <h1>{parasha.title}</h1>
-            <img
+             <img
                 src={parasha.image.url}
                 alt={parasha.alt || "Parasha Image"}
                 className="parasha-image"
             />
+            <h1>{parasha.title}</h1>
             <div className="parasha-pages">
                 {parasha.parashPage.map((page, index) => (
                     <div key={index} className="parasha-page">
