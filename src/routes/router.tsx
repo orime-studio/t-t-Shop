@@ -25,26 +25,17 @@ import Register from "./Register";
 import EditProduct from "./UpdateProduct";
 import UpdateUser from "./UpdateUser";
 import UserOrders from "./UserOrders";
+import BeitChabadLayout from "../layout/BeitChabadLayout";
 
 export const router = createBrowserRouter([
-
-    
-
     {
         path: "/",
         element: <Root />,
         errorElement: <Error />,
-
         children: [
             { index: true, element: <><CarouselComponent /><Products /></> },
             { path: "/register", element: <Register /> },
             { path: "/login", element: <Login /> },
-            /* {
-                path: "/profile", element:
-                    <ProtectedRouteUser>
-                        <Profile />
-                    </ProtectedRouteUser>
-            }, */
             { path: "/products/:id", element: <Product /> },
             {
                 path: "/admin/create-product", element:
@@ -58,45 +49,26 @@ export const router = createBrowserRouter([
                         <EditProduct />
                     </ProtectedRouteAdmin>
             },
-           /*  {
-                path: "/admin/products", element:
-                    <ProtectedRouteAdmin>
-                        <AdminProducts />
-                    </ProtectedRouteAdmin>
-            },
-
-            { path: "/admin/users", element: <Users /> },*/
-
             {
                 path: "/users/:id", element:
                     <ProtectedRouteUser>
                         <UpdateUser />
                     </ProtectedRouteUser>
-            }, 
+            },
             {
                 path: "/cart", element: <Cart />,
             },
             {
-                path: "/order-confirmation/:orderId", element: < OrderConfirmation />
+                path: "/order-confirmation/:orderId", element: <OrderConfirmation />
             },
-
             {
-                path: "/orders", element: < UserOrders />
+                path: "/orders", element: <UserOrders />
             },
-            /* {
-                path: "/osadchi-studio", element: < LandingPage />
-            }, */
-            /* {
-                path: "/admin/analytics", element: < SalesPage />
-            }, */
-          /*   {
-                path: "/admin/orders", element: < AdminOrders />
-            }, */
             {
-                path: "/admin/dashboard", element: 
+                path: "/admin/dashboard", element:
                     <ProtectedRouteAdmin>
-                <AdminDashboard />
-                        </ProtectedRouteAdmin>
+                        <AdminDashboard />
+                    </ProtectedRouteAdmin>
             },
             {
                 path: "/contact", element: <Contact />
@@ -113,31 +85,38 @@ export const router = createBrowserRouter([
             {
                 path: "/create-page", element: <CreatePage />
             },
-            
+        ],
+    },
+    // ניתוב עצמאי ל-beitChabad עם Footer בלבד
+    {
+        path: "/beitChabad",
+        element: <BeitChabadLayout />,
+        errorElement: <Error />,
+        children: [
             {
-                path: "/parasha/create", element:
+                path: "parasha/create",
+                element: (
                     <ProtectedRouteAdmin>
                         <CreateNewParasha />
                     </ProtectedRouteAdmin>
+                ),
             },
             {
-                path: "/parasha/edit/:id", element:
+                path: "parasha/edit/:id",
+                element: (
                     <ProtectedRouteAdmin>
                         <EditParasha />
                     </ProtectedRouteAdmin>
+                ),
             },
             {
-                path: "/parasha/:id", element: <ParashaDetail />
+                path: "parasha/:id",
+                element: <ParashaDetail />,
             },
-             {
-                path: "/parasha", element: <ParashaList />
-            }, 
             {
-                path:"/chabad", element: <HomePage />
-            }
-
-
-
+                path: "parasha",
+                element: <ParashaList />,
+            },
         ],
     },
 ]);
