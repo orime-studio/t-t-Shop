@@ -8,11 +8,8 @@ const ParashaList = () => {
 
     useEffect(() => {
         getAllParashot()
-            .then(res => {
-                console.log("Fetched Parashot:", res.data);
-                setParashot(res.data);
-            })
-            .catch(err => console.error("Error fetching Parashot:", err))
+            .then(res => setParashot(res.data))
+            .catch(err => console.error("Error fetching parashot:", err));
     }, []);
 
     return (
@@ -21,21 +18,18 @@ const ParashaList = () => {
             {parashot.length === 0 ? (
                 <p>No Parashot available.</p>
             ) : (
-                parashot.map(parasha => {
-                    console.log("Rendering Parasha:", parasha);
-                    return (
-                        <div key={parasha.title} className="parasha-item">
-                            <h2>{parasha.title}</h2>
-                            <p>{parasha.miniText}</p>
-                            <img 
-                                src={parasha.image.url} 
-                                alt={parasha.alt} 
-                                className="parasha-image" 
-                            />
-                            <Link to={`/parasha/${parasha.title}`}>Read More</Link>
-                        </div>
-                    );
-                })
+                parashot.map(parasha => (
+                    <div key={parasha._id} className="parasha-item">
+                        <h2>{parasha.title}</h2>
+                        <p>{parasha.miniText}</p>
+                        <img 
+                            src={parasha.image.url} 
+                            alt={parasha.alt} 
+                            className="parasha-image" 
+                        />
+                        <Link to={`/parasha/${parasha._id}`}>Read More</Link>
+                    </div>
+                ))
             )}
         </div>
     );

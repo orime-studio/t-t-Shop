@@ -1,3 +1,5 @@
+import { IParashaInput } from "./productType";
+
 type CandleLightingItem = {
     title: string;
     date: string;
@@ -18,7 +20,7 @@ export type ShabbatData = {
 };
 
 
-export type Parasha = {
+export type ParashaInput = {
     author: string;          // שם המחבר
     title: string;           // כותרת הפרשה
     miniText: string;        // טקסט מקוצר שמתאר את הפרשה
@@ -30,4 +32,11 @@ export type Parasha = {
 export type ParashPage = {
     title: string; // כותרת של עמוד
     text: string;  // תוכן של עמוד
+};
+
+export type Parasha = ParashaInput & {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
 };
