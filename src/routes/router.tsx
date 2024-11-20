@@ -28,16 +28,7 @@ import UserOrders from "./UserOrders";
 
 export const router = createBrowserRouter([
 
-    {
-        path: "/beit-chabad",
-        element: <HomePage />,
-        children: [
-            { index: true, element: <ParashaList /> },
-            { path: "/parasha/:id", element: <ParashaDetail /> },
-            { path: "/parasha/new", element: <CreateNewParasha /> },
-            { path: "/parasha/edit/:id", element: <EditParasha /> }
-        ]
-    },
+    
 
     {
         path: "/",
@@ -123,7 +114,7 @@ export const router = createBrowserRouter([
                 path: "/create-page", element: <CreatePage />
             },
             
-          /*   {
+            {
                 path: "/parasha/create", element:
                     <ProtectedRouteAdmin>
                         <CreateNewParasha />
@@ -143,7 +134,7 @@ export const router = createBrowserRouter([
             }, 
             {
                 path:"/chabad", element: <HomePage />
-            } */
+            }
 
 
 
