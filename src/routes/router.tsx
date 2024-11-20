@@ -29,13 +29,13 @@ import UserOrders from "./UserOrders";
 export const router = createBrowserRouter([
 
     {
-        path: "/beit-habad",
+        path: "/beit-chabad",
         element: <HomePage />,
         children: [
             { index: true, element: <ParashaList /> },
-            { path: "/beit-habad/:id", element: <ParashaDetail /> },
-            { path: "/beit-habad/new", element: <CreateNewParasha /> },
-            { path: "/beit-habad/edit/:id", element: <EditParasha /> }
+            { path: "/parasha/:id", element: <ParashaDetail /> },
+            { path: "/parasha/new", element: <CreateNewParasha /> },
+            { path: "/parasha/edit/:id", element: <EditParasha /> }
         ]
     },
 
