@@ -9,7 +9,9 @@ const LastParasha = () => {
   useEffect(() => {
     const fetchLastParasha = async () => {
       try {
+        console.log("Fetching the last parasha..."); // לוג לפני הקריאה
         const data = await getLastParasha(); // קריאה לפונקציה שמביאה את הפרשה האחרונה
+        console.log("Data received:", data); // לוג אחרי קבלת התגובה
         setLastParasha(data);
       } catch (error) {
         console.error("Error fetching last parasha:", error);
