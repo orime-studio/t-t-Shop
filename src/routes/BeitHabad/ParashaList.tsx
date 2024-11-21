@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllParashot } from "../../services/parasha-service";
+
 import { Parasha } from "../../@Types/chabadType";
 import './ParashaList.scss';
+import { getLastParasha } from "../../services/parasha-service";
 
 const ParashaList = () => {
   const [parashot, setParashot] = useState<Parasha[]>([]);
@@ -11,7 +12,7 @@ const ParashaList = () => {
 
   useEffect(() => {
     // קריאה ל-API
-    getAllParashot()
+    getLastParasha()
       .then(res => {
         // לוודא שהתשובה היא מערך
         console.log('Fetched data:', res.data);  // לוג כדי לראות את הנתונים
