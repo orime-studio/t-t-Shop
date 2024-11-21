@@ -13,12 +13,17 @@ const ParashaList = () => {
     // קריאה ל-API
     getAllParashot()
       .then(res => {
-        setParashot(res.data);
+        // לוודא שהתשובה היא מערך
+        console.log('Fetched data:', res.data);  // לוג כדי לראות את הנתונים
+        const data = Array.isArray(res.data) ? res.data : [];  // אם התשובה לא מערך, השתמש במערך ריק
+        setParashot(data);
+        setLoading(false);  // עדכון מצב טעינה
       })
       .catch(err => {
-        setError(err.message);
-      })
-      .finally(() => setLoading(false));
+        console.error("Error fetching parashot:", err);
+        setError("An error occurred while fetching the data.");  // הצגת שגיאה
+        setLoading(false);  // עדכון מצב טעינה
+      });
   }, []);
 
   // הצגת מידע למשתמש במקרה של טעינה או שגיאה
