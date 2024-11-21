@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Parasha } from "../../@Types/chabadType";
+import './LatestParasha.scss';
 
 const LastParasha = () => {
   const [lastParasha, setLastParasha] = useState<Parasha | null>(null);
