@@ -7,7 +7,9 @@ const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/parasha";
 // פונקציה לקבלת כל הפרשות
 export const getAllParashot = async () => {
     try {
-        const response = await axios.get(parashaBaseUrl);
+        const response = await axios.get(parashaBaseUrl, {
+            params: { last: "false" },  // שליחה של פרמטר last כדי לקבל את כל הפרשות
+        });
         return response.data;  // מחזיר את הנתונים (כל הפרשות)
     } catch (error) {
         console.error("Error fetching all parashot:", error);
