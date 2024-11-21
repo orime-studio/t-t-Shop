@@ -2,7 +2,7 @@ import axios from "axios";
 import { IParashaInput } from "../@Types/productType";
 
 // כתובת הבסיס לאסוף את כל הנתונים
-const parashaBaseUrl = "/api/parashot";
+const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/parasha";
 
 // פונקציה לקבלת כל הפרשות
 export const getAllParashot = async () => {
