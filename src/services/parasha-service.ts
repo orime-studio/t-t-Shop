@@ -6,13 +6,16 @@ export const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/paras
 // קבלת כל ה-Parashot
 
 
+// parasha-service.ts
+
 export const getAllParashot = async () => {
-  try {
-    const response = await axios.get(parashaBaseUrl);  // ללא פרמטר last
-    console.log(response.data);  // כל הפרשות
-  } catch (error) {
-    console.error("Error fetching all parashot:", error);
-  }
+    try {
+        const response = await axios.get(parashaBaseUrl);
+        return response;  // מחזיר את התשובה כולה
+    } catch (error) {
+        console.error("Error fetching parashot:", error);
+        throw error;  // חשוב להחזיר שגיאה במקרה של כשלון
+    }
 };
 
 
