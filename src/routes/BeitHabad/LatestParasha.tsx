@@ -7,6 +7,11 @@ const LastParasha = () => {
   const [lastParasha, setLastParasha] = useState<Parasha | null>(null);
 
   useEffect(() => {
+    console.log("useEffect ran!"); // לוג ראשוני לבדיקה
+  }, []);
+  
+
+  useEffect(() => {
     console.log("Fetching last parasha...");
     getLastParasha()
       .then(res => {
