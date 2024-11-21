@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Parasha } from "../../@Types/chabadType";
 
 const LastParasha = () => {
-  const [lastParasha, setLastParasha] = useState(null);
+  const [lastParasha, setLastParasha] = useState<Parasha | null>(null);
 
   useEffect(() => {
     const fetchLastParasha = async () => {
@@ -23,7 +24,7 @@ const LastParasha = () => {
     <div>
       <h1>Last Parasha</h1>
       {lastParasha ? (
-        <p>{lastParasha.name}</p>  // הצגת שם הפרשה האחרונה
+        <p>{lastParasha.title}</p>  // הצגת שם הפרשה האחרונה
       ) : (
         <p>Loading...</p>
       )}
