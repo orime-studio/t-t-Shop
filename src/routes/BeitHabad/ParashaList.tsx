@@ -15,8 +15,8 @@ const ParashaList = () => {
     getAllParashot()
       .then(res => {
         // לוודא שהתשובה היא מערך
-        console.log('Fetched data all parashot:', res.data);  // לוג כדי לראות את הנתונים
-        const data = Array.isArray(res.data) ? res.data : [];  // אם התשובה לא מערך, השתמש במערך ריק
+        console.log('Fetched data all parashot:', res);  // לוג כדי לראות את הנתונים
+        const data = Array.isArray(res) ? res : [];  // אם התשובה לא מערך, השתמש במערך ריק
         setParashot(data);
         setLoading(false);  // עדכון מצב טעינה
       })
