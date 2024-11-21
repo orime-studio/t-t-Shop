@@ -1,39 +1,36 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getAllParashot } from "../../services/parasha-service";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Parasha } from "../../@Types/chabadType";
-import './ParashaList.scss';
+
+// טיפוס של הפרשות, תוכל לשנות לפי הצורך
+
 
 const ParashaList = () => {
-    const [parashot, setParashot] = useState<Parasha[]>([]);
+  const [parashot, setParashot] = useState<Parasha[]>([]);
 
-    useEffect(() => {
-        getAllParashot()
-            .then(res => setParashot(res.data))
-            .catch(err => console.error("Error fetching parashot:", err));
-    }, []);
+  useEffect(() => {
+    const fetchParashot = async () => {
+      try {
+        const response = await axios.get("/new-parashot");  // קריאה ל-API
+        setParashot(response.data);  // כאן אנחנו מקבלים את הנתונים
+      } catch (error) {
+        console.error("Error fetching parashot:", error);
+      }
+    };
 
-    return (
-        <div className="parasha-list">
-            <h1>All Parashot</h1>
-            {parashot.length === 0 ? (
-                <p>No Parashot available.</p>
-            ) : (
-                parashot.map(parasha => (
-                    <div key={parasha._id} className="parasha-item">
-                        <h2>{parasha.title}</h2>
-                        <p>{parasha.miniText}</p>
-                        <img 
-                            src={parasha.image.url} 
-                            alt={parasha.alt} 
-                            className="parasha-image" 
-                        />
-                      <Link to={`/beitChabad/parasha/${parasha._id}`}>Read More</Link>
-                    </div>
-                ))
-            )}
-        </div>
-    );
+    fetchParashot();
+  }, []);
+
+  return (
+    <div>
+      <h1>All Parashot</h1>
+      <ul>
+        {parashot.map((parasha) => (
+          <li key={parasha._id}>{parasha.title}</li>  // הצגת פרשה
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default ParashaList;

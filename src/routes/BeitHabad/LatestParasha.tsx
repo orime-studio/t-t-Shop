@@ -1,33 +1,34 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Parasha } from "../../@Types/chabadType";
-import { getLatestParasha } from "../../services/parasha-service";
-import './LatestParasha.scss';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const LatestParasha = () => {
-    const [parasha, setParasha] = useState<Parasha | null>(null);
+const LastParasha = () => {
+  const [lastParasha, setLastParasha] = useState(null);
 
-    useEffect(() => {
-        getLatestParasha()
-            .then(res => setParasha(res.data[0]))
-            .catch(err => console.error(err));
-    }, []);
+  useEffect(() => {
+    const fetchLastParasha = async () => {
+      try {
+        const response = await axios.get("/parashot", {
+          params: { last: "true" },
+        });
+        setLastParasha(response.data);  // עדכון עם הפרשה האחרונה
+      } catch (error) {
+        console.error("Error fetching last parasha:", error);
+      }
+    };
 
-    if (!parasha) {
-        return <div>Loading...</div>;
-    }
+    fetchLastParasha();
+  }, []);
 
-    return (
-        <div className="latest-parasha">
-            <img
-                src={parasha.image.url}
-                alt={parasha.alt}
-                className="parasha-image"
-            />
-            <h3>{parasha.title}</h3>
-            <Link to={`/beitChabad/parasha/${parasha._id}`}>Read More</Link>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Last Parasha</h1>
+      {lastParasha ? (
+        <p>{lastParasha.name}</p>  // הצגת שם הפרשה האחרונה
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
 };
 
-export default LatestParasha;
+export default LastParasha;

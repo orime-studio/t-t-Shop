@@ -4,7 +4,17 @@ import { IParashaInput } from "../@Types/productType";
 export const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/parasha";
 
 // קבלת כל ה-Parashot
-export const getAllParashot = () => axios.get(parashaBaseUrl);
+
+
+export const getAllParashot = async () => {
+  try {
+    const response = await axios.get(parashaBaseUrl);  // ללא פרמטר last
+    console.log(response.data);  // כל הפרשות
+  } catch (error) {
+    console.error("Error fetching all parashot:", error);
+  }
+};
+
 
 // קבלת Parasha לפי מזהה
 export const getParashaById = (id: string) => axios.get(`${parashaBaseUrl}/${id}`);
