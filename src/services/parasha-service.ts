@@ -15,11 +15,6 @@ export const getAllParashot = async () => {
         throw error;  // שגיאה במקרה של כשלון
     }
 };
-
-// פונקציה לקבלת הפרשה לפי מזהה
-export const getParashaById = (id: string) => axios.get(`${parashaBaseUrl}/${id}`);
-
-// פונקציה לקבלת הפרשה האחרונה
 export const getLastParasha = async () => {
     try {
         const response = await axios.get(parashaBaseUrl, {
@@ -31,6 +26,12 @@ export const getLastParasha = async () => {
         throw error;  // שגיאה במקרה של כשלון
     }
 };
+
+// פונקציה לקבלת הפרשה לפי מזהה
+export const getParashaById = (id: string) => axios.get(`${parashaBaseUrl}/${id}`);
+
+// פונקציה לקבלת הפרשה האחרונה
+
 
 // יצירת פרשה חדשה
 export const createNewParasha = (data: FormData) => {
