@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Parasha } from "../../@Types/chabadType";
+import { getLastParasha } from "../../services/parasha-service";  // ודא שאתה מייבא את הפונקציה
 import './LatestParasha.scss';
 
 const LastParasha = () => {
@@ -9,25 +9,23 @@ const LastParasha = () => {
   useEffect(() => {
     const fetchLastParasha = async () => {
       try {
-        const response = await axios.get("/parashot", {
-          params: { last: "true" },
-        });
-        setLastParasha(response.data);  // עדכון עם הפרשה האחרונה
+        const data = await getLastParasha(); // קריאה לפונקציה שמביאה את הפרשה האחרונה
+        setLastParasha(data);
       } catch (error) {
         console.error("Error fetching last parasha:", error);
       }
     };
 
-    fetchLastParasha();
+    fetchLastParasha(); // קריאה לפונקציה בעת טעינת הקומפוננטה
   }, []);
 
   return (
-    <div>
+    <div className="latest-parasha">
       <h1>Last Parasha</h1>
       {lastParasha ? (
         <p>{lastParasha.title}</p>  // הצגת שם הפרשה האחרונה
       ) : (
-        <p>Loading...</p>
+        <p>Loading...</p> // תצוגת טקסט כאשר הנתונים עדיין נטענים
       )}
     </div>
   );

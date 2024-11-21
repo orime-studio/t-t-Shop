@@ -1,38 +1,46 @@
 import axios from "axios";
 import { IParashaInput } from "../@Types/productType";
 
-export const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/parasha";
+// כתובת הבסיס לאסוף את כל הנתונים
+const parashaBaseUrl = "/api/parashot";
 
-// קבלת כל ה-Parashot
-
-
-// parasha-service.ts
-
+// פונקציה לקבלת כל הפרשות
 export const getAllParashot = async () => {
     try {
         const response = await axios.get(parashaBaseUrl);
-        return response;  // מחזיר את התשובה כולה
+        return response.data;  // מחזיר את הנתונים (כל הפרשות)
     } catch (error) {
-        console.error("Error fetching parashot:", error);
-        throw error;  // חשוב להחזיר שגיאה במקרה של כשלון
+        console.error("Error fetching all parashot:", error);
+        throw error;  // שגיאה במקרה של כשלון
     }
 };
 
-
-// קבלת Parasha לפי מזהה
+// פונקציה לקבלת הפרשה לפי מזהה
 export const getParashaById = (id: string) => axios.get(`${parashaBaseUrl}/${id}`);
 
-// יצירת Parasha חדשה
+// פונקציה לקבלת הפרשה האחרונה
+export const getLastParasha = async () => {
+    try {
+        const response = await axios.get(parashaBaseUrl, {
+            params: { last: "true" },  // שליחה של פרמטר last כדי לקבל את הפרשה האחרונה
+        });
+        return response.data;  // מחזיר את הנתונים של הפרשה האחרונה
+    } catch (error) {
+        console.error("Error fetching last parasha:", error);
+        throw error;  // שגיאה במקרה של כשלון
+    }
+};
+
+// יצירת פרשה חדשה
 export const createNewParasha = (data: FormData) => {
     return axios.post(parashaBaseUrl, data, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),
-          
         },
     });
 };
 
-// עדכון Parasha
+// עדכון פרשה
 export const updateParasha = (id: string, data: IParashaInput) => {
     return axios.put(`${parashaBaseUrl}/${id}`, data, {
         headers: {
@@ -42,7 +50,7 @@ export const updateParasha = (id: string, data: IParashaInput) => {
     });
 };
 
-// מחיקת Parasha לפי מזהה
+// מחיקת פרשה לפי מזהה
 export const deleteParashaById = (id: string) => {
     return axios.delete(`${parashaBaseUrl}/${id}`, {
         headers: {
@@ -51,8 +59,7 @@ export const deleteParashaById = (id: string) => {
     });
 };
 
-
-// בקשה לקבלת הפרשה האחרונה
-export const getLatestParasha = () => {
+// בקשה לקבלת הפרשה האחרונה (עם מיון)
+/* export const getLatestParasha = () => {
     return axios.get(`${parashaBaseUrl}?sort=-createdAt&limit=1`);
-};
+}; */
