@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { IParasha } from "../../@Types/productType";
-import { getLatestParasha } from "../../services/parasha-service";
 import { Parasha } from "../../@Types/chabadType";
+import { getLatestParasha } from "../../services/parasha-service";
 import './LatestParasha.scss';
 
 const LatestParasha = () => {
@@ -26,7 +25,7 @@ const LatestParasha = () => {
                 className="parasha-image"
             />
             <h3>{parasha.title}</h3>
-            <Link to={`/parasha/${parasha._id}`}>Read More</Link>
+            <Link to={`/beitChabad/parasha/${parasha._id}`}>Read More</Link>
         </div>
     );
 };
