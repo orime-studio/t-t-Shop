@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { Parasha } from "../../@Types/chabadType";
 import './ParashaList.scss';
-import { getLastParasha } from "../../services/parasha-service";
+import { getAllParashot, getLastParasha } from "../../services/parasha-service";
 
 const ParashaList = () => {
   const [parashot, setParashot] = useState<Parasha[]>([]);
@@ -12,7 +12,7 @@ const ParashaList = () => {
 
   useEffect(() => {
     // קריאה ל-API
-    getLastParasha()
+    getAllParashot()
       .then(res => {
         // לוודא שהתשובה היא מערך
         console.log('Fetched data all parashot:', res.data);  // לוג כדי לראות את הנתונים
