@@ -7,7 +7,7 @@ function LatestVideo() {
 
   useEffect(() => {
     const fetchVideo = async () => {
-      const response = await fetch('/api/latest-video');
+      const response = await fetch('https://node-tandt-shop.onrender.com/api/v1/videos/latest-video');
       const data = await response.json();
       setVideoUrl(data.videoUrl);
     };
