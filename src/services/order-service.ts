@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IOrderProduct } from "../@Types/productType";
 
-export const orderUrl = "https://node-tandt-shop.onrender.com/api/v1/orders";
+export const orderUrl = "https://node-shop-v10n.onrender.com/api/v1/orders";
 
 // פונקציה ליצירת הזמנה חדשה
 export const createOrder = (products: IOrderProduct[]) => {

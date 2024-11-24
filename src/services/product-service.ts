@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "https://node-tandt-shop.onrender.com/api/v1/products";
+export const baseUrl = "https://node-shop-v10n.onrender.com/api/v1/products";
 
 // get all products
 export const getAllProducts = () => axios.get(baseUrl);
