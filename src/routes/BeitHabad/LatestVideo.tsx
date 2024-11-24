@@ -5,26 +5,16 @@ function LatestVideo() {
   const [videoUrl, setVideoUrl] = useState(null);
 
   useEffect(() => {
-    const fetchLatestVideo = async () => {
-        const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
-          params: {
-            key: process.env.YOUTUBE_API_KEY,
-            channelId: 'YOUR_CHANNEL_ID',
-            part: 'snippet',
-            order: 'date',
-            maxResults: 1,
-          },
-        });
-      
-        const video = response.data.items?.[0];
-        if (!video || !video.id) {
-          throw new Error('No video found or invalid response structure');
-        }
-      
-        return video.id.videoId;
-      };
+    const fetchVideo = async () => {
+      try {
+        const response = await axios.get('https://node-tandt-shop.onrender.com/api/v1/videos/latest-video');
+        setVideoUrl(response.data.videoUrl);
+      } catch (error) {
+        console.error('Error fetching video:', error);
+      }
+    };
 
-      fetchLatestVideo();
+    fetchVideo();
   }, []);
 
   return (
