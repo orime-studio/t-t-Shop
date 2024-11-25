@@ -87,8 +87,6 @@ const EditParasha = () => {
           {errors.miniText && <p className="error-text">{errors.miniText.message}</p>}
         </section>
 
-  
-
         {/* Image */}
         <section className="form-section">
           <input 
@@ -96,6 +94,7 @@ const EditParasha = () => {
             {...register("image.url", { required: "Image URL is required" })} 
           />
           {errors.image?.url && <p className="error-text">{errors.image.url.message}</p>}
+
           <input 
             placeholder="Image Alt" 
             {...register("image.alt", { required: "Image Alt is required" })} 
