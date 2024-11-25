@@ -1,4 +1,3 @@
-
 import { DarkThemeToggle, Dropdown, Navbar, Tooltip } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FiBox, FiUser, FiShoppingCart, FiSettings, FiUsers, FiTrendingUp } from "react-icons/fi";
@@ -15,7 +14,6 @@ const NavChabad = () => {
 
     return (
         <Navbar fluid rounded style={{ width: '100%', direction: 'rtl' }}>
-<<<<<<< Updated upstream
            <Navbar.Brand href="/">
     <img
         src="/img/LogoChabad.png"
@@ -23,11 +21,6 @@ const NavChabad = () => {
         className="h-10 w-auto" 
     />
 </Navbar.Brand>
-=======
-            <Navbar.Brand href="/">
-                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">בית חבד - יפו העתיקה</span>
-            </Navbar.Brand>
->>>>>>> Stashed changes
 
             <div className="flex md:order-2 items-center">
                
