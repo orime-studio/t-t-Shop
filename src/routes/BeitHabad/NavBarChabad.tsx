@@ -6,9 +6,6 @@ import { useAuth } from "../../hooks/useAuth";
 import UserAvatar from "../../components/UseAvatar";
 
 
-
-
-
 const NavChabad = () => {
     const { isLoggedIn, user, logout } = useAuth();
     const navigate = useNavigate();

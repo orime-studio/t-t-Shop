@@ -8,7 +8,7 @@ const CarouselChabd: FC = () => {
         <div className="custom-carousel">
             <Carousel pauseOnHover>
                 <img
-                    src="/img/PikiWiki_Israel_34118_Old_Jaffa.JPG"
+                    src="/img/carousellla.png"
                     alt="Elegant Dresses Cover 1"
                     className="carousel-image desktop-image"
                 />
