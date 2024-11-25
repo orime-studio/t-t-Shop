@@ -45,6 +45,8 @@ const ParashaDetail = () => {
                     </div>
                 ))}
             </div>
+
+            <a href="/beitChabad/parasha">לפרשות קודמות</a>
         </div>
     );
 };
