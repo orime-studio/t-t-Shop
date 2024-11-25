@@ -3,31 +3,28 @@ import { Link } from "react-router-dom";
 
 import { Parasha } from "../../@Types/chabadType";
 import './ParashaList.scss';
-import { getAllParashot, getLastParasha } from "../../services/parasha-service";
+import { getAllParashot } from "../../services/parasha-service";
 
 const ParashaList = () => {
   const [parashot, setParashot] = useState<Parasha[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);  // מצב טעינה
-  const [error, setError] = useState<string | null>(null);  // שגיאה אם יש
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // קריאה ל-API
     getAllParashot()
       .then(res => {
-        // לוודא שהתשובה היא מערך
-        console.log('Fetched data all parashot:', res);  // לוג כדי לראות את הנתונים
-        const data = Array.isArray(res) ? res : [];  // אם התשובה לא מערך, השתמש במערך ריק
+        console.log('Fetched data all parashot:', res);
+        const data = Array.isArray(res) ? res : [];
         setParashot(data);
-        setLoading(false);  // עדכון מצב טעינה
+        setLoading(false);
       })
       .catch(err => {
         console.error("Error fetching parashot:", err);
-        setError("An error occurred while fetching the data.");  // הצגת שגיאה
-        setLoading(false);  // עדכון מצב טעינה
+        setError("An error occurred while fetching the data.");
+        setLoading(false);
       });
   }, []);
 
-  // הצגת מידע למשתמש במקרה של טעינה או שגיאה
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -40,20 +37,27 @@ const ParashaList = () => {
     <div className="parasha-list">
       <h1>All Parashot</h1>
       {parashot.length === 0 ? (
-        <p>No Parashot available.</p>  // אם אין פרשות להציג
+        <p>No Parashot available.</p>
       ) : (
-        parashot.map(parasha => (
-          <div key={parasha._id} className="parasha-item">
-            <h2>{parasha.title}</h2>
-            <p>{parasha.miniText}</p>
-            <img 
-              src={parasha.image.url} 
-              alt={parasha.alt} 
-              className="parasha-image" 
-            />
-            <Link to={`/beitChabad/parasha/${parasha._id}`}>Read More</Link>
-          </div>
-        ))
+        <div className="parasha-grid">
+          {parashot.map(parasha => (
+            <Link
+              to={`/beitChabad/parasha/${parasha._id}`}
+              key={parasha._id}
+              className="parasha-card"
+            >
+              <img 
+                src={parasha.image.url} 
+                alt={parasha.alt || parasha.title} 
+                className="parasha-card-image" 
+              />
+              <div className="parasha-card-content">
+                <h2 className="parasha-card-title">{parasha.title}</h2>
+                <p className="parasha-card-mini-text">{parasha.miniText}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
       )}
     </div>
   );
