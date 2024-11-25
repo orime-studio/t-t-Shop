@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IParashaInput } from "../@Types/productType";
+import { ParashaInput } from "../@Types/chabadType";
 
 // כתובת הבסיס לאסוף את כל הנתונים
 const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/parasha";
@@ -54,7 +55,7 @@ export const createNewParasha = (data: FormData) => {
 };
 
 // עדכון פרשה
-export const updateParasha = (id: string, data: IParashaInput) => {
+export const updateParasha = (id: string, data: ParashaInput) => {
     return axios.put(`${parashaBaseUrl}/${id}`, data, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),
