@@ -57,61 +57,54 @@ const EditParasha = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="edit-parasha-container text-gray-800 dark:bg-slate-600">
+    <div className="edit-parasha-container">
       <h2>Edit Parasha</h2>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         {/* Author */}
-        <section>
+        <section className="form-section">
           <input 
             placeholder="Author" 
             {...register("author", { required: "Author is required" })} 
           />
-          {errors.author && <p className="text-red-500">{errors.author.message}</p>}
+          {errors.author && <p className="error-text">{errors.author.message}</p>}
         </section>
 
         {/* Title */}
-        <section>
+        <section className="form-section">
           <input 
             placeholder="Title" 
             {...register("title", { required: "Title is required" })} 
           />
-          {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+          {errors.title && <p className="error-text">{errors.title.message}</p>}
         </section>
 
         {/* Mini Text */}
-        <section>
+        <section className="form-section">
           <textarea 
             placeholder="Mini Text" 
             {...register("miniText", { required: "Mini Text is required" })} 
           />
-          {errors.miniText && <p className="text-red-500">{errors.miniText.message}</p>}
+          {errors.miniText && <p className="error-text">{errors.miniText.message}</p>}
         </section>
 
-        {/* Alt */}
-        <section>
-          <input 
-            placeholder="Image Alt Text" 
-            {...register("alt", { required: "Alt text is required" })} 
-          />
-          {errors.alt && <p className="text-red-500">{errors.image?.alt.message}</p>}
-        </section>
+  
 
         {/* Image */}
-        <section>
+        <section className="form-section">
           <input 
             placeholder="Image URL" 
             {...register("image.url", { required: "Image URL is required" })} 
           />
-          {errors.image?.url && <p className="text-red-500">{errors.image.url.message}</p>}
+          {errors.image?.url && <p className="error-text">{errors.image.url.message}</p>}
           <input 
             placeholder="Image Alt" 
             {...register("image.alt", { required: "Image Alt is required" })} 
           />
-          {errors.image?.alt && <p className="text-red-500">{errors.image.alt.message}</p>}
+          {errors.image?.alt && <p className="error-text">{errors.image.alt.message}</p>}
         </section>
 
         {/* Parasha Pages */}
-        <section>
+        <section className="form-section">
           <h3 className="mb-2">Parasha Pages:</h3>
           {pages.map((page, index) => (
             <div key={page.id} className="page">
@@ -120,14 +113,14 @@ const EditParasha = () => {
                 {...register(`parashPage.${index}.title` as const, { required: "Page title is required" })}
               />
               {errors.parashPage?.[index]?.title && (
-                <p className="text-red-500">{errors.parashPage[index].title?.message}</p>
+                <p className="error-text">{errors.parashPage[index].title?.message}</p>
               )}
               <textarea
                 placeholder="Page Text"
                 {...register(`parashPage.${index}.text` as const, { required: "Page text is required" })}
               />
               {errors.parashPage?.[index]?.text && (
-                <p className="text-red-500">{errors.parashPage[index].text?.message}</p>
+                <p className="error-text">{errors.parashPage[index].text?.message}</p>
               )}
               <button 
                 type="button" 
@@ -147,7 +140,7 @@ const EditParasha = () => {
           </button>
         </section>
 
-        <button type="submit" className="bg-slate-600 text-white dark:bg-slate-900">
+        <button type="submit" className="submit-button">
           Save
         </button>
       </form>
