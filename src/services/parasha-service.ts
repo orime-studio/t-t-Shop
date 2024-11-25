@@ -55,7 +55,7 @@ export const createNewParasha = (data: FormData) => {
 };
 
 // עדכון פרשה
-export const updateParasha = (id: string, data: ParashaInput) => {
+export const updateParasha = (id: string, data: FormData) => {
     return axios.put(`${parashaBaseUrl}/${id}`, data, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),
