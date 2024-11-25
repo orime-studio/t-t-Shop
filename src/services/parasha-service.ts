@@ -8,24 +8,35 @@ const parashaBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/parasha";
 export const getAllParashot = async () => {
     try {
         const response = await axios.get(parashaBaseUrl);
-        console.log(response.data);
-        return response.data;  // מחזיר את הנתונים (כל הפרשות)
+        const data = response.data;
+        if (!Array.isArray(data) || data.length === 0) {
+            console.warn("No parashot found");
+            return []; // מחזיר מערך ריק במקרה שאין פרשות
+        }
+        return data; // מחזיר את הנתונים
     } catch (error) {
         console.error("Error fetching all parashot:", error);
-        throw error;  // שגיאה במקרה של כשלון
+        throw error; // שגיאה במקרה של כשלון
     }
 };
+
 export const getLastParasha = async () => {
     try {
         const response = await axios.get(parashaBaseUrl, {
-            params: { last: "true" },  // שליחה של פרמטר last כדי לקבל את הפרשה האחרונה
+            params: { last: "true" },
         });
-        return response.data;  // מחזיר את הנתונים של הפרשה האחרונה
+        const data = response.data;
+        if (!data || typeof data !== "object" || Object.keys(data).length === 0) {
+            console.warn("No last parasha found");
+            return null; // מחזיר null במקרה שאין פרשה
+        }
+        return data; // מחזיר את הנתונים
     } catch (error) {
         console.error("Error fetching last parasha:", error);
-        throw error;  // שגיאה במקרה של כשלון
+        throw error; // שגיאה במקרה של כשלון
     }
 };
+
 
 // פונקציה לקבלת הפרשה לפי מזהה
 export const getParashaById = (id: string) => axios.get(`${parashaBaseUrl}/${id}`);

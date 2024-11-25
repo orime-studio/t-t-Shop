@@ -23,27 +23,24 @@ const LastParasha = () => {
 
   return (
     <div className="latest-parasha">
-  {lastParasha ? (
-    <Link to={`/beitChabad/parasha/${lastParasha._id}`} className="parasha-link">
-      <div className="parasha-card">
-        {lastParasha.image && lastParasha.image.url ? (
-          <img
-            src={lastParasha.image.url}
-            alt={lastParasha.image.alt || "Parasha image"}
-            className="parasha-image"
-          />
+        {lastParasha ? (
+            <Link to={`/beitChabad/parasha/${lastParasha._id}`} className="parasha-link">
+                <div className="parasha-card">
+                    <img
+                        src={lastParasha.image?.url || "/placeholder.jpg"}
+                        alt={lastParasha.image?.alt || "Placeholder"}
+                        className="parasha-image"
+                    />
+                    <h2 className="parasha-title">{lastParasha.title}</h2>
+                    <p className="parasha-mini-text">{lastParasha.miniText}</p>
+                </div>
+            </Link>
         ) : (
-          <div className="placeholder-image">Image not available</div>
+            <p>No last Parasha available at the moment.</p> // הודעה אם אין פרשה
         )}
-        <h2 className="parasha-title">{lastParasha.title}</h2>
-        <p className="parasha-mini-text">{lastParasha.miniText}</p>
-      </div>
-    </Link>
-  ) : (
-    <p>Loading...</p>
-  )}
-</div>
-  );
+    </div>
+);
+
 };
 
 export default LastParasha;
