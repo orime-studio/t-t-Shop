@@ -1,6 +1,6 @@
 import { DarkThemeToggle, Dropdown, Navbar, Tooltip } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiBox, FiUser, FiShoppingCart, FiSettings, FiUsers, FiTrendingUp } from "react-icons/fi";
+import { FiBox, FiUser, FiShoppingCart, FiSettings, FiUsers, FiTrendingUp, FiHeart } from "react-icons/fi";
 import { useAuth } from "../../hooks/useAuth";
 import UserAvatar from "../../components/UseAvatar";
 
@@ -80,18 +80,35 @@ const NavChabad = () => {
             
             </div>
             <Navbar.Collapse className="pr-4">
-    <Navbar.Link href="/" className={`text-xs mr-0 ${isActive("/") ? "font-bold" : ""}`}>
+    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/") ? "font-bold" : ""}`}>
         בית
     </Navbar.Link>
-    <Navbar.Link href="/about" className={`text-xs mr-8 ${isActive("/about") ? "font-bold" : ""}`}>
+    <Navbar.Link href="/beitChabad" className={`text-s mr-8 ${isActive("/about") ? "font-bold" : ""}`}>
         אודות
     </Navbar.Link>
-    <Navbar.Link href="/gallery" className={`text-xs mr-0 ${isActive("/gallery") ? "font-bold" : ""}`}>
+    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/gallery") ? "font-bold" : ""}`}>
         גלריה
     </Navbar.Link>
-    <Navbar.Link href="/contact" className={`text-xs mr-0 ${isActive("/contact") ? "font-bold" : ""}`}>
+    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/contact") ? "font-bold" : ""}`}>
+        מידע למטייל
+    </Navbar.Link>
+
+    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/contact") ? "font-bold" : ""}`}>
         יצירת קשר
     </Navbar.Link>
+    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/contact") ? "font-bold" : ""}`}>
+        הרשמה לארוחת שבת
+    </Navbar.Link>
+    
+    <Navbar.Link
+        href="/beitChabad"
+        className={`text-s mr-10 px-4 py-5 bg-[#5e407d] text-white rounded-md flex items-center gap-2 ${isActive("/beitChabad") ? "font-bold" : ""}`}
+    >
+        <FiHeart size={20} className="text-white" />
+         אני רוצה לתרום 
+    </Navbar.Link>
+
+
 </Navbar.Collapse>
 
         </Navbar>
