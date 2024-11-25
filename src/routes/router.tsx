@@ -3,7 +3,7 @@ import CarouselComponent from "../components/Carousel";
 import Root from "../layout/root";
 import About from "./About";
 import AdminDashboard from "./AdminDashboard";
-import EditParasha from "./BeitHabad/EditParasha";
+
 import HomePage from "./BeitHabad/HomePage";
 import ParashaDetail from "./BeitHabad/ParashaDetail";
 import ParashaList from "./BeitHabad/ParashaList";
@@ -102,14 +102,14 @@ export const router = createBrowserRouter([
                     </ProtectedRouteAdmin>
                 ),
             },
-            {
+   /*          {
                 path: "parasha/edit/:id",
                 element: (
                     <ProtectedRouteAdmin>
                         <EditParasha />
                     </ProtectedRouteAdmin>
                 ),
-            },
+            }, */
             {
                 path: "parasha/:id",
                 element: <ParashaDetail />,
