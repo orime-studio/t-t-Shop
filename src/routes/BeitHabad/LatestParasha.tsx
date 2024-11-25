@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // כדי להשתמש בקישור לדף אחר
+import { Link } from "react-router-dom";
 import { Parasha } from "../../@Types/chabadType";
-import { getLastParasha } from "../../services/parasha-service"; // ודא שאתה מייבא את הפונקציה
+import { getLastParasha } from "../../services/parasha-service";
+import { Card } from "flowbite-react"; // ייבוא ה-Card של Flowbite
 import './LatestParasha.scss';
 
 const LastParasha = () => {
@@ -11,40 +12,36 @@ const LastParasha = () => {
     console.log("Fetching last parasha...");
     getLastParasha()
       .then(res => {
-        console.log("Fetched last parasha:", res); // לוג לתוצאה מהשרת
+        console.log("Fetched last parasha:", res);
         setLastParasha(res);
       })
       .catch(err => {
-        console.error("Error fetching last parasha:", err); // לוג במקרה של שגיאה
+        console.error("Error fetching last parasha:", err);
       });
   }, []);
 
-  console.log("Rendered lastParasha state:", lastParasha); // לוג למצב הנוכחי של lastParasha
-
-    return (
-      <div className="latest-parasha">
-          {lastParasha ? (
-              <Link to={`/beitChabad/parasha/${lastParasha._id}`} className="parasha-link">
-                  <div className="parasha-card">
-                      {lastParasha.image?.url && ( // הצגת תמונה רק אם יש URL
-                          <img
-                              src={lastParasha.image.url}
-                              alt={lastParasha.image.alt || lastParasha.title}
-                              className="parasha-image"
-                          />
-                      )}
-                      <h2 className="parasha-title">{lastParasha.title}</h2>
-                      <p className="parasha-mini-text">{lastParasha.miniText}</p>
-
-                      <p className="parasha-author">By: {lastParasha.author}</p>
-                  </div>
-              </Link>
-          ) : (
-              <p>No last Parasha available at the moment.</p>
-          )}
-      </div>
+  return (
+    <div className="latest-parasha">
+      {lastParasha ? (
+        <Link to={`/beitChabad/parasha/${lastParasha._id}`} className="parasha-link">
+          <Card className="parasha-card">
+            {lastParasha.image?.url && (
+              <img
+                src={lastParasha.image.url}
+                alt={lastParasha.image.alt || lastParasha.title}
+                className="parasha-image"
+              />
+            )}
+            <h2 className="parasha-title">{lastParasha.title}</h2>
+            <p className="parasha-mini-text">{lastParasha.miniText}</p>
+            <p className="parasha-author">{lastParasha.author}</p>
+          </Card>
+        </Link>
+      ) : (
+        <p>No last Parasha available at the moment.</p>
+      )}
+    </div>
   );
-
 };
 
 export default LastParasha;
