@@ -23,22 +23,26 @@ const LastParasha = () => {
 
   return (
     <div className="latest-parasha">
-      {lastParasha ? (
-        <Link to={`/beitChabad/parasha/${lastParasha._id}`} className="parasha-link">
-          <div className="parasha-card">
-            <img
-              src={lastParasha.image.url}
-              alt={lastParasha.title}
-              className="parasha-image"
-            />
-            <h2 className="parasha-title">{lastParasha.title}</h2>
-            <p className="parasha-mini-text">{lastParasha.miniText}</p>
-          </div>
-        </Link>
-      ) : (
-        <p>Loading...</p> // תצוגת טקסט כאשר הנתונים עדיין נטענים
-      )}
-    </div>
+  {lastParasha ? (
+    <Link to={`/beitChabad/parasha/${lastParasha._id}`} className="parasha-link">
+      <div className="parasha-card">
+        {lastParasha.image && lastParasha.image.url ? (
+          <img
+            src={lastParasha.image.url}
+            alt={lastParasha.image.alt || "Parasha image"}
+            className="parasha-image"
+          />
+        ) : (
+          <div className="placeholder-image">Image not available</div>
+        )}
+        <h2 className="parasha-title">{lastParasha.title}</h2>
+        <p className="parasha-mini-text">{lastParasha.miniText}</p>
+      </div>
+    </Link>
+  ) : (
+    <p>Loading...</p>
+  )}
+</div>
   );
 };
 
