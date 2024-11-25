@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import "./CreateProduct.scss";
+import './EditParasha.scss';
 
 import { useState, useEffect } from "react";
 import { getParashaById, updateParasha } from "../../services/parasha-service";
