@@ -29,7 +29,7 @@ const EditParasha = () => {
                     setValue('author', parasha.author);
                     setValue('title', parasha.title);
                     setValue('miniText', parasha.miniText);
-                    setValue('alt', parasha.alt || '');
+                    setValue('alt', parasha.alt || parasha.title);
                     setImageUrl(parasha.image?.url || "");
 
                     // Set the parashPage array
