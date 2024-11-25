@@ -16,9 +16,9 @@ const NavChabad = () => {
         <Navbar fluid rounded style={{ width: '100%', direction: 'rtl' }}>
            <Navbar.Brand href="/">
     <img
-        src="/img/LogoChabad.png"
+        src="/img/LogoChabad (2).png"
         alt="בית חבד - יפו העתיקה"
-        className="h-10 w-auto" 
+        className="h-12 w-auto" 
     />
 </Navbar.Brand>
 
