@@ -33,34 +33,30 @@ const ParashaList = () => {
     return <p>{error}</p>;
   }
 
-  return (
-    <div className="parasha-list">
-      <h1>All Parashot</h1>
-      {parashot.length === 0 ? (
-        <p>No Parashot available.</p>
-      ) : (
-        <div className="parasha-grid">
-          {parashot.map(parasha => (
-            <Link
-              to={`/beitChabad/parasha/${parasha._id}`}
-              key={parasha._id}
-              className="parasha-card"
-            >
-              <img 
-                src={parasha.image.url} 
-                alt={parasha.alt || parasha.title} 
-                className="parasha-card-image" 
-              />
-              <div className="parasha-card-content">
-                <h2 className="parasha-card-title">{parasha.title}</h2>
-                <p className="parasha-card-mini-text">{parasha.miniText}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
-    </div>
+    return (
+      <div className="parasha-list">
+          <h1>All Parashot</h1>
+          {parashot.length === 0 ? (
+              <p>No Parashot available at the moment.</p>
+          ) : (
+              parashot.map(parasha => (
+                  <div key={parasha._id} className="parasha-item">
+                      <h2>{parasha.title}</h2>
+                      <p>{parasha.miniText}</p>
+                      {parasha.image?.url && ( // הצגת תמונה רק אם יש URL
+                          <img 
+                              src={parasha.image.url} 
+                              alt={parasha.image.alt || parasha.title} 
+                              className="parasha-image" 
+                          />
+                      )}
+                      <Link to={`/beitChabad/parasha/${parasha._id}`}>Read More</Link>
+                  </div>
+              ))
+          )}
+      </div>
   );
+  
 };
 
 export default ParashaList;

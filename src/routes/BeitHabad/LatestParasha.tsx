@@ -21,25 +21,27 @@ const LastParasha = () => {
 
   console.log("Rendered lastParasha state:", lastParasha); // לוג למצב הנוכחי של lastParasha
 
-  return (
-    <div className="latest-parasha">
-        {lastParasha ? (
-            <Link to={`/beitChabad/parasha/${lastParasha._id}`} className="parasha-link">
-                <div className="parasha-card">
-                    <img
-                        src={lastParasha.image?.url || "/placeholder.jpg"}
-                        alt={lastParasha.image?.alt || "Placeholder"}
-                        className="parasha-image"
-                    />
-                    <h2 className="parasha-title">{lastParasha.title}</h2>
-                    <p className="parasha-mini-text">{lastParasha.miniText}</p>
-                </div>
-            </Link>
-        ) : (
-            <p>No last Parasha available at the moment.</p> // הודעה אם אין פרשה
-        )}
-    </div>
-);
+    return (
+      <div className="latest-parasha">
+          {lastParasha ? (
+              <Link to={`/beitChabad/parasha/${lastParasha._id}`} className="parasha-link">
+                  <div className="parasha-card">
+                      {lastParasha.image?.url && ( // הצגת תמונה רק אם יש URL
+                          <img
+                              src={lastParasha.image.url}
+                              alt={lastParasha.image.alt || lastParasha.title}
+                              className="parasha-image"
+                          />
+                      )}
+                      <h2 className="parasha-title">{lastParasha.title}</h2>
+                      <p className="parasha-mini-text">{lastParasha.miniText}</p>
+                  </div>
+              </Link>
+          ) : (
+              <p>No last Parasha available at the moment.</p>
+          )}
+      </div>
+  );
 
 };
 
