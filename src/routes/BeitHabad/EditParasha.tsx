@@ -5,7 +5,7 @@ import './EditParasha.scss';
 
 import { getParashaById, updateParasha } from "../../services/parasha-service";
 import dialogs from "../../ui/dialogs";
-import { Parasha, ParashaInput } from "../../@Types/chabadType";
+import { ParashaInput, Parasha } from "../../@Types/chabadType";
 
 const EditParasha = () => {
   const { id } = useParams<{ id: string }>();
@@ -33,8 +33,8 @@ const EditParasha = () => {
           setValue("author", parasha.author);
           setValue("title", parasha.title);
           setValue("miniText", parasha.miniText);
-          setValue("alt", parasha.image?.alt);
-          setValue("image", parasha.image.url);
+          setValue("alt", parasha.alt);
+          setValue("image", parasha.image);
           setValue("parashPage", parasha.parashPage || []);
         })
         .catch(err => setError(err));
@@ -93,13 +93,13 @@ const EditParasha = () => {
             placeholder="Image URL" 
             {...register("image.url", { required: "Image URL is required" })} 
           />
-          {errors.image?.url && <p className="error-text">{errors.image.url.message}</p>}
+          {errors.image?.url && <p className="error-text">{errors.image?.url?.message}</p>}
 
           <input 
             placeholder="Image Alt" 
-            {...register("image.alt", { required: "Image Alt is required" })} 
+            {...register("alt", { required: "Image Alt is required" })} 
           />
-          {errors.image?.alt && <p className="error-text">{errors.image.alt.message}</p>}
+          {errors.alt && <p className="error-text">{errors.alt.message}</p>}
         </section>
 
         {/* Parasha Pages */}
