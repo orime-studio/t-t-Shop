@@ -5,7 +5,7 @@ import './EditParasha.scss';
 
 import { getParashaById, updateParasha } from "../../services/parasha-service";
 import dialogs from "../../ui/dialogs";
-import { ParashaInput } from "../../@Types/chabadType";
+import { Parasha, ParashaInput } from "../../@Types/chabadType";
 
 const EditParasha = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,12 +29,12 @@ const EditParasha = () => {
     if (id) {
       getParashaById(id)
         .then(res => {
-          const parasha = res.data;
+          const parasha: Parasha = res.data;
           setValue("author", parasha.author);
           setValue("title", parasha.title);
           setValue("miniText", parasha.miniText);
-          setValue("alt", parasha.alt);
-          setValue("image", parasha.image);
+          setValue("alt", parasha.image?.alt);
+          setValue("image", parasha.image.url);
           setValue("parashPage", parasha.parashPage || []);
         })
         .catch(err => setError(err));
@@ -93,7 +93,7 @@ const EditParasha = () => {
             placeholder="Image Alt Text" 
             {...register("alt", { required: "Alt text is required" })} 
           />
-          {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
+          {errors.alt && <p className="text-red-500">{errors.image?.alt.message}</p>}
         </section>
 
         {/* Image */}
