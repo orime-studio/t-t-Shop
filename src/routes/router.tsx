@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import CarouselComponent from "../components/Carousel";
+import BeitChabadLayout from "../layout/BeitChabadLayout";
 import Root from "../layout/root";
 import About from "./About";
 import AdminDashboard from "./AdminDashboard";
-
+import EditParasha from "./BeitHabad/EditParasha";
 import HomePage from "./BeitHabad/HomePage";
 import ParashaDetail from "./BeitHabad/ParashaDetail";
 import ParashaList from "./BeitHabad/ParashaList";
@@ -25,8 +26,6 @@ import Register from "./Register";
 import EditProduct from "./UpdateProduct";
 import UpdateUser from "./UpdateUser";
 import UserOrders from "./UserOrders";
-import BeitChabadLayout from "../layout/BeitChabadLayout";
-import EditParasha from "./BeitHabad/EditParasha";
 
 export const router = createBrowserRouter([
     {
