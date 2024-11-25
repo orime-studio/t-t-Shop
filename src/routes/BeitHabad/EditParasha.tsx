@@ -25,6 +25,7 @@ const EditParasha = () => {
             getParashaById(id) // Assuming this is fetching the parasha data
                 .then(res => {
                     const parasha = res.data;
+                    console.log("Parasha data:", parasha);
                     setValue('author', parasha.author);
                     setValue('title', parasha.title);
                     setValue('miniText', parasha.miniText);

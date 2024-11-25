@@ -4,11 +4,11 @@ import BeitChabadLayout from "../layout/BeitChabadLayout";
 import Root from "../layout/root";
 import About from "./About";
 import AdminDashboard from "./AdminDashboard";
+import CreateParasha from "./BeitHabad/CreateParashatShavua";
 import EditParasha from "./BeitHabad/EditParasha";
 import HomePage from "./BeitHabad/HomePage";
 import ParashaDetail from "./BeitHabad/ParashaDetail";
 import ParashaList from "./BeitHabad/ParashaList";
-import CreateNewParasha from "./BeitHabad/createNewParasha";
 import Cart from "./Cart";
 import Contact from "./Contact";
 import CreatePage from "./CreatePage";
@@ -98,7 +98,7 @@ export const router = createBrowserRouter([
                 path: "parasha/create",
                 element: (
                     <ProtectedRouteAdmin>
-                        <CreateNewParasha />
+                        <CreateParasha />
                     </ProtectedRouteAdmin>
                 ),
             },
