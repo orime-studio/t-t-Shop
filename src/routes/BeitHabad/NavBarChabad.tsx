@@ -25,7 +25,7 @@ const NavChabad = () => {
             <div className="flex md:order-2 items-center">
                
 
-                {isLoggedIn && user?.isAdmin && (
+               {/*  {isLoggedIn && user?.isAdmin && (
                     <>
                         <Link to="/admin/dashboard" className="mr-5 hidden md:block">
                             <Tooltip
@@ -36,9 +36,9 @@ const NavChabad = () => {
                                 <FiSettings size={20} className="text-gray hover:text-gray-300" />
                             </Tooltip>
                         </Link>
-                        {/* Add other admin links if needed */}
+                      
                     </>
-                )}
+                )} */}
 
                 {isLoggedIn && (
                     <Dropdown
