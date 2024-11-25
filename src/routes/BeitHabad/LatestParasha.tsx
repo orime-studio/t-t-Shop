@@ -35,6 +35,8 @@ const LastParasha = () => {
                       )}
                       <h2 className="parasha-title">{lastParasha.title}</h2>
                       <p className="parasha-mini-text">{lastParasha.miniText}</p>
+
+                      <p className="parasha-author">By: {lastParasha.author}</p>
                   </div>
               </Link>
           ) : (
