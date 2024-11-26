@@ -96,7 +96,7 @@ export const router = createBrowserRouter([
         children: [
             { index: true, element: <HomePage /> },
             {
-                path: "parasha/create",
+                path: "admin/parasha/create",
                 element: (
                     <ProtectedRouteAdmin>
                         <CreateParasha />
@@ -104,7 +104,7 @@ export const router = createBrowserRouter([
                 ),
             },
           {
-                path: "parasha/edit/:id",
+                path: "admin/parasha/edit/:id",
                 element: (
                     <ProtectedRouteAdmin>
                         <EditParasha />
