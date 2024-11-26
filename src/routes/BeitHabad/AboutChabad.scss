@@ -1,0 +1,74 @@
+.chabad-about-section {
+    background-color: #fcfcfc; // צבע רקע בהיר יותר
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 0;
+    direction: rtl;
+    width: 95%; // הגדלנו את הרוחב ל-95%
+    max-width: 1200px; // הגדלנו את הרוחב המקסימלי
+    margin: 16px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .chabad-about-content-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+  }
+  
+  .chabad-about-image {
+    flex: 1;
+  }
+  
+  .chabad-about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 16px 0 0 16px; // רק לקצוות שמאליים
+  }
+  
+  .chabad-about-details {
+    flex: 1;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .chabad-about-heading {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 16px;
+  }
+  
+  .chabad-about-description {
+    font-size: 18px;
+    margin-bottom: 24px;
+  }
+  
+  .chabad-about-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+  
+  .chabad-about-button {
+    background-color: #6e4a9e; // צבע סגול מעט בהיר יותר מ-#5e407d
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #5e407d; // גוון כהה יותר של סגול
+    }
+  }
+  
