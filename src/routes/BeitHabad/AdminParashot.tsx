@@ -109,8 +109,8 @@ const AdminParashot = () => {
                         <div className="text-gray-700 dark:text-gray-300">{parasha.miniText}</div>
                         <div className="text-gray-700 dark:text-gray-300">{new Date(parasha.createdAt).toLocaleDateString()}</div>
                         <div className="flex justify-between items-center mt-4">
-                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="text-blue-600 hover:text-blue-800">
-                                <FiEdit2 size={20} />
+                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className= "font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                Edit
                             </Link>
                             <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
                                 <FiTrash2 size={20} />
