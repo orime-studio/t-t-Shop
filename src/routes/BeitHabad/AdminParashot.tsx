@@ -75,57 +75,75 @@ const AdminParashot = () => {
 
             <div className="hidden lg:block">  {/* Desktop view */}
                 {!loading && filteredParashot.length > 0 && (
-                    <Table hoverable>
-                        <Table.Head>
-                            <Table.HeadCell>Author</Table.HeadCell>
-                            <Table.HeadCell>Title</Table.HeadCell>
-                            <Table.HeadCell>Mini Text</Table.HeadCell>
-                            <Table.HeadCell>Created At</Table.HeadCell>
-                            <Table.HeadCell>Actions</Table.HeadCell>
-                        </Table.Head>
-                        <Table.Body className="divide-y">
-                            {filteredParashot.map((parasha) => (
-                                <Table.Row key={parasha._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                    <Table.Cell>{parasha.author}</Table.Cell>
-                                    <Table.Cell>{parasha.title}</Table.Cell>
-                                    <Table.Cell>{parasha.miniText}</Table.Cell>
-                                    <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
-                                    <Table.Cell>
-                                        <div className="flex flex-col gap-2">
-                                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                                Edit
-                                            </Link>
-                                            <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
-                                                <FiTrash2 size={20} />
-                                            </button>
-                                        </div>
-                                    </Table.Cell>
-                                </Table.Row>
-                            ))}
-                        </Table.Body>
-                    </Table>
+                   <Table hoverable>
+                   <Table.Head>
+                       <Table.HeadCell>Image</Table.HeadCell> {/* עמודה לתמונה */}
+                       <Table.HeadCell>Author</Table.HeadCell>
+                       <Table.HeadCell>Title</Table.HeadCell>
+                       <Table.HeadCell>Mini Text</Table.HeadCell>
+                       <Table.HeadCell>Created At</Table.HeadCell>
+                       <Table.HeadCell>Actions</Table.HeadCell>
+                   </Table.Head>
+                   <Table.Body className="divide-y">
+                       {filteredParashot.map((parasha) => (
+                           <Table.Row key={parasha._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                               <Table.Cell>
+                                   <img 
+                                       src={parasha.image.url} 
+                                       alt={parasha.title} 
+                                       className="w-16 h-16 object-cover rounded-md"
+                                   />
+                               </Table.Cell> {/* תא להצגת התמונה */}
+                               <Table.Cell>{parasha.author}</Table.Cell>
+                               <Table.Cell>{parasha.title}</Table.Cell>
+                               <Table.Cell>{parasha.miniText}</Table.Cell>
+                               <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
+                               <Table.Cell>
+                                   <div className="flex flex-col gap-2">
+                                       <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                           Edit
+                                       </Link>
+                                       <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
+                                           <FiTrash2 size={20} />
+                                       </button>
+                                   </div>
+                               </Table.Cell>
+                           </Table.Row>
+                       ))}
+                   </Table.Body>
+               </Table>
+               
                 )}
             </div>
 
-            <div className="block lg:hidden">  {/* Mobile view */}
-                {filteredParashot.map((parasha) => (
-                    <div key={parasha._id} className="parasha-card p-4 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-                        <div className="font-medium text-gray-900 dark:text-white mb-2">
-                            {parasha.title} - {parasha.author}
-                        </div>
-                        <div className="text-gray-700 dark:text-gray-300">{parasha.miniText}</div>
-                        <div className="text-gray-700 dark:text-gray-300">{new Date(parasha.createdAt).toLocaleDateString()}</div>
-                        <div className="flex justify-between items-center mt-4">
-                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                Edit
-                            </Link>
-                            <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
-                                <FiTrash2 size={20} />
-                            </button>
-                        </div>
-                    </div>
-                ))}
+            <div className="block lg:hidden">
+    {filteredParashot.map((parasha) => (
+        <div key={parasha._id} className="parasha-card p-4 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <div className="flex items-center gap-4 mb-4">
+                <img 
+                    src={parasha.image.url} 
+                    alt={parasha.title} 
+                    className="w-16 h-16 object-cover rounded-md"
+                />
+                <div>
+                    <div className="font-medium text-gray-900 dark:text-white">{parasha.title}</div>
+                    <div className="text-gray-700 dark:text-gray-300">{parasha.author}</div>
+                </div>
             </div>
+            <div className="text-gray-700 dark:text-gray-300 mb-2">{parasha.miniText}</div>
+            <div className="text-gray-700 dark:text-gray-300">{new Date(parasha.createdAt).toLocaleDateString()}</div>
+            <div className="flex justify-between items-center mt-4">
+                <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                    Edit
+                </Link>
+                <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
+                    <FiTrash2 size={20} />
+                </button>
+            </div>
+        </div>
+    ))}
+</div>
+
         </div>
     );
 };
