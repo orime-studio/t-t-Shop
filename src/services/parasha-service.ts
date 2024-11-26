@@ -59,7 +59,7 @@ export const updateParasha = (id: string, data: FormData) => {
     return axios.put(`${parashaBaseUrl}/${id}`, data, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data", // צריך לשנות ל-multipart/form-data כשיש תמונה
         },
     });
 };
