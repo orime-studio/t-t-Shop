@@ -8,8 +8,8 @@ const HomePage = () => {
   return (
     <div>
       <CarouselChabd />
-      <CandleLightingTimes />
       <LatestParasha />
+      <CandleLightingTimes />
       <LatestVideo />
 
 

@@ -22,21 +22,27 @@ const CandleLightingTimes: FC = () => {
 
   return (
     <div className="cl-table">
-      <h2 className="cl-heading-bold">זמני הדלקת נרות</h2>
       {error ? (
         <p className="cl-error">שגיאה: {error}</p>
       ) : shabbatData ? (
-        <div>
-          <p><strong>תאריך:</strong> {shabbatData.date}</p>
-          <p><strong>פרשה:</strong> {shabbatData.parasha}</p>
-          <p><strong>הדלקת נרות:</strong> {shabbatData.candles}</p>
-          <p><strong>צאת שבת:</strong> {shabbatData.havdalah}</p>
+        <div className="cl-content-wrapper">
+          <div className="cl-image">
+            <img src="/img/light2.png" alt="שבת שלום" />
+          </div>
+          <div className="cl-details">
+            <h2 className="cl-heading-bold">זמני הדלקת נרות</h2>
+            <p><strong>תאריך:</strong> {shabbatData.date}</p>
+            <p><strong>פרשה:</strong> {shabbatData.parasha}</p>
+            <p><strong>הדלקת נרות:</strong> {shabbatData.candles}</p>
+            <p><strong>צאת שבת:</strong> {shabbatData.havdalah}</p>
+          </div>
         </div>
       ) : (
         <p>טוען נתונים...</p>
       )}
     </div>
   );
+  
 };
 
 export default CandleLightingTimes;
