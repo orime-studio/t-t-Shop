@@ -1,9 +1,9 @@
-import { Table } from 'flowbite-react';
+import { Table, Tooltip } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSearch } from '../../hooks/useSearch';
 import { Parasha } from '../../@Types/chabadType';
 import { deleteParashaById, getAllParashot, updateParasha } from '../../services/parasha-service';
-import { FiTrash2, FiEdit2 } from 'react-icons/fi';
+import { FiTrash2, FiEdit2, FiPlus } from 'react-icons/fi';
 import dialogs from '../../ui/dialogs';
 import { Link } from 'react-router-dom';
 
@@ -61,7 +61,14 @@ const AdminParashot = () => {
     return (
         <div className="overflow-x-auto bg-white dark:border-gray-700 dark:bg-gray-800">
             <h2 className='text-4xl text-gray-800 mb-7 text-center mt-7'>Parashot</h2>
-
+            <div className="admin-products-add-button mb-4 flex justify-end">
+                <Tooltip content="Add Product" placement="top" className="text-sm bg-gray-800 text-white rounded px-2 py-1">
+                    <Link to="/admin/create-product" className="text-white bg-[#c37d69] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <FiPlus size={20} />
+                        <span className="sr-only">Add Product</span>
+                    </Link>
+                </Tooltip>
+            </div>
             {loading && <div className="text-center">Loading...</div>}
             {error && <div className="text-red-500 text-center mb-4">{error.message}</div>}
             {!loading && filteredParashot.length === 0 && <div className="text-center">No parashot found.</div>}
@@ -84,9 +91,9 @@ const AdminParashot = () => {
                                     <Table.Cell>{parasha.miniText}</Table.Cell>
                                     <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
                                     <Table.Cell>
-                                        <div className="flex flex-col">
+                                        <div className="flex flex-col gap-2">
                                             <Link to={`/beitChabad/editParasha/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                            Edit
+                                                Edit
                                             </Link>
                                             <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
                                                 <FiTrash2 size={20} />
@@ -109,7 +116,7 @@ const AdminParashot = () => {
                         <div className="text-gray-700 dark:text-gray-300">{parasha.miniText}</div>
                         <div className="text-gray-700 dark:text-gray-300">{new Date(parasha.createdAt).toLocaleDateString()}</div>
                         <div className="flex justify-between items-center mt-4">
-                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className= "font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                                 Edit
                             </Link>
                             <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
