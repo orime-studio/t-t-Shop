@@ -92,7 +92,7 @@ const AdminParashot = () => {
                                     <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
                                     <Table.Cell>
                                         <div className="flex flex-col gap-2">
-                                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                            <Link to={`/beitChabad/admin/editParasha/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                                                 Edit
                                             </Link>
                                             <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
