@@ -55,7 +55,7 @@ const NavChabad = () => {
                         <Dropdown.Divider />
                         {user.isAdmin && (
                             <>
-                                <Dropdown.Item onClick={() => navigate("/chabad/admin")}>
+                                <Dropdown.Item onClick={() => navigate("/beitChabad/admin")}>
                                     ניהול תוכן
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
