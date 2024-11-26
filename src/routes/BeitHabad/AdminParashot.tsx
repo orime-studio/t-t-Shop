@@ -63,7 +63,7 @@ const AdminParashot = () => {
             <h2 className='text-4xl text-gray-800 mb-7 text-center mt-7'>Parashot</h2>
             <div className="admin-products-add-button mb-4 flex justify-end">
                 <Tooltip content="Add Product" placement="top" className="text-sm bg-gray-800 text-white rounded px-2 py-1">
-                    <a href="admin/parasha/create" className="text-white bg-[#c37d69] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-3 mr-2text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <a href="admin/parasha/create" className="text-white bg-[#c37d69] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <FiPlus size={20} />
                         <span className="sr-only">Add Product</span>
                     </a>
@@ -116,7 +116,7 @@ const AdminParashot = () => {
                         <div className="text-gray-700 dark:text-gray-300">{parasha.miniText}</div>
                         <div className="text-gray-700 dark:text-gray-300">{new Date(parasha.createdAt).toLocaleDateString()}</div>
                         <div className="flex justify-between items-center mt-4">
-                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                            <Link to={`/beitChabad/admin/editParasha/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                                 Edit
                             </Link>
                             <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
