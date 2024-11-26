@@ -2,7 +2,10 @@ import { Table } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useSearch } from '../../hooks/useSearch';
 import { Parasha } from '../../@Types/chabadType';
-import { getAllParashot } from '../../services/parasha-service';
+import { deleteParashaById, getAllParashot, updateParasha } from '../../services/parasha-service';
+import { FiTrash2, FiEdit2 } from 'react-icons/fi';
+import dialogs from '../../ui/dialogs';
+import { Link } from 'react-router-dom';
 
 
 const AdminParashot = () => {
@@ -15,7 +18,7 @@ const AdminParashot = () => {
     useEffect(() => {
         getAllParashot()
             .then(data => {
-                console.log('Parashot fetched:', data); // הדפס את התגובה כאן
+                console.log('Parashot fetched:', data); // Log the response
                 if (Array.isArray(data)) {
                     setParashot(data);
                     setFilteredParashot(data);
@@ -41,6 +44,20 @@ const AdminParashot = () => {
         );
     }, [searchTerm, parashot]);
 
+
+    const handleDeleteParasha = async (parashaId: string) => {
+        const result = await dialogs.confirm("Delete Parasha", "Are you sure you want to delete this parasha?");
+        if (result.isConfirmed) {
+            try {
+                await deleteParashaById(parashaId);
+                setParashot(parashot.filter(parasha => parasha._id !== parashaId));
+                dialogs.success("Parasha Deleted", "The parasha has been deleted successfully.");
+            } catch (err) {
+                dialogs.error("Error", "Failed to delete the parasha.");
+            }
+        }
+    };
+
     return (
         <div className="overflow-x-auto bg-white dark:border-gray-700 dark:bg-gray-800">
             <h2 className='text-4xl text-gray-800 mb-7 text-center mt-7'>Parashot</h2>
@@ -49,7 +66,7 @@ const AdminParashot = () => {
             {error && <div className="text-red-500 text-center mb-4">{error.message}</div>}
             {!loading && filteredParashot.length === 0 && <div className="text-center">No parashot found.</div>}
 
-            <div className="hidden lg:block">  {/* תצוגה לדסקטופ */}
+            <div className="hidden lg:block">  {/* Desktop view */}
                 {!loading && filteredParashot.length > 0 && (
                     <Table hoverable>
                         <Table.Head>
@@ -57,6 +74,7 @@ const AdminParashot = () => {
                             <Table.HeadCell>Title</Table.HeadCell>
                             <Table.HeadCell>Mini Text</Table.HeadCell>
                             <Table.HeadCell>Created At</Table.HeadCell>
+                            <Table.HeadCell>Actions</Table.HeadCell>
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {filteredParashot.map((parasha) => (
@@ -65,6 +83,16 @@ const AdminParashot = () => {
                                     <Table.Cell>{parasha.title}</Table.Cell>
                                     <Table.Cell>{parasha.miniText}</Table.Cell>
                                     <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
+                                    <Table.Cell>
+                                        <div className="flex space-x-2">
+                                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="text-blue-600 hover:text-blue-800">
+                                                <FiEdit2 size={20} />
+                                            </Link>
+                                            <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
+                                                <FiTrash2 size={20} />
+                                            </button>
+                                        </div>
+                                    </Table.Cell>
                                 </Table.Row>
                             ))}
                         </Table.Body>
@@ -72,7 +100,7 @@ const AdminParashot = () => {
                 )}
             </div>
 
-            <div className="block lg:hidden">  {/* תצוגה למובייל */}
+            <div className="block lg:hidden">  {/* Mobile view */}
                 {filteredParashot.map((parasha) => (
                     <div key={parasha._id} className="parasha-card p-4 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
                         <div className="font-medium text-gray-900 dark:text-white mb-2">
@@ -80,11 +108,19 @@ const AdminParashot = () => {
                         </div>
                         <div className="text-gray-700 dark:text-gray-300">{parasha.miniText}</div>
                         <div className="text-gray-700 dark:text-gray-300">{new Date(parasha.createdAt).toLocaleDateString()}</div>
+                        <div className="flex justify-between items-center mt-4">
+                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="text-blue-600 hover:text-blue-800">
+                                <FiEdit2 size={20} />
+                            </Link>
+                            <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
+                                <FiTrash2 size={20} />
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
         </div>
     );
-}
+};
 
 export default AdminParashot;
