@@ -1,11 +1,11 @@
 import { Table, Tooltip } from 'flowbite-react';
 import { useEffect, useState } from 'react';
-import { useSearch } from '../../hooks/useSearch';
-import { Parasha } from '../../@Types/chabadType';
-import { deleteParashaById, getAllParashot, updateParasha } from '../../services/parasha-service';
-import { FiTrash2, FiEdit2, FiPlus } from 'react-icons/fi';
-import dialogs from '../../ui/dialogs';
+import { FiPlus, FiTrash2 } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { Parasha } from '../../@Types/chabadType';
+import { useSearch } from '../../hooks/useSearch';
+import { deleteParashaById, getAllParashot } from '../../services/parasha-service';
+import dialogs from '../../ui/dialogs';
 
 
 const AdminParashot = () => {
@@ -63,7 +63,7 @@ const AdminParashot = () => {
             <h2 className='text-4xl text-gray-800 mb-7 text-center mt-7'>Parashot</h2>
             <div className="admin-products-add-button mb-4 flex justify-end">
                 <Tooltip content="Add Product" placement="top" className="text-sm bg-gray-800 text-white rounded px-2 py-1">
-                    <a href="admin/parasha/create" className="text-white bg-[#c37d69] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <a href="admin/parasha/create" className="text-white bg-[#c37d69] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-3 mr-2text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <FiPlus size={20} />
                         <span className="sr-only">Add Product</span>
                     </a>
