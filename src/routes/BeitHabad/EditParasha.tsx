@@ -49,21 +49,24 @@ const EditParasha = () => {
                 formData.append("author", data.author);
                 formData.append("title", data.title);
                 formData.append("miniText", data.miniText);
-
+    
                 // Add parashPage
                 data.parashPage.forEach((page, index) => {
                     formData.append(`parashPage[${index}][title]`, page.title);
                     formData.append(`parashPage[${index}][text]`, page.text);
                 });
-
+    
                 formData.append("alt", data.alt);
+    
+                // Check if image is selected
                 if (image) {
                     formData.append("image", image);
                 } else {
-                    formData.append("imageUrl", imageUrl); // Use the existing image if no new image is selected
+                    // If no new image, keep the URL of the existing image
+                    formData.append("imageUrl", imageUrl || "");  // empty string if imageUrl is not available
                 }
-
-                await updateParasha(id, formData); // Assuming updateProduct is also used for parasha updates
+    
+                await updateParasha(id, formData); // Assuming updateParasha is used to update the parasha
                 dialogs.success("Success", "Parasha updated successfully").then(() => {
                     navigate("/beitChabad/admin");
                 });
@@ -73,6 +76,7 @@ const EditParasha = () => {
             console.log(error);
         }
     };
+    
 
     if (error) return <div>Error: {error.message}</div>;
 
