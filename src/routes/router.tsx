@@ -26,6 +26,7 @@ import Register from "./Register";
 import EditProduct from "./UpdateProduct";
 import UpdateUser from "./UpdateUser";
 import UserOrders from "./UserOrders";
+import ChabadDashboard from "./BeitHabad/ChabadDashboard";
 
 export const router = createBrowserRouter([
     {
@@ -118,6 +119,14 @@ export const router = createBrowserRouter([
                 path: "parasha",
                 element: <ParashaList />,
             },
+            {
+                path: "admin",
+                element: (
+                    <ProtectedRouteAdmin>
+                        <ChabadDashboard />
+                    </ProtectedRouteAdmin>
+                ),
+            }
         ],
     },
 ]);
