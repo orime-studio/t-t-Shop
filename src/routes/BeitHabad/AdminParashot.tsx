@@ -6,7 +6,7 @@ import { deleteParashaById, getAllParashot, updateParasha } from '../../services
 import { FiTrash2, FiEdit2 } from 'react-icons/fi';
 import dialogs from '../../ui/dialogs';
 import { Link } from 'react-router-dom';
-
+import './AdminParashot.scss';
 
 const AdminParashot = () => {
     const { searchTerm } = useSearch();
@@ -44,7 +44,6 @@ const AdminParashot = () => {
         );
     }, [searchTerm, parashot]);
 
-
     const handleDeleteParasha = async (parashaId: string) => {
         const result = await dialogs.confirm("Delete Parasha", "Are you sure you want to delete this parasha?");
         if (result.isConfirmed) {
@@ -59,14 +58,14 @@ const AdminParashot = () => {
     };
 
     return (
-        <div className="overflow-x-auto bg-white dark:border-gray-700 dark:bg-gray-800">
-            <h2 className='text-4xl text-gray-800 mb-7 text-center mt-7'>Parashot</h2>
+        <div className="admin-parashot">
+            <h2 className="admin-parashot-title">Parashot</h2>
 
-            {loading && <div className="text-center">Loading...</div>}
-            {error && <div className="text-red-500 text-center mb-4">{error.message}</div>}
-            {!loading && filteredParashot.length === 0 && <div className="text-center">No parashot found.</div>}
+            {loading && <div className="loading-text">Loading...</div>}
+            {error && <div className="error-text">{error.message}</div>}
+            {!loading && filteredParashot.length === 0 && <div className="no-parashot-text">No parashot found.</div>}
 
-            <div className="hidden lg:block">  {/* Desktop view */}
+            <div className="desktop-view">
                 {!loading && filteredParashot.length > 0 && (
                     <Table hoverable>
                         <Table.Head>
@@ -78,17 +77,17 @@ const AdminParashot = () => {
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {filteredParashot.map((parasha) => (
-                                <Table.Row key={parasha._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                <Table.Row key={parasha._id} className="parasha-row">
                                     <Table.Cell>{parasha.author}</Table.Cell>
                                     <Table.Cell>{parasha.title}</Table.Cell>
                                     <Table.Cell>{parasha.miniText}</Table.Cell>
                                     <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
                                     <Table.Cell>
-                                        <div className="flex flex-col">
-                                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                                <FiEdit2 size={20} />
+                                        <div className="actions">
+                                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="edit-link">
+                                                Edit
                                             </Link>
-                                            <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
+                                            <button onClick={() => handleDeleteParasha(parasha._id)} className="delete-button">
                                                 <FiTrash2 size={20} />
                                             </button>
                                         </div>
@@ -100,19 +99,19 @@ const AdminParashot = () => {
                 )}
             </div>
 
-            <div className="block lg:hidden">  {/* Mobile view */}
+            <div className="mobile-view">
                 {filteredParashot.map((parasha) => (
-                    <div key={parasha._id} className="parasha-card p-4 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-                        <div className="font-medium text-gray-900 dark:text-white mb-2">
+                    <div key={parasha._id} className="parasha-card">
+                        <div className="parasha-title">
                             {parasha.title} - {parasha.author}
                         </div>
-                        <div className="text-gray-700 dark:text-gray-300">{parasha.miniText}</div>
-                        <div className="text-gray-700 dark:text-gray-300">{new Date(parasha.createdAt).toLocaleDateString()}</div>
-                        <div className="flex justify-between items-center mt-4">
-                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className= "font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                        <div className="parasha-text">{parasha.miniText}</div>
+                        <div className="parasha-date">{new Date(parasha.createdAt).toLocaleDateString()}</div>
+                        <div className="mobile-actions">
+                            <Link to={`/beitChabad/editParasha/${parasha._id}`} className="edit-link">
                                 Edit
                             </Link>
-                            <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
+                            <button onClick={() => handleDeleteParasha(parasha._id)} className="delete-button">
                                 <FiTrash2 size={20} />
                             </button>
                         </div>
