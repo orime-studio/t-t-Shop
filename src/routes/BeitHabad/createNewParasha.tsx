@@ -46,7 +46,7 @@ const CreateNewParasha = () => {
             await createNewParasha(formData);
             dialogs.success("Success", "Parasha Created Successfully")
                 .then(() => {
-                    navigate("/beitChabad/parasha");
+                    navigate("beitChabad/admin");
                 });
         } catch (error: any) {
             console.error("Form Data Error:", error);

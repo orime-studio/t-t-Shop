@@ -1,4 +1,4 @@
-import { useForm, useFieldArray } from "react-hook-form";
+/* import { useForm, useFieldArray } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import dialogs from "../../ui/dialogs";
@@ -106,3 +106,4 @@ const CreateParasha = () => {
 };
 
 export default CreateParasha;
+ */
