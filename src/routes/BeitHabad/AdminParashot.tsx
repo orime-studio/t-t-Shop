@@ -86,7 +86,7 @@ const AdminParashot = () => {
                                     <Table.Cell>
                                         <div className="flex flex-col">
                                             <Link to={`/beitChabad/editParasha/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                                <FiEdit2 size={20} />
+                                            Edit
                                             </Link>
                                             <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
                                                 <FiTrash2 size={20} />
