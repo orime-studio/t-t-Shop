@@ -30,7 +30,7 @@ const EditParasha = () => {
                     setValue('title', parasha.title);
                     setValue('miniText', parasha.miniText);
                     setValue('alt', parasha.alt || parasha.title);
-                    setImageUrl(parasha.image?.url || "");
+                    setImageUrl(parasha.image?.url);
 
                     // Set the parashPage array
                     setValue('parashPage', parasha.parashPage);
@@ -65,7 +65,7 @@ const EditParasha = () => {
 
                 await updateParasha(id, formData); // Assuming updateProduct is also used for parasha updates
                 dialogs.success("Success", "Parasha updated successfully").then(() => {
-                    navigate("/admin/dashboard");
+                    navigate("/beitChabad/admin");
                 });
             }
         } catch (error: any) {
