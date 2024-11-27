@@ -4,7 +4,6 @@ import { useState } from "react";
 import dialogs from "../../ui/dialogs";
 import { Parasha } from "../../@Types/chabadType";
 import { createNewParasha } from "../../services/parasha-service";
-import './createNewParasha.scss';
 
 const CreateNewParasha = () => {
     const navigate = useNavigate();
@@ -56,26 +55,41 @@ const CreateNewParasha = () => {
     };
 
     return (
-        <div className="create-card-container bg-[#ffffff] text-gray-800 dark:bg-slate-600">
+        <div className="create-card-container">
             <h2 className="dark:text-white">יצירת פרשה חדשה</h2>
-            <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                <section>
-                    <input placeholder="מקור" {...register("source", { required: "המקור הוא שדה חובה" })} />
+            <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-container">
+                <section className="section">
+                    <input 
+                        className="input" 
+                        placeholder="מקור" 
+                        {...register("source", { required: "המקור הוא שדה חובה" })} 
+                    />
                     {errors.source && <p className="text-red-500">{errors.source.message}</p>}
                 </section>
-                <section>
-                    <input placeholder="כותרת" {...register("title", { required: "הכותרת היא שדה חובה" })} />
+                <section className="section">
+                    <input 
+                        className="input" 
+                        placeholder="כותרת" 
+                        {...register("title", { required: "הכותרת היא שדה חובה" })} 
+                    />
                     {errors.title && <p className="text-red-500">{errors.title.message}</p>}
                 </section>
-                <section>
-                    <textarea placeholder="תיאור קצר" {...register("miniText", { required: "תיאור קצר הוא שדה חובה" })} />
+                <section className="section">
+                    <textarea 
+                        className="textarea" 
+                        placeholder="תיאור קצר" 
+                        {...register("miniText", { required: "תיאור קצר הוא שדה חובה" })} 
+                    />
                     {errors.miniText && <p className="text-red-500">{errors.miniText.message}</p>}
                 </section>
 
-                <section>
+                <section className="section">
+                    <label htmlFor="file-input" className="file-label">בחר תמונה</label>
                     <input
+                        className="input-file"
                         type="file"
                         accept="image/*"
+                        id="file-input"
                         onChange={(e) => {
                             const file = e.target.files?.[0] || null;
                             setImage(file);
@@ -84,30 +98,49 @@ const CreateNewParasha = () => {
                     />
                     {imageName && <p className="file-name">{imageName}</p>}
                 </section>
-                <section>
-                    <input placeholder="תיאור התמונה" {...register("alt", { required: "תיאור התמונה הוא שדה חובה" })} />
+
+                <section className="section">
+                    <input 
+                        className="input" 
+                        placeholder="תיאור התמונה" 
+                        {...register("alt", { required: "תיאור התמונה הוא שדה חובה" })} 
+                    />
                     {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
                 </section>
 
-                <section>
+                <section className="section">
                     <h3 className="mb-2">קטעי פרשה:</h3>
                     {fields.map((page, index) => (
                         <div key={page.id} className="variant">
                             <input
-                                placeholder="כותרת הקטע"
+                                className="input" 
+                                placeholder="כותרת הקטע" 
                                 {...register(`longText.${index}.title` as const)} // הסר את 'required'
                             />
                             <textarea
-                                placeholder="תוכן הקטע"
+                                className="textarea" 
+                                placeholder="תוכן הקטע" 
                                 {...register(`longText.${index}.text` as const, { required: "תוכן הקטע הוא שדה חובה" })}
                             />
-                            <button type="button" className="removeButton" onClick={() => remove(index)}>הסרת קטע</button>
+                            <button 
+                                type="button" 
+                                className="remove-button" 
+                                onClick={() => remove(index)}
+                            >
+                                הסרת קטע
+                            </button>
                         </div>
                     ))}
-                    <button type="button" className="add-variant-button" onClick={() => append({ title: "", text: "" })}>הוסף קטע</button>
+                    <button 
+                        type="button" 
+                        className="add-variant-button" 
+                        onClick={() => append({ title: "", text: "" })}
+                    >
+                        הוסף קטע
+                    </button>
                 </section>
 
-                <button type="submit" className="submit-button bg-slate-600 text-white dark:bg-slate-900">צור פרשה</button>
+                <button type="submit" className="button">צור פרשה</button>
             </form>
         </div>
     );
