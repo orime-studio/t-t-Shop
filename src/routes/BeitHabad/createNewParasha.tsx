@@ -17,22 +17,22 @@ const CreateNewParasha = () => {
 
     const onSubmit = async (data: Parasha) => {
         if (!image) {
-            dialogs.error("Error", "Please select an image.");
+            dialogs.error("שגיאה", "אנא בחר תמונה.");
             return;
         }
 
-        if (!data.parashPage.length) {
-            dialogs.error("Error", "Please add at least one Parasha page.");
+        if (!data.longText.length) {
+            dialogs.error("שגיאה", "אנא הוסף לפחות דף פרשה אחד.");
             return;
         }
 
         const formData = new FormData();
-        formData.append("author", data.author);
+        formData.append("source", data.source);
         formData.append("title", data.title);
         formData.append("miniText", data.miniText);
         formData.append("alt", data.alt);
 
-        data.parashPage.forEach((page, index) => {
+        data.longText.forEach((page, index) => {
             formData.append(`parashPage[${index}][title]`, page.title);
             formData.append(`parashPage[${index}][text]`, page.text);
         });
@@ -42,32 +42,32 @@ const CreateNewParasha = () => {
         }
 
         try {
-            console.log("Form Data:", Object.fromEntries(formData.entries())); // לוג לפני שליחה
+            console.log("נתוני הטופס:", Object.fromEntries(formData.entries())); // לוג לפני שליחה
             await createNewParasha(formData);
-            dialogs.success("Success", "Parasha Created Successfully")
+            dialogs.success("הצלחה", "הפרשה נוצרה בהצלחה")
                 .then(() => {
                     navigate("/beitChabad/admin");
                 });
         } catch (error: any) {
-            console.error("Form Data Error:", error);
-            dialogs.error("Error", error.response?.data?.message || "Failed to create Parasha");
+            console.error("שגיאה בנתוני הטופס:", error);
+            dialogs.error("שגיאה", error.response?.data?.message || "לא הצלחנו ליצור את הפרשה");
         }
     };
 
     return (
         <div className="create-card-container bg-[#ffffff] text-gray-800 dark:bg-slate-600">
-            <h2 className="dark:text-white">Create New Parasha</h2>
+            <h2 className="dark:text-white">יצירת פרשה חדשה</h2>
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <section>
-                    <input placeholder="Author" {...register("author", { required: "Author is required" })} />
-                    {errors.author && <p className="text-red-500">{errors.author.message}</p>}
+                    <input placeholder="מקור" {...register("source", { required: "המקור הוא שדה חובה" })} />
+                    {errors.source && <p className="text-red-500">{errors.source.message}</p>}
                 </section>
                 <section>
-                    <input placeholder="Title" {...register("title", { required: "Title is required" })} />
+                    <input placeholder="כותרת" {...register("title", { required: "הכותרת היא שדה חובה" })} />
                     {errors.title && <p className="text-red-500">{errors.title.message}</p>}
                 </section>
                 <section>
-                    <textarea placeholder="Mini Text" {...register("miniText", { required: "Mini Text is required" })} />
+                    <textarea placeholder="תיאור קצר" {...register("miniText", { required: "תיאור קצר הוא שדה חובה" })} />
                     {errors.miniText && <p className="text-red-500">{errors.miniText.message}</p>}
                 </section>
 
@@ -84,22 +84,29 @@ const CreateNewParasha = () => {
                     {imageName && <p className="file-name">{imageName}</p>}
                 </section>
                 <section>
-                    <input placeholder="Image Description" {...register("alt", { required: "Image description is required" })} />
+                    <input placeholder="תיאור התמונה" {...register("alt", { required: "תיאור התמונה הוא שדה חובה" })} />
                     {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
                 </section>
 
                 <section>
-                    <h3 className="mb-2">Parasha Pages:</h3>
+                    <h3 className="mb-2">דפי פרשה:</h3>
                     {fields.map((page, index) => (
                         <div key={page.id} className="variant">
-                            <input placeholder="Page Title" {...register(`parashPage.${index}.title` as const, { required: "Page title is required" })} />
-                            <textarea placeholder="Page Text" {...register(`parashPage.${index}.text` as const, { required: "Page text is required" })} />
-                            <button type="button" className="removeButton" onClick={() => remove(index)}>Remove Page</button>
+                            <input
+                                placeholder="כותרת הדף"
+                                {...register(`longText.${index}.title` as const)} // הסר את 'required'
+                            />
+                            <textarea
+                                placeholder="תוכן הדף"
+                                {...register(`longText.${index}.text` as const, { required: "תוכן הדף הוא שדה חובה" })}
+                            />
+                            <button type="button" className="removeButton" onClick={() => remove(index)}>הסרת דף</button>
                         </div>
                     ))}
-                    <button type="button" className="add-variant-button" onClick={() => append({ title: "", text: "" })}>Add Page</button>
+                    <button type="button" className="add-variant-button" onClick={() => append({ title: "", text: "" })}>הוסף דף</button>
                 </section>
-                <button type="submit" className="submit-button bg-slate-600 text-white dark:bg-slate-900">Create Parasha</button>
+
+                <button type="submit" className="submit-button bg-slate-600 text-white dark:bg-slate-900">צור פרשה</button>
             </form>
         </div>
     );

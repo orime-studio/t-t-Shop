@@ -27,7 +27,7 @@ const CreateParasha = () => {
         }
 
         const formData = new FormData();
-        formData.append("author", data.author);
+        formData.append("source", data.source);
         formData.append("title", data.title);
         formData.append("miniText", data.miniText);
         formData.append("alt", data.alt);
@@ -59,8 +59,8 @@ const CreateParasha = () => {
             <h2 className="dark:text-white">Create New Parasha</h2>
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <section>
-                    <input placeholder="Author" {...register("author", { required: "Author is required" })} />
-                    {errors.author && <p className="text-red-500">{errors.author.message}</p>}
+                    <input placeholder="source" {...register("source", { required: "source is required" })} />
+                    {errors.source && <p className="text-red-500">{errors.source.message}</p>}
                 </section>
                 <section>
                     <input placeholder="Title" {...register("title", { required: "Title is required" })} />

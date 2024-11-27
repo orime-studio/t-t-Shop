@@ -12,7 +12,7 @@ const EditParasha = () => {
     const { register, handleSubmit, setValue, formState: { errors }, control } = useForm<ParashaInput>();
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "parashPage"
+        name: "longText"
     });
     const [error, setError] = useState<Error | null>(null);
     const navigate = useNavigate();
@@ -26,14 +26,14 @@ const EditParasha = () => {
                 .then(res => {
                     const parasha = res.data;
                     console.log("Parasha data:", parasha);
-                    setValue('author', parasha.author);
+                    setValue('source', parasha.source);
                     setValue('title', parasha.title);
                     setValue('miniText', parasha.miniText);
                     setValue('alt', parasha.alt || parasha.title);
                     setImageUrl(parasha.image?.url);
 
                     // Set the parashPage array
-                    setValue('parashPage', parasha.parashPage);
+                    setValue('longText', parasha.parashPage);
 
                     // If there is an existing image
                     setImageName(parasha.image?.url.split('/').pop() || "");
@@ -46,18 +46,18 @@ const EditParasha = () => {
         try {
             if (id) {
                 const formData = new FormData();
-                formData.append("author", data.author);
+                formData.append("source", data.source);
                 formData.append("title", data.title);
                 formData.append("miniText", data.miniText);
-    
+
                 // Add parashPage
-                data.parashPage.forEach((page, index) => {
+                data.longText.forEach((page, index) => {
                     formData.append(`parashPage[${index}][title]`, page.title);
                     formData.append(`parashPage[${index}][text]`, page.text);
                 });
-    
+
                 formData.append("alt", data.alt);
-    
+
                 // Check if image is selected
                 if (image) {
                     formData.append("image", image);
@@ -65,7 +65,7 @@ const EditParasha = () => {
                     // If no new image, keep the URL of the existing image
                     formData.append("imageUrl", imageUrl || "");  // empty string if imageUrl is not available
                 }
-    
+
                 await updateParasha(id, formData); // Assuming updateParasha is used to update the parasha
                 dialogs.success("Success", "Parasha updated successfully").then(() => {
                     navigate("/beitChabad/admin");
@@ -76,7 +76,7 @@ const EditParasha = () => {
             console.log(error);
         }
     };
-    
+
 
     if (error) return <div>Error: {error.message}</div>;
 
@@ -85,8 +85,8 @@ const EditParasha = () => {
             <h2>Edit Parasha</h2>
             <form noValidate onSubmit={handleSubmit(onSubmit)}>
                 <section>
-                    <input placeholder="Author" {...register("author", { required: "Author is required" })} />
-                    {errors.author && <p className="text-red-500">{errors.author.message}</p>}
+                    <input placeholder="source" {...register("source", { required: "source is required" })} />
+                    {errors.source && <p className="text-red-500">{errors.source.message}</p>}
                 </section>
                 <section>
                     <input placeholder="Title" {...register("title", { required: "Title is required" })} />
@@ -118,8 +118,8 @@ const EditParasha = () => {
                     <h3 className="mb-2">Parasha Pages:</h3>
                     {fields.map((page, index) => (
                         <div key={page.id} className="parasha-page">
-                            <input placeholder="Page Title" {...register(`parashPage.${index}.title` as const, { required: "Page Title is required" })} />
-                            <textarea placeholder="Page Text" {...register(`parashPage.${index}.text` as const, { required: "Page Text is required" })} />
+                            <input placeholder="Page Title" {...register(`longText.${index}.title` as const, { required: "Page Title is required" })} />
+                            <textarea placeholder="Page Text" {...register(`longText.${index}.text` as const, { required: "Page Text is required" })} />
                             <button type="button" className="removeButton" onClick={() => remove(index)}>Remove</button>
                         </div>
                     ))}

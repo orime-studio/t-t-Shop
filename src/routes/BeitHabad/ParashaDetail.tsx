@@ -38,7 +38,7 @@ const ParashaDetail = () => {
             />
             <h1>{parasha.title}</h1>
             <div className="parasha-pages">
-                {parasha.parashPage.map((page, index) => (
+                {parasha.longText.map((page, index) => (
                     <div key={index} className="parasha-page">
                         <h2>{page.title}</h2>
                         <p>{page.text}</p>

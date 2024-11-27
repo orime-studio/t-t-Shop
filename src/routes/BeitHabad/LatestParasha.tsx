@@ -36,7 +36,7 @@ const LastParasha = () => {
             <div className="parasha-details">
               <h2 className="parasha-title">{lastParasha.title}</h2>
               <p className="parasha-mini-text">{lastParasha.miniText}</p>
-              <p className="parasha-author">{lastParasha.author}</p>
+              <p className="parasha-source">{lastParasha.source}</p>
             </div>
           </div>
         </Link>

@@ -37,7 +37,7 @@ const AdminParashot = () => {
         setFilteredParashot(
             parashot.filter(parasha =>
                 parasha.title.toLowerCase().includes(lowercasedSearchTerm) ||
-                parasha.author.toLowerCase().includes(lowercasedSearchTerm) ||
+                parasha.source.toLowerCase().includes(lowercasedSearchTerm) ||
                 parasha.miniText.toLowerCase().includes(lowercasedSearchTerm)
             )
         );
@@ -92,7 +92,7 @@ const AdminParashot = () => {
                                             className="w-16 h-16 object-cover rounded-md"
                                         />
                                     </Table.Cell>
-                                    <Table.Cell>{parasha.author}</Table.Cell>
+                                    <Table.Cell>{parasha.source}</Table.Cell>
                                     <Table.Cell>{parasha.title}</Table.Cell>
                                     <Table.Cell>{parasha.miniText}</Table.Cell>
                                     <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
@@ -124,7 +124,7 @@ const AdminParashot = () => {
                             />
                             <div>
                                 <div className="font-medium text-gray-900 dark:text-white">{parasha.title}</div>
-                                <div className="text-gray-700 dark:text-gray-300">{parasha.author}</div>
+                                <div className="text-gray-700 dark:text-gray-300">{parasha.source}</div>
                             </div>
                         </div>
                         <div className="text-gray-700 dark:text-gray-300 mb-2">{parasha.miniText}</div>
