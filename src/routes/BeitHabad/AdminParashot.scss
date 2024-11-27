@@ -1,6 +1,8 @@
 .admin-parashot-container {
     direction: rtl;
     margin-top: 2rem;
+ margin-right: 10px;
+    padding: 2rem;
   
     .admin-parashot-header {
       font-size: 2rem;
@@ -16,14 +18,14 @@
     }
   
     .button-add-parasha {
-      background-color: #989c9a;
+      background-color: #c37d69;
       color: white;
-      padding: 0.5rem 1rem;
+      padding: 15px;
       border-radius: 50%;
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      
   
       &:hover {
         background-color: #2f855a;
