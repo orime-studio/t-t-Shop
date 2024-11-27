@@ -6,7 +6,7 @@ import { Parasha } from '../../@Types/chabadType';
 import { useSearch } from '../../hooks/useSearch';
 import { deleteParashaById, getAllParashot } from '../../services/parasha-service';
 import dialogs from '../../ui/dialogs';
-import './AdminParashot.scss';
+import './admin-parashot.css'; // Import the CSS file
 
 const AdminParashot = () => {
     const { searchTerm } = useSearch();
@@ -61,15 +61,16 @@ const AdminParashot = () => {
         <div className="admin-parashot-container">
             <h2 className="admin-parashot-header">רשימת פרשות</h2>
             <div className="admin-parashot-add-button">
-                <Tooltip content="הוסף פרשה" placement="top" className="text-sm bg-gray-800 text-white rounded px-2 py-1">
-                    <a href="admin/parasha/create" className="text-white bg-[#c37d69] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <Tooltip content="הוסף פרשה" placement="top" className="tooltip-custom">
+            <a href="admin/parasha/create" className="button-add-parasha">
                         <FiPlus size={20} />
                         <span className="sr-only">הוסף פרשה</span>
                     </a>
+
                 </Tooltip>
             </div>
             {loading && <div className="text-center">טוען...</div>}
-            {error && <div className="text-red-500 text-center mb-4">{error.message}</div>}
+            {error && <div className="error-message">{error.message}</div>}
             {!loading && filteredParashot.length === 0 && <div className="text-center">לא נמצאו פרשות.</div>}
 
             <div className="hidden lg:block">  {/* Desktop view */}
@@ -85,7 +86,7 @@ const AdminParashot = () => {
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {filteredParashot.map((parasha) => (
-                                <Table.Row key={parasha._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                               <Table.Row key={parasha._id} className="table-row">
                                     <Table.Cell>
                                         <img
                                             src={parasha.image.url}
