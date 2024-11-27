@@ -1,4 +1,4 @@
-.create-parasha-container {
+.edit-parasha-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
@@ -7,7 +7,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     direction: rtl;
 
-    .create-parasha-title {
+    .edit-parasha-title {
         font-size: 1.5rem;
         font-weight: bold;
         text-align: center;
@@ -46,7 +46,6 @@
                 padding: 0.4rem;
                 cursor: pointer;
             }
-
 
             .parasha-file-name {
                 font-size: 0.9rem;
@@ -94,7 +93,7 @@
         }
 
         .add-parasha-button,
-        .create-parasha-button {
+        .edit-parasha-button {
             background-color: #c37d69;
             color: #fff;
             padding: 0.75rem;
@@ -115,7 +114,7 @@
             padding: 0.5rem 1rem;
         }
 
-        .create-parasha-button {
+        .edit-parasha-button {
             align-self: center;
             width: 100%;
             max-width: 200px;
