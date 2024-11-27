@@ -76,7 +76,7 @@ const AdminParashot = () => {
                             <Table.HeadCell>תמונה</Table.HeadCell>
                             <Table.HeadCell>מקור</Table.HeadCell>
                             <Table.HeadCell>כותרת</Table.HeadCell>
-                            <Table.HeadCell>טקסט מקוצר</Table.HeadCell>
+                            <Table.HeadCell>תקציר</Table.HeadCell>
                             <Table.HeadCell>תאריך יצירה</Table.HeadCell>
                             <Table.HeadCell>פעולות</Table.HeadCell>
                         </Table.Head>
