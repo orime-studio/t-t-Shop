@@ -4,8 +4,8 @@ import AdminParashot from "./AdminParashot";
 
 const ChabadDashboard = () => {
     return (
-        <Tabs aria-label="Tabs with icons" className="tabs">
-            <Tabs.Item active title="נתוני פרשות" icon={FiBox}>
+        <Tabs dir="rtl" aria-label="Tabs with icons" className="tabs">
+            <Tabs.Item active title="נתוני פרשותמ" icon={FiBox}>
                 <AdminParashot />
             </Tabs.Item>
         </Tabs>

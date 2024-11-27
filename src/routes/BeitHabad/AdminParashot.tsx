@@ -72,7 +72,7 @@ const AdminParashot = () => {
             <div className="admin-parashot-table">
                 {!loading && filteredParashot.length > 0 && (
                     <Table hoverable>
-                        <Table.Head>
+                        <Table.Head dir ="rtl">
                             <Table.HeadCell>תמונה</Table.HeadCell>
                             <Table.HeadCell>מחבר</Table.HeadCell>
                             <Table.HeadCell>כותרת</Table.HeadCell>
