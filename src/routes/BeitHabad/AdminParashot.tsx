@@ -74,7 +74,7 @@ const AdminParashot = () => {
                     <Table hoverable>
                         <Table.Head dir ="rtl">
                             <Table.HeadCell>תמונה</Table.HeadCell>
-                            <Table.HeadCell>מחבר</Table.HeadCell>
+                            <Table.HeadCell>מקור</Table.HeadCell>
                             <Table.HeadCell>כותרת</Table.HeadCell>
                             <Table.HeadCell>טקסט מקוצר</Table.HeadCell>
                             <Table.HeadCell>תאריך יצירה</Table.HeadCell>
