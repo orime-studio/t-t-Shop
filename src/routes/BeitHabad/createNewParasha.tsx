@@ -22,7 +22,7 @@ const CreateNewParasha = () => {
         }
 
         if (!data.longText.length) {
-            dialogs.error("שגיאה", "אנא הוסף לפחות דף פרשה אחד.");
+            dialogs.error("שגיאה", "אנא הוסף לפחות קטע פרשה אחד.");
             return;
         }
 
@@ -89,21 +89,21 @@ const CreateNewParasha = () => {
                 </section>
 
                 <section>
-                    <h3 className="mb-2">דפי פרשה:</h3>
+                    <h3 className="mb-2">קטעי פרשה:</h3>
                     {fields.map((page, index) => (
                         <div key={page.id} className="variant">
                             <input
-                                placeholder="כותרת הדף"
+                                placeholder="כותרת הקטע"
                                 {...register(`longText.${index}.title` as const)} // הסר את 'required'
                             />
                             <textarea
-                                placeholder="תוכן הדף"
-                                {...register(`longText.${index}.text` as const, { required: "תוכן הדף הוא שדה חובה" })}
+                                placeholder="תוכן הקטע"
+                                {...register(`longText.${index}.text` as const, { required: "תוכן הקטע הוא שדה חובה" })}
                             />
-                            <button type="button" className="removeButton" onClick={() => remove(index)}>הסרת דף</button>
+                            <button type="button" className="removeButton" onClick={() => remove(index)}>הסרת קטע</button>
                         </div>
                     ))}
-                    <button type="button" className="add-variant-button" onClick={() => append({ title: "", text: "" })}>הוסף דף</button>
+                    <button type="button" className="add-variant-button" onClick={() => append({ title: "", text: "" })}>הוסף קטע</button>
                 </section>
 
                 <button type="submit" className="submit-button bg-slate-600 text-white dark:bg-slate-900">צור פרשה</button>
