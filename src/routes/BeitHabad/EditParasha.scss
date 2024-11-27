@@ -96,6 +96,7 @@
       }
 
       .add-text-button {
+        max-width: 200px;
         background-color: #c37d69;
         color: #fff;
         padding: 0.75rem;
@@ -104,7 +105,7 @@
         font-size: 1rem;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        max-width: 200px;
+       
 
         &:hover {
           background-color: #a06456;
