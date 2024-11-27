@@ -1,0 +1,18 @@
+/* עיצוב מותאם עבור Tabs בצד ימין */
+.rtl-tabs {
+    direction: rtl; /* משנה את כיוון הטאב לרוחב ימין-לשמאל */
+}
+
+.rtl-tabs .flowbite-tabs {
+    display: flex;
+    flex-direction: row-reverse; /* מסובב את הסדר של הטאבים */
+}
+
+.rtl-tabs .flowbite-tabs .flowbite-tabs-nav {
+    display: flex;
+    flex-direction: row-reverse; /* מסובב את הסדר של הקישורים בתוך ה-tabs */
+}
+
+.rtl-tabs .flowbite-tabs .flowbite-tabs-nav .flowbite-tabs-item {
+    text-align: right; /* ממקם את הכותרות בצד ימין */
+}
