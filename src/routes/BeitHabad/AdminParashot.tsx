@@ -82,7 +82,7 @@ const AdminParashot = () => {
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {filteredParashot.map((parasha) => (
-                                <Table.Row key={parasha._id}>
+                                <Table.Row key={parasha._id} className="text-right">
                                     <Table.Cell>
                                         <img
                                             src={parasha.image.url}
