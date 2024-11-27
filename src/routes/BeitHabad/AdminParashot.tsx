@@ -62,7 +62,6 @@ const AdminParashot = () => {
                 <Tooltip content="הוסף פרשה" placement="top">
                     <a href="admin/parasha/create" className="button-add-parasha">
                         <FiPlus size={20} />
-                        הוסף פרשה
                     </a>
                 </Tooltip>
             </div>
@@ -87,7 +86,6 @@ const AdminParashot = () => {
                                     <Table.Cell>
                                         <img
                                             src={parasha.image.url}
-                                            alt={parasha.title}
                                             className="parasha-image"
                                         />
                                     </Table.Cell>
