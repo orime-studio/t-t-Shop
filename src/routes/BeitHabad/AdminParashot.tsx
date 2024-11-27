@@ -93,7 +93,7 @@ const AdminParashot = () => {
                                     <Table.Cell>{parasha.title}</Table.Cell>
                                     <Table.Cell>{parasha.miniText}</Table.Cell>
                                     <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
-                                    <Table.Cell>
+                                    <Table.Cell className="flex-col">
                                         <div className="parasha-actions">
                                             <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="parasha-actions-link">
                                                 ערוך
