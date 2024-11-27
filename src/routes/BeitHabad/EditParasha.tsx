@@ -92,7 +92,7 @@ const EditParasha = () => {
                     {errors.title && <p className="error-message">{errors.title.message}</p>}
                 </section>
                 <section className="input-section">
-                    <input className="input-field" placeholder="תמצית" {...register("miniText", { required: "התמצית דרושה" })} />
+                    <input className="input-field" placeholder="תקציר" {...register("miniText", { required: "התקציר דרוש" })} />
                     {errors.miniText && <p className="error-message">{errors.miniText.message}</p>}
                 </section>
                 <section className="input-section">
@@ -119,7 +119,7 @@ const EditParasha = () => {
                         <div key={page.id} className="parasha-page">
                             <input className="input-field" placeholder="כותרת קטע" {...register(`longText.${index}.title` as const, { required: "כותרת קטע דרושה" })} />
                             <textarea className="textarea-field" placeholder="תוכן קטע" {...register(`longText.${index}.text` as const, { required: "תוכן קטע דרוש" })} />
-                            <button type="button" className="remove-button" onClick={() => remove(index)}>הסר</button>
+                            <button type="button" className="remove-text-button" onClick={() => remove(index)}>הסר</button>
                         </div>
                     ))}
                     <button type="button" className="add-text-button" onClick={() => append({ title: "", text: "" })}>הוסף קטע</button>

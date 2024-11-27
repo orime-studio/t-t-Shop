@@ -51,7 +51,7 @@
   gap: 8px;
 }
 
-.remove-button {
+.remove-text-button {
   background-color: #dc3545;
   color: white;
   padding: 8px;
@@ -59,11 +59,12 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+   
+  &:hover {
+    background-color: #c82333;
+  }
 }
 
-.remove-button:hover {
-  background-color: #c82333;
-}
 
 .add-page-button {
   background-color: #28a745;
@@ -80,7 +81,7 @@
 }
 
 .submit-button {
-  background-color: #007bff;
+  background-color: #2f3031;
   color: white;
   padding: 12px;
   font-size: 16px;
