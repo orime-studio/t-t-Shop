@@ -1,91 +1,84 @@
-/* .admin-parashot {
-    .admin-parashot-title {
-        font-size: 2rem;
-        color: #2d3748;
-        margin-bottom: 1.75rem;
-        text-align: center;
-        margin-top: 1.75rem;
-    }
+/* admin-parashot.css */
 
-    .loading-text,
-    .error-text,
-    .no-parashot-text {
-        text-align: center;
-    }
-
-    .loading-text {
-        font-size: 1.25rem;
-    }
-
-    .error-text {
-        color: #f87171;
-        margin-bottom: 1rem;
-    }
-
-    .desktop-view {
-        @media (min-width: 1024px) {
-            display: block;
-        }
-    }
-
-    .mobile-view {
-        @media (max-width: 1023px) {
-            display: block;
-        }
-    }
-
-    .parasha-row {
-        background-color: #fff;
-        border-bottom: 1px solid #e2e8f0;
-        text-align: left;
-    }
-
-    .actions {
-        display: flex;
-        flex-direction: row;
-        gap: 0.5rem;
-    }
-
-    .edit-link {
-        color: #00b5d8;
-        font-weight: 500;
-        text-decoration: underline;
-        &:hover {
-            color: #06b1c9;
-        }
-    }
-
-    .delete-button {
-        color: #e53e3e;
-        &:hover {
-            color: #c53030;
-        }
-    }
-
-    .parasha-card {
-        padding: 1rem;
-        margin-bottom: 1rem;
-        background-color: #fff;
-        border-radius: 0.375rem;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-    .parasha-title {
-        font-weight: 500;
-        color: #2d3748;
-        margin-bottom: 0.5rem;
-    }
-
-    .parasha-text,
-    .parasha-date {
-        color: #4a5568;
-    }
-
-    .mobile-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 1rem;
-    }
-}
- */
+/* General styling */
+.admin-parashot-container {
+    overflow-x: auto;
+    background-color: white;
+    border: 1px solid #e2e8f0; /* Adjust border color */
+  }
+  
+  .admin-parashot-header {
+    font-size: 2rem;
+    color: #2d3748;
+    margin-bottom: 1.75rem;
+    text-align: center;
+    margin-top: 1.75rem;
+  }
+  
+  .admin-parashot-add-button {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .admin-parashot-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .parasha-image {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+    border-radius: 0.375rem;
+  }
+  
+  .parasha-text {
+    font-weight: 500;
+    color: #1a202c;
+    margin-bottom: 1rem;
+  }
+  
+  .parasha-text-secondary {
+    color: #718096;
+  }
+  
+  .parasha-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .parasha-actions a {
+    color: #06b6d4;
+    text-decoration: underline;
+  }
+  
+  .parasha-actions button {
+    color: #e53e3e;
+    transition: color 0.2s;
+  }
+  
+  .parasha-actions button:hover {
+    color: #c53030;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-red-500 {
+    color: #f56565;
+  }
+  
+  .text-cyan-600 {
+    color: #00b5d8;
+  }
+  
+  .text-cyan-500 {
+    color: #0bc5ea;
+  }
+  

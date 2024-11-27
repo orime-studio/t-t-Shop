@@ -6,6 +6,7 @@ import { Parasha } from '../../@Types/chabadType';
 import { useSearch } from '../../hooks/useSearch';
 import { deleteParashaById, getAllParashot } from '../../services/parasha-service';
 import dialogs from '../../ui/dialogs';
+import './AdminParashot.scss';
 
 const AdminParashot = () => {
     const { searchTerm } = useSearch();
@@ -57,9 +58,9 @@ const AdminParashot = () => {
     };
 
     return (
-        <div className="overflow-x-auto bg-white dark:border-gray-700 dark:bg-gray-800">
-            <h2 className='text-4xl text-gray-800 mb-7 text-center mt-7'>רשימת פרשות</h2>
-            <div className="admin-products-add-button mb-4 flex justify-end">
+        <div className="admin-parashot-container">
+            <h2 className="admin-parashot-header">רשימת פרשות</h2>
+            <div className="admin-parashot-add-button">
                 <Tooltip content="הוסף פרשה" placement="top" className="text-sm bg-gray-800 text-white rounded px-2 py-1">
                     <a href="admin/parasha/create" className="text-white bg-[#c37d69] hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-3 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <FiPlus size={20} />
@@ -89,7 +90,7 @@ const AdminParashot = () => {
                                         <img
                                             src={parasha.image.url}
                                             alt={parasha.title}
-                                            className="w-16 h-16 object-cover rounded-md"
+                                            className="parasha-image"
                                         />
                                     </Table.Cell>
                                     <Table.Cell>{parasha.source}</Table.Cell>
@@ -97,11 +98,11 @@ const AdminParashot = () => {
                                     <Table.Cell>{parasha.miniText}</Table.Cell>
                                     <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
                                     <Table.Cell>
-                                        <div className="flex flex-col gap-2">
-                                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                        <div className="parasha-actions">
+                                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="parasha-actions a">
                                                 ערוך
                                             </Link>
-                                            <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
+                                            <button onClick={() => handleDeleteParasha(parasha._id)} className="parasha-actions button">
                                                 <FiTrash2 size={20} />
                                             </button>
                                         </div>
@@ -115,25 +116,25 @@ const AdminParashot = () => {
 
             <div className="block lg:hidden">
                 {filteredParashot.map((parasha) => (
-                    <div key={parasha._id} className="parasha-card p-4 mb-4 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+                    <div key={parasha._id} className="parasha-card">
                         <div className="flex items-center gap-4 mb-4">
                             <img
                                 src={parasha.image.url}
                                 alt={parasha.title}
-                                className="w-16 h-16 object-cover rounded-md"
+                                className="parasha-image"
                             />
                             <div>
-                                <div className="font-medium text-gray-900 dark:text-white">{parasha.title}</div>
-                                <div className="text-gray-700 dark:text-gray-300">{parasha.source}</div>
+                                <div className="parasha-text">{parasha.title}</div>
+                                <div className="parasha-text-secondary">{parasha.source}</div>
                             </div>
                         </div>
-                        <div className="text-gray-700 dark:text-gray-300 mb-2">{parasha.miniText}</div>
-                        <div className="text-gray-700 dark:text-gray-300">{new Date(parasha.createdAt).toLocaleDateString()}</div>
+                        <div className="parasha-text-secondary mb-2">{parasha.miniText}</div>
+                        <div className="parasha-text-secondary">{new Date(parasha.createdAt).toLocaleDateString()}</div>
                         <div className="flex justify-between items-center mt-4">
-                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="parasha-actions a">
                                 ערוך
                             </Link>
-                            <button onClick={() => handleDeleteParasha(parasha._id)} className="text-red-600 hover:text-red-800">
+                            <button onClick={() => handleDeleteParasha(parasha._id)} className="parasha-actions button">
                                 <FiTrash2 size={20} />
                             </button>
                         </div>
