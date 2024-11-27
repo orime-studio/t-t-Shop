@@ -6,7 +6,7 @@ import { Parasha } from '../../@Types/chabadType';
 import { useSearch } from '../../hooks/useSearch';
 import { deleteParashaById, getAllParashot } from '../../services/parasha-service';
 import dialogs from '../../ui/dialogs';
-import './admin-parashot.css'; // Import the CSS file
+import './AdminParashot.scss'; // ייבוא קובץ Sass
 
 const AdminParashot = () => {
     const { searchTerm } = useSearch();
@@ -18,7 +18,6 @@ const AdminParashot = () => {
     useEffect(() => {
         getAllParashot()
             .then(data => {
-                console.log('Parashot fetched:', data); // Log the response
                 if (Array.isArray(data)) {
                     setParashot(data);
                     setFilteredParashot(data);
@@ -27,7 +26,6 @@ const AdminParashot = () => {
                 }
             })
             .catch(err => {
-                console.error('Fetch error:', err);
                 setError(err);
             })
             .finally(() => setLoading(false));
@@ -61,19 +59,18 @@ const AdminParashot = () => {
         <div className="admin-parashot-container">
             <h2 className="admin-parashot-header">רשימת פרשות</h2>
             <div className="admin-parashot-add-button">
-            <Tooltip content="הוסף פרשה" placement="top" className="tooltip-custom">
-            <a href="admin/parasha/create" className="button-add-parasha">
+                <Tooltip content="הוסף פרשה" placement="top">
+                    <a href="admin/parasha/create" className="button-add-parasha">
                         <FiPlus size={20} />
-                        <span className="sr-only">הוסף פרשה</span>
+                        הוסף פרשה
                     </a>
-
                 </Tooltip>
             </div>
             {loading && <div className="text-center">טוען...</div>}
             {error && <div className="error-message">{error.message}</div>}
             {!loading && filteredParashot.length === 0 && <div className="text-center">לא נמצאו פרשות.</div>}
 
-            <div className="hidden lg:block">  {/* Desktop view */}
+            <div className="admin-parashot-table">
                 {!loading && filteredParashot.length > 0 && (
                     <Table hoverable>
                         <Table.Head>
@@ -86,7 +83,7 @@ const AdminParashot = () => {
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {filteredParashot.map((parasha) => (
-                               <Table.Row key={parasha._id} className="table-row">
+                                <Table.Row key={parasha._id}>
                                     <Table.Cell>
                                         <img
                                             src={parasha.image.url}
@@ -100,10 +97,10 @@ const AdminParashot = () => {
                                     <Table.Cell>{new Date(parasha.createdAt).toLocaleDateString()}</Table.Cell>
                                     <Table.Cell>
                                         <div className="parasha-actions">
-                                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="parasha-actions a">
+                                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="parasha-actions-link">
                                                 ערוך
                                             </Link>
-                                            <button onClick={() => handleDeleteParasha(parasha._id)} className="parasha-actions button">
+                                            <button onClick={() => handleDeleteParasha(parasha._id)} className="parasha-actions-button">
                                                 <FiTrash2 size={20} />
                                             </button>
                                         </div>
@@ -113,34 +110,6 @@ const AdminParashot = () => {
                         </Table.Body>
                     </Table>
                 )}
-            </div>
-
-            <div className="block lg:hidden">
-                {filteredParashot.map((parasha) => (
-                    <div key={parasha._id} className="parasha-card">
-                        <div className="flex items-center gap-4 mb-4">
-                            <img
-                                src={parasha.image.url}
-                                alt={parasha.title}
-                                className="parasha-image"
-                            />
-                            <div>
-                                <div className="parasha-text">{parasha.title}</div>
-                                <div className="parasha-text-secondary">{parasha.source}</div>
-                            </div>
-                        </div>
-                        <div className="parasha-text-secondary mb-2">{parasha.miniText}</div>
-                        <div className="parasha-text-secondary">{new Date(parasha.createdAt).toLocaleDateString()}</div>
-                        <div className="flex justify-between items-center mt-4">
-                            <Link to={`/beitChabad/admin/parasha/edit/${parasha._id}`} className="parasha-actions a">
-                                ערוך
-                            </Link>
-                            <button onClick={() => handleDeleteParasha(parasha._id)} className="parasha-actions button">
-                                <FiTrash2 size={20} />
-                            </button>
-                        </div>
-                    </div>
-                ))}
             </div>
         </div>
     );
