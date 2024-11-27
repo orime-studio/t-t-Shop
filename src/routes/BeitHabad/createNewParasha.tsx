@@ -85,7 +85,6 @@ const CreateNewParasha = () => {
                 </section>
 
                 <section className="parasha-section">
-                    <label htmlFor="file-input" className="file-label">בחר תמונה</label>
                     <input
                         className="parasha-input-file"
                         type="file"
