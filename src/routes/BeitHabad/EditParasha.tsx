@@ -107,7 +107,6 @@ const EditParasha = () => {
                         }}
                         className="file-input"
                     />
-                    <label htmlFor="image-upload" className="file-label">בחר תמונה</label>
                     {imageName && <p className="file-name">{imageName}</p>}
                 </section>
                 <section className="input-section">
