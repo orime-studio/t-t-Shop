@@ -81,7 +81,7 @@ const EditParasha = () => {
 
     return (
         <div className="edit-parasha-container">
-            <h2>עריכת קטעי פרשה</h2>
+            <h2>עריכת פרשה</h2>
             <form noValidate onSubmit={handleSubmit(onSubmit)} className="parasha-form">
                 <section className="input-section">
                     <input className="input-field" placeholder="מקור" {...register("source", { required: "המקור דרוש" })} />
@@ -122,7 +122,7 @@ const EditParasha = () => {
                             <button type="button" className="remove-button" onClick={() => remove(index)}>הסר</button>
                         </div>
                     ))}
-                    <button type="button" className="add-page-button" onClick={() => append({ title: "", text: "" })}>הוסף קטע</button>
+                    <button type="button" className="add-text-button" onClick={() => append({ title: "", text: "" })}>הוסף קטע</button>
                 </section>
 
                 <button type="submit" className="submit-button">שמור</button>
