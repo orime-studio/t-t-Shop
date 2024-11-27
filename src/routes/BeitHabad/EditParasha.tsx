@@ -67,66 +67,65 @@ const EditParasha = () => {
                 }
 
                 await updateParasha(id, formData); // Assuming updateParasha is used to update the parasha
-                dialogs.success("Success", "Parasha updated successfully").then(() => {
+                dialogs.success("הצלחה", "הפרשה עודכנה בהצלחה").then(() => {
                     navigate("/beitChabad/admin");
                 });
             }
         } catch (error: any) {
-            dialogs.error("Error", error.response?.data?.message || "Failed to update parasha");
+            dialogs.error("שגיאה", error.response?.data?.message || "עדכון הפרשה נכשל");
             console.log(error);
         }
     };
 
-
-    if (error) return <div>Error: {error.message}</div>;
+    if (error) return <div>שגיאה: {error.message}</div>;
 
     return (
-        <div className="create-card-container text-gray-800 dark:bg-slate-600">
-            <h2>Edit Parasha</h2>
-            <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                <section>
-                    <input placeholder="source" {...register("source", { required: "source is required" })} />
-                    {errors.source && <p className="text-red-500">{errors.source.message}</p>}
+        <div className="edit-parasha-container">
+            <h2>עריכת קטעי פרשה</h2>
+            <form noValidate onSubmit={handleSubmit(onSubmit)} className="parasha-form">
+                <section className="input-section">
+                    <input className="input-field" placeholder="מקור" {...register("source", { required: "המקור דרוש" })} />
+                    {errors.source && <p className="error-message">{errors.source.message}</p>}
                 </section>
-                <section>
-                    <input placeholder="Title" {...register("title", { required: "Title is required" })} />
-                    {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+                <section className="input-section">
+                    <input className="input-field" placeholder="כותרת" {...register("title", { required: "הכותרת דרושה" })} />
+                    {errors.title && <p className="error-message">{errors.title.message}</p>}
                 </section>
-                <section>
-                    <input placeholder="Mini Text" {...register("miniText", { required: "Mini text is required" })} />
-                    {errors.miniText && <p className="text-red-500">{errors.miniText.message}</p>}
+                <section className="input-section">
+                    <input className="input-field" placeholder="תמצית" {...register("miniText", { required: "התמצית דרושה" })} />
+                    {errors.miniText && <p className="error-message">{errors.miniText.message}</p>}
                 </section>
-                <section>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        className="custom-file-upload"
+                <section className="input-section">
+                    <input 
+                        type="file" 
+                        accept="image/*" 
+                        className="file-upload"
                         onChange={(e) => {
                             const file = e.target.files?.[0] || null;
                             setImage(file);
                             setImageName(file ? file.name : "");
-                        }}
+                        }} 
                     />
                     {imageName && <p className="file-name">{imageName}</p>}
                 </section>
-                <section>
-                    <input placeholder="Image Description" {...register("alt", { required: "Image description is required" })} />
-                    {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
+                <section className="input-section">
+                    <input className="input-field" placeholder="תיאור תמונה" {...register("alt", { required: "תיאור התמונה דרוש" })} />
+                    {errors.alt && <p className="error-message">{errors.alt.message}</p>}
                 </section>
 
-                <section>
-                    <h3 className="mb-2">Parasha Pages:</h3>
+                <section className="pages-section">
+                    <h3 className="pages-header">קטעי פרשה:</h3>
                     {fields.map((page, index) => (
                         <div key={page.id} className="parasha-page">
-                            <input placeholder="Page Title" {...register(`longText.${index}.title` as const, { required: "Page Title is required" })} />
-                            <textarea placeholder="Page Text" {...register(`longText.${index}.text` as const, { required: "Page Text is required" })} />
-                            <button type="button" className="removeButton" onClick={() => remove(index)}>Remove</button>
+                            <input className="input-field" placeholder="כותרת קטע" {...register(`longText.${index}.title` as const, { required: "כותרת קטע דרושה" })} />
+                            <textarea className="textarea-field" placeholder="תוכן קטע" {...register(`longText.${index}.text` as const, { required: "תוכן קטע דרוש" })} />
+                            <button type="button" className="remove-button" onClick={() => remove(index)}>הסר</button>
                         </div>
                     ))}
-                    <button type="button" className="add-page-button" onClick={() => append({ title: "", text: "" })}>Add Page</button>
+                    <button type="button" className="add-page-button" onClick={() => append({ title: "", text: "" })}>הוסף קטע</button>
                 </section>
 
-                <button type="submit" className="bg-slate-600 text-white dark:bg-slate-900">Save</button>
+                <button type="submit" className="submit-button">שמור</button>
             </form>
         </div>
     );
