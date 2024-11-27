@@ -104,6 +104,7 @@
         font-size: 1rem;
         cursor: pointer;
         transition: background-color 0.3s ease;
+        max-width: 200px;
 
         &:hover {
           background-color: #a06456;
