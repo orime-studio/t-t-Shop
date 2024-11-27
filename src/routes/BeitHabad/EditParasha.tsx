@@ -95,17 +95,19 @@ const EditParasha = () => {
                     <input className="input-field" placeholder="תקציר" {...register("miniText", { required: "התקציר דרוש" })} />
                     {errors.miniText && <p className="error-message">{errors.miniText.message}</p>}
                 </section>
-                <section className="input-section">
-                    <input 
-                        type="file" 
-                        accept="image/*" 
-                        className="file-upload"
+                <section>
+                    <input
+                        id="image-upload"
+                        type="file"
+                        accept="image/*"
                         onChange={(e) => {
                             const file = e.target.files?.[0] || null;
                             setImage(file);
                             setImageName(file ? file.name : "");
-                        }} 
+                        }}
+                        className="file-input"
                     />
+                    <label htmlFor="image-upload" className="file-label">בחר תמונה</label>
                     {imageName && <p className="file-name">{imageName}</p>}
                 </section>
                 <section className="input-section">

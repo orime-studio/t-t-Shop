@@ -65,6 +65,32 @@
   }
 }
 
+/* עיצוב ה-input */
+.file-input {
+  display: none;  // נסתר מהעין
+}
+
+/* כפתור מותאם אישית */
+.file-label {
+  background-color: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: inline-block;
+  margin-right: 10px;
+  text-align: center;
+}
+
+/* התאמה אם יש שם קובץ */
+.file-name {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+
 
 .add-page-button {
   background-color: #28a745;
