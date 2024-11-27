@@ -1,0 +1,109 @@
+.create-card-container {
+    background-color: #ffffff;
+    color: #4a4a4a;
+  
+    .dark & {
+      background-color: #2d2d2d;
+      color: #ffffff;
+    }
+  
+    h2 {
+      color: #333;
+      .dark & {
+        color: white;
+      }
+    }
+  
+    section {
+      margin-bottom: 20px;
+  
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+  
+        &::placeholder {
+          color: #888;
+        }
+      }
+  
+      .file-name {
+        margin-top: 5px;
+        font-size: 0.9rem;
+        color: #555;
+      }
+    }
+  
+    .text-red-500 {
+      color: #f56565;
+    }
+  
+    .variant {
+      margin-bottom: 20px;
+  
+      input,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+  
+        &::placeholder {
+          color: #888;
+        }
+      }
+  
+      .removeButton {
+        background-color: #e53e3e;
+        color: white;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+  
+        &:hover {
+          background-color: #c53030;
+        }
+      }
+    }
+  
+    .add-variant-button {
+      background-color: #3182ce;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #2b6cb0;
+      }
+    }
+  
+    .submit-button {
+      background-color: #2d3748;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #1a202c;
+      }
+  
+      .dark & {
+        background-color: #2d3748;
+        color: white;
+  
+        &:hover {
+          background-color: #1a202c;
+        }
+      }
+    }
+  }
+  

@@ -4,6 +4,7 @@ import { useState } from "react";
 import dialogs from "../../ui/dialogs";
 import { Parasha } from "../../@Types/chabadType";
 import { createNewParasha } from "../../services/parasha-service";
+import './createNewParasha.scss';
 
 const CreateNewParasha = () => {
     const navigate = useNavigate();
