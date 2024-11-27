@@ -56,38 +56,38 @@ const CreateNewParasha = () => {
     };
 
     return (
-        <div className="create-card-container">
-            <h2 className="dark:text-white">יצירת פרשה חדשה</h2>
+        <div className="create-parasha-container">
+            <h2 className="create-parasha-title">יצירת פרשה חדשה</h2>
             <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-container">
-                <section className="section">
+                <section className="parasha-section">
                     <input 
-                        className="input" 
+                        className="parasha-input" 
                         placeholder="מקור" 
                         {...register("source", { required: "המקור הוא שדה חובה" })} 
                     />
-                    {errors.source && <p className="text-red-500">{errors.source.message}</p>}
+                    {errors.source && <p className="errorMessage">{errors.source.message}</p>}
                 </section>
-                <section className="section">
+                <section className="parasha-section">
                     <input 
-                        className="input" 
+                        className="parasha-input" 
                         placeholder="כותרת" 
                         {...register("title", { required: "הכותרת היא שדה חובה" })} 
                     />
-                    {errors.title && <p className="text-red-500">{errors.title.message}</p>}
+                    {errors.title && <p className="errorMessage">{errors.title.message}</p>}
                 </section>
-                <section className="section">
+                <section className="parasha-section">
                     <textarea 
-                        className="textarea" 
+                        className="parasha-textarea" 
                         placeholder="תיאור קצר" 
                         {...register("miniText", { required: "תיאור קצר הוא שדה חובה" })} 
                     />
-                    {errors.miniText && <p className="text-red-500">{errors.miniText.message}</p>}
+                    {errors.miniText && <p className="errorMessage">{errors.miniText.message}</p>}
                 </section>
 
-                <section className="section">
+                <section className="parasha-section">
                     <label htmlFor="file-input" className="file-label">בחר תמונה</label>
                     <input
-                        className="input-file"
+                        className="parasha-input-file"
                         type="file"
                         accept="image/*"
                         id="file-input"
@@ -97,35 +97,35 @@ const CreateNewParasha = () => {
                             setImageName(file ? file.name : "");
                         }}
                     />
-                    {imageName && <p className="file-name">{imageName}</p>}
+                    {imageName && <p className="parasha-file-name">{imageName}</p>}
                 </section>
 
-                <section className="section">
+                <section className="parasha-section">
                     <input 
-                        className="input" 
+                        className="parasha-input" 
                         placeholder="תיאור התמונה" 
                         {...register("alt", { required: "תיאור התמונה הוא שדה חובה" })} 
                     />
-                    {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
+                    {errors.alt && <p className="errorMessage">{errors.alt.message}</p>}
                 </section>
 
-                <section className="section">
-                    <h3 className="mb-2">קטעי פרשה:</h3>
+                <section className="parasha-section">
+                    <h3 className="parasha-section-title">קטעי פרשה:</h3>
                     {fields.map((page, index) => (
                         <div key={page.id} className="variant">
                             <input
-                                className="input" 
+                                className="parasha-input" 
                                 placeholder="כותרת הקטע" 
                                 {...register(`longText.${index}.title` as const)} // הסר את 'required'
                             />
                             <textarea
-                                className="textarea" 
+                                className="parasha-textarea" 
                                 placeholder="תוכן הקטע" 
                                 {...register(`longText.${index}.text` as const, { required: "תוכן הקטע הוא שדה חובה" })}
                             />
                             <button 
                                 type="button" 
-                                className="remove-button" 
+                                className="remove-parasha-button" 
                                 onClick={() => remove(index)}
                             >
                                 הסרת קטע
@@ -134,14 +134,14 @@ const CreateNewParasha = () => {
                     ))}
                     <button 
                         type="button" 
-                        className="add-variant-button" 
+                        className="add-parasha-button" 
                         onClick={() => append({ title: "", text: "" })}
                     >
                         הוסף קטע
                     </button>
                 </section>
 
-                <button type="submit" className="button">צור פרשה</button>
+                <button type="submit" className="create-parasha-button">צור פרשה</button>
             </form>
         </div>
     );
