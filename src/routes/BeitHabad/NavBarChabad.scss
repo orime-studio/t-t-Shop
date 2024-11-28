@@ -1,128 +1,56 @@
-.nav-chabad-navbar {
-    background-color: #fff; /* הצבע הכללי של הרקע של ה-navbar */
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* צללית קלה */
-    padding: 0.5rem 1rem; /* ריווח פנימי */
-    position: sticky; /* שמירה על ה-navbar בחלק העליון של הדף */
-    top: 0;
-    z-index: 1000; /* לוודא שה-navbar נמצא מעל כל שאר האלמנטים */
-  
-    .logo-chabad {
-      max-width: 200px;
-      height: auto;
-    }
-  
+@media (max-width: 768px) {
     .navbar-collapse {
-      display: flex;
-      justify-content: flex-end;
-      gap: 1rem;
-      flex-wrap: wrap; /* מאפשר שהלינקים יהיו בשורה אחת */
-      padding-top: 1rem;
+        max-height: 40vh;
+        overflow-y: auto;
+        font-size: 0.75rem !important;
     }
-  
+
+    .navbar {
+        font-size: 0.75rem !important;
+        width: 100% !important;
+    }
+
+    .navbar-brand {
+        font-size: 0.875rem;
+        width: 100%;
+        text-align: center;
+        /* למרכז את שם המשתמש */
+    }
+
+    .navbar-collapse {
+        font-size: 0.75rem;
+    }
+
+    .navbar-dropdown {
+        font-size: 0.75rem;
+    }
+
+    .navbar-search {
+        width: 100%;
+        margin: 0 auto;
+    }
+
     .navbar-link {
-      font-size: 16px;
-      color: #333;
-      text-decoration: none;
-      transition: color 0.3s ease;
-  
-      &:hover {
-        color: #0066cc;
-      }
-  
-      &.active {
-        color: #0066cc; /* הצבע של הלינק כאשר הוא פעיל */
-        font-weight: bold;
-      }
+        padding: 0.5rem 1rem;
     }
-  
-    .donation-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 16px;
-      color: #333;
-      text-decoration: none;
-  
-      .donation-icon {
-        color: #e63946; /* צבע האייקון */
-      }
-  
-      &:hover {
-        color: #0066cc;
-      }
-  
-      &.active {
-        color: #0066cc;
-      }
+
+    .navbar-toggle {
+        margin-right: 0.5rem;
     }
-  
-    .navbar-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
+
+    .navbar-dark-toggle {
+        margin-right: 0.5rem;
     }
-  
-    .login-link {
-      display: inline-block;
-      color: #333;
-      font-size: 18px;
-  
-      &:hover {
-        color: #0066cc;
-      }
+
+    .text-xl {
+        font-size: 1rem !important;
+        /* הקטנת גודל הטקסט של השם */
     }
-  
-    .tooltip {
-      background-color: #333;
-      color: #fff;
-      border-radius: 4px;
-      font-size: 14px;
-      padding: 8px;
-      transition: opacity 0.3s ease;
-    }
-  
-    @media (max-width: 1024px) {
-      .navbar-actions {
-        gap: 8px;
-        flex-direction: column;
-      }
-  
-      .navbar-collapse {
-        display: block;
-        width: 100%;
-        background-color: #fff;
-        padding-top: 1rem;
-        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-      }
-  
-      .logo-chabad {
-        max-width: 150px; /* הפחתת רוחב הלוגו במובייל */
-      }
-    }
-  
-    @media (max-width: 768px) {
-      .navbar-link {
-        font-size: 14px;
-        padding: 10px 0;
-        text-align: center; /* מכניס את הלינקים למרכז במובייל */
-      }
-  
-      .navbar-actions {
-        gap: 8px;
-        flex-direction: column;
-      }
-  
-      .navbar-collapse {
-        display: block;
-        width: 100%;
-        background-color: #fff;
-        padding-top: 1rem;
-        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-      }
-  
-      .login-link {
-        font-size: 16px;
-      }
+
+    .fi-shopping-cart,
+    .fi-user,
+    .fi-settings {
+        font-size: 16px !important;
+        /* הקטנת גודל האייקונים */
     }
 }
