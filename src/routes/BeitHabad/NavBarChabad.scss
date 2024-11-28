@@ -15,11 +15,12 @@
   
   .navbar-collapse {
     padding-right: 1rem; // Adjust for navbar items
+    display: flex;  // Enable flexbox layout
   
     .navbar-link {
       font-size: 0.875rem;
-      margin-right: 0;
       transition: font-weight 0.3s ease;
+      margin-right: 0;  // Remove individual margins
   
       &.active {
         font-weight: 700;
@@ -28,12 +29,10 @@
       &:not(.active) {
         font-weight: normal;
       }
-  
-      // Specific link spacing
-      &:nth-child(2) {
-        margin-right: 2rem; // Add spacing for "About" link
-      }
     }
+  
+    // Adding gap between the links
+    gap: 2rem;  // Space between all links
   
     .donation-link {
       font-size: 0.875rem;
