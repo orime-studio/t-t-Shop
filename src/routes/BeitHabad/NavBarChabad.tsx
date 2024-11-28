@@ -1,8 +1,9 @@
 import { DarkThemeToggle, Dropdown, Navbar, Tooltip } from "flowbite-react";
+import { FiHeart, FiUser } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiBox, FiUser, FiShoppingCart, FiSettings, FiUsers, FiTrendingUp, FiHeart } from "react-icons/fi";
-import { useAuth } from "../../hooks/useAuth";
 import UserAvatar from "../../components/UseAvatar";
+import { useAuth } from "../../hooks/useAuth";
+import './NavBarChabad.scss';
 
 
 const NavChabad = () => {
