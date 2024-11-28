@@ -1,143 +1,129 @@
 .nav-chabad-navbar {
-    background-color: #ffffff; // צבע רקע של ה-navbar
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // צלליות עדינות סביב ה-navbar
-    direction: rtl;
-
+    background-color: #fff; /* הצבע הכללי של הרקע של ה-navbar */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* צללית קלה */
+    padding: 0.5rem 1rem; /* ריווח פנימי */
+    position: sticky; /* שמירה על ה-navbar בחלק העליון של הדף */
+    top: 0;
+    z-index: 1000; /* לוודא שה-navbar נמצא מעל כל שאר האלמנטים */
+  
     .logo-chabad {
-        height: 40px; // גובה הלוגו
-        object-fit: contain; // לשמור על יחס הגודל של הלוגו
-        margin-left: auto; // דחיפת הלוגו לצד ימין
+      max-width: 200px;
+      height: auto;
     }
-
+  
     .navbar-collapse {
-        display: flex;
-        justify-content: flex-end; // מיישר את כל האלמנטים בסוף (ימין)
-        align-items: center;
-        padding: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      flex-wrap: wrap; /* מאפשר שהלינקים יהיו בשורה אחת */
+      padding-top: 1rem;
     }
-
+  
     .navbar-link {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #333333; // צבע טקסט של הלינקים
-        margin: 0 1rem;
-        transition: color 0.3s ease, font-weight 0.3s ease;
-
-        &:hover {
-            color: #007bff; // צבע הטקסט בלחיצה
-            font-weight: 700; // הדגשת הטקסט בעת ריחוף
-        }
-
-        &.active {
-            color: #007bff; // צבע של הלינק כאשר הוא פעיל
-        }
+      font-size: 16px;
+      color: #333;
+      text-decoration: none;
+      transition: color 0.3s ease;
+  
+      &:hover {
+        color: #0066cc;
+      }
+  
+      &.active {
+        color: #0066cc; /* הצבע של הלינק כאשר הוא פעיל */
+        font-weight: bold;
+      }
     }
-
+  
     .donation-link {
-        display: flex;
-        align-items: center;
-        font-size: 1rem;
-        color: #e44d60; // צבע של קישור התרומה
-        font-weight: 600;
-        margin-left: auto; // דחיפת הקישור לצד ימין
-
-        .donation-icon {
-            margin-right: 0.5rem; // רווח בין האייקון לטקסט
-        }
-
-        &:hover {
-            color: #cc3b4f; // צבע בעת ריחוף על קישור התרומה
-        }
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 16px;
+      color: #333;
+      text-decoration: none;
+  
+      .donation-icon {
+        color: #e63946; /* צבע האייקון */
+      }
+  
+      &:hover {
+        color: #0066cc;
+      }
+  
+      &.active {
+        color: #0066cc;
+      }
     }
-
+  
     .navbar-actions {
-        display: flex;
-        align-items: center;
-
-        .login-link {
-            font-size: 1.25rem;
-            color: #007bff; // צבע אייקון הלוגין
-            margin-left: 1rem;
-
-            &:hover {
-                color: #0056b3; // שינוי צבע כאשר מרחפים מעל האייקון
-            }
-        }
-
-        .icon {
-            margin-right: 0.5rem;
-        }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
     }
-
+  
+    .login-link {
+      display: inline-block;
+      color: #333;
+      font-size: 18px;
+  
+      &:hover {
+        color: #0066cc;
+      }
+    }
+  
     .tooltip {
-        background-color: #333333; // צבע הרקע של הטול טיפ
-        color: #ffffff; // צבע הטקסט של הטול טיפ
-        font-size: 0.875rem; // גודל הטקסט
+      background-color: #333;
+      color: #fff;
+      border-radius: 4px;
+      font-size: 14px;
+      padding: 8px;
+      transition: opacity 0.3s ease;
     }
-}
-
-@media (max-width: 768px) {
-    .nav-chabad-navbar {
-        .navbar-collapse {
-            display: none;
-            /* Hide collapse menu by default */
-            flex-direction: column;
-            align-items: center;
-            background-color: #fff;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            right: 0;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            font-size: 1rem;
-            /* Adjusted font size for better readability */
-        }
-
-        .navbar-collapse.active {
-            display: flex;
-            /* Show when active */
-        }
-
-        .navbar-toggle {
-            display: block;
-            cursor: pointer;
-            font-size: 1.5rem;
-            color: #333;
-            margin-right: 1rem;
-        }
-
-        .navbar-brand {
-            font-size: 1rem;
-            /* Adjust font size for mobile */
-            width: 100%;
-            text-align: center;
-        }
-
-        .navbar-link {
-            padding: 0.75rem 1rem;
-            /* Increased padding for better touch target */
-            width: 100%;
-            text-align: center;
-            font-size: 1.1rem;
-            /* Adjust link font size for mobile */
-        }
-
-        .navbar-actions {
-            display: none;
-            /* Hide navbar actions in mobile */
-        }
-
-        .navbar-dark-toggle {
-            display: none;
-            /* Hide dark theme toggle on mobile */
-        }
-
-        /* Icon sizes for mobile */
-        .fi-heart,
-        .fi-user {
-            font-size: 1.5rem;
-            /* Larger icons for better accessibility */
-        }
+  
+    @media (max-width: 1024px) {
+      .navbar-actions {
+        gap: 8px;
+        flex-direction: column;
+      }
+  
+      .navbar-collapse {
+        display: block;
+        width: 100%;
+        background-color: #fff;
+        padding-top: 1rem;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      }
+  
+      .logo-chabad {
+        max-width: 150px; /* הפחתת רוחב הלוגו במובייל */
+      }
     }
-}
+  
+    @media (max-width: 768px) {
+      .navbar-link {
+        font-size: 14px;
+        padding: 10px 0;
+        text-align: center; /* מכניס את הלינקים למרכז במובייל */
+      }
+  
+      .navbar-actions {
+        gap: 8px;
+        flex-direction: column;
+      }
+  
+      .navbar-collapse {
+        display: block;
+        width: 100%;
+        background-color: #fff;
+        padding-top: 1rem;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+      }
+  
+      .login-link {
+        font-size: 16px;
+      }
+    }
+  }
+  
