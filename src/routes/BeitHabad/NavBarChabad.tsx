@@ -3,6 +3,7 @@ import { FiHeart, FiUser } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import UserAvatar from "../../components/UseAvatar";
 import { useAuth } from "../../hooks/useAuth";
+import './NavBarChabad.scss';
 
 
 const NavChabad = () => {
