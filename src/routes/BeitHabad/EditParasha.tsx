@@ -32,8 +32,8 @@ const EditParasha = () => {
                     setValue('alt', parasha.alt || parasha.title);
                     setImageUrl(parasha.image?.url);
 
-                    // Set the parashPage array
-                    setValue('longText', parasha.parashPage);
+                    // Set the longText array
+                    setValue('longText', parasha.longText);
 
                     // If there is an existing image
                     setImageName(parasha.image?.url.split('/').pop() || "");
@@ -50,10 +50,10 @@ const EditParasha = () => {
                 formData.append("title", data.title);
                 formData.append("miniText", data.miniText);
 
-                // Add parashPage
+                // Add longText
                 data.longText.forEach((page, index) => {
-                    formData.append(`parashPage[${index}][title]`, page.title);
-                    formData.append(`parashPage[${index}][text]`, page.text);
+                    formData.append(`longText[${index}][title]`, page.title);
+                    formData.append(`longText[${index}][text]`, page.text);
                 });
 
                 formData.append("alt", data.alt);

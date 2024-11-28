@@ -10,7 +10,7 @@ const CreateParasha = () => {
     const { register, handleSubmit, formState: { errors }, control } = useForm<Parasha>();
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "parashPage"
+        name: "longText"
     });
     const [image, setImage] = useState<File | null>(null);
     const [imageName, setImageName] = useState<string>("");
@@ -21,7 +21,7 @@ const CreateParasha = () => {
             return;
         }
 
-        if (!data.parashPage.length) {
+        if (!data.longText.length) {
             dialogs.error("Error", "Please add at least one Parasha page.");
             return;
         }
@@ -32,9 +32,9 @@ const CreateParasha = () => {
         formData.append("miniText", data.miniText);
         formData.append("alt", data.alt);
 
-        data.parashPage.forEach((page, index) => {
-            formData.append(`parashPage[${index}][title]`, page.title);
-            formData.append(`parashPage[${index}][text]`, page.text);
+        data.longText.forEach((page, index) => {
+            formData.append(`longText[${index}][title]`, page.title);
+            formData.append(`longText[${index}][text]`, page.text);
         });
 
         if (image) {
@@ -92,8 +92,8 @@ const CreateParasha = () => {
                     <h3 className="mb-2">Parasha Pages:</h3>
                     {fields.map((page, index) => (
                         <div key={page.id} className="variant">
-                            <input placeholder="Page Title" {...register(`parashPage.${index}.title` as const, { required: "Page title is required" })} />
-                            <textarea placeholder="Page Text" {...register(`parashPage.${index}.text` as const, { required: "Page text is required" })} />
+                            <input placeholder="Page Title" {...register(`longText.${index}.title` as const, { required: "Page title is required" })} />
+                            <textarea placeholder="Page Text" {...register(`longText.${index}.text` as const, { required: "Page text is required" })} />
                             <button type="button" className="removeButton" onClick={() => remove(index)}>Remove Page</button>
                         </div>
                     ))}
