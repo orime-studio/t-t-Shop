@@ -5,7 +5,6 @@ import UserAvatar from "../../components/UseAvatar";
 import { useAuth } from "../../hooks/useAuth";
 import './NavBarChabad.scss';
 
-
 const NavChabad = () => {
     const { isLoggedIn, user, logout } = useAuth();
     const navigate = useNavigate();
@@ -14,44 +13,25 @@ const NavChabad = () => {
     const isActive = (path: string) => location.pathname === path;
 
     return (
-        <Navbar fluid rounded style={{ width: '100%', direction: 'rtl' }}>
-           <Navbar.Brand href="/">
-    <img
-        src="/img/LogoChabad (2).png"
-        alt="בית חבד - יפו העתיקה"
-        className="h-12 w-auto" 
-    />
-</Navbar.Brand>
+        <Navbar fluid rounded className="nav-chabad-container">
+            <Navbar.Brand href="/">
+                <img
+                    src="/img/LogoChabad (2).png"
+                    alt="בית חבד - יפו העתיקה"
+                    className="nav-chabad-logo"
+                />
+            </Navbar.Brand>
 
-            <div className="flex md:order-2 items-center">
-               
-
-               {/*  {isLoggedIn && user?.isAdmin && (
-                    <>
-                        <Link to="/admin/dashboard" className="mr-5 hidden md:block">
-                            <Tooltip
-                                content="Manage Shop"
-                                placement="top"
-                                className="text-xs bg-gray-700 text-white rounded px-2 py-1"
-                            >
-                                <FiSettings size={20} className="text-gray hover:text-gray-300" />
-                            </Tooltip>
-                        </Link>
-                      
-                    </>
-                )} */}
-
+            <div className="nav-chabad-flex">
                 {isLoggedIn && (
                     <Dropdown
                         arrowIcon={false}
                         inline
-                        label={
-                            <UserAvatar firstName={user.name.first} lastName={user.name.last} />
-                        }
+                        label={<UserAvatar firstName={user.name.first} lastName={user.name.last} />}
                     >
                         <Dropdown.Header>
-                            <span className="block text-xs">{user.name.first} {user.name.last}</span>
-                            <span className="block truncate text-xs font-medium">{user.email}</span>
+                            <span className="text-xs">{user.name.first} {user.name.last}</span>
+                            <span className="text-xs font-medium">{user.email}</span>
                         </Dropdown.Header>
                         <Dropdown.Divider />
                         {user.isAdmin && (
@@ -62,56 +42,51 @@ const NavChabad = () => {
                                 <Dropdown.Divider />
                             </>
                         )}
-              
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={() => { logout(); navigate("/"); }}>התנתק</Dropdown.Item>
                     </Dropdown>
                 )}
 
                 {!isLoggedIn && (
-                    <Tooltip content="Login" placement="bottom" className="text-xs bg-gray-700 text-white rounded px-1 py-1">
-                        <Link to="/login" className="mr-4 flex items-center">
+                    <Tooltip content="Login" placement="bottom" className="tooltip">
+                        <Link to="/login" className="login-link">
                             <FiUser size={20} className="text-gray hover:text-gray-300" />
                         </Link>
                     </Tooltip>
                 )}
 
-                <Navbar.Toggle />
-                <DarkThemeToggle />
-            
+                <Navbar.Toggle className="nav-toggle" />
+                <DarkThemeToggle className="theme-toggle" />
             </div>
-            <Navbar.Collapse className="pr-4">
-    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/") ? "font-bold" : ""}`}>
-        בית
-    </Navbar.Link>
-    <Navbar.Link href="/beitChabad" className={`text-s mr-8 ${isActive("/about") ? "font-bold" : ""}`}>
-        אודות
-    </Navbar.Link>
-    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/gallery") ? "font-bold" : ""}`}>
-        גלריה
-    </Navbar.Link>
-    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/contact") ? "font-bold" : ""}`}>
-        מידע למטייל
-    </Navbar.Link>
 
-    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/contact") ? "font-bold" : ""}`}>
-        יצירת קשר
-    </Navbar.Link>
-    <Navbar.Link href="/beitChabad" className={`text-s mr-0 ${isActive("/contact") ? "font-bold" : ""}`}>
-        הרשמה לארוחת שבת
-    </Navbar.Link>
-    
-    <Navbar.Link
-        href="/beitChabad"
-        className={`text-s mr-10 px-4 py-5 bg-[#5e407d] text-white rounded-md flex items-center gap-2 ${isActive("/beitChabad") ? "font-bold" : ""}`}
-    >
-        <FiHeart size={20} className="text-white" />
-         אני רוצה לתרום 
-    </Navbar.Link>
-
-
-</Navbar.Collapse>
-
+            <Navbar.Collapse className="nav-chabad-links">
+                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/") ? "active" : ""}`}>
+                    בית
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/about") ? "active" : ""}`}>
+                    אודות
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/gallery") ? "active" : ""}`}>
+                    גלריה
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/contact") ? "active" : ""}`}>
+                    מידע למטייל
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/contact") ? "active" : ""}`}>
+                    יצירת קשר
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/contact") ? "active" : ""}`}>
+                    הרשמה לארוחת שבת
+                </Navbar.Link>
+                
+                <Navbar.Link
+                    href="/beitChabad"
+                    className={`donate-link ${isActive("/beitChabad") ? "active" : ""}`}
+                >
+                    <FiHeart size={20} className="donate-icon" />
+                    אני רוצה לתרום
+                </Navbar.Link>
+            </Navbar.Collapse>
         </Navbar>
     );
 }
