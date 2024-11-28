@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './LatestVideo.scss';
 
 const API_URL = 'https://node-tandt-shop.onrender.com/api/v1/videos/latest-video';
 
