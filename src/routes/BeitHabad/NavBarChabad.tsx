@@ -1,6 +1,6 @@
 import { DarkThemeToggle, Dropdown, Navbar, Tooltip } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiUser, FiHeart } from "react-icons/fi";
+import { FiBox, FiUser, FiShoppingCart, FiSettings, FiUsers, FiTrendingUp, FiHeart } from "react-icons/fi";
 import { useAuth } from "../../hooks/useAuth";
 import UserAvatar from "../../components/UseAvatar";
 
@@ -12,7 +12,7 @@ const NavChabad = () => {
     const isActive = (path: string) => location.pathname === path;
 
     return (
-        <Navbar fluid rounded className="nav-chabad">
+        <Navbar fluid rounded className="navbar-container">
             <Navbar.Brand href="/">
                 <img
                     src="/img/LogoChabad (2).png"
@@ -21,7 +21,7 @@ const NavChabad = () => {
                 />
             </Navbar.Brand>
 
-            <div className="nav-items-container">
+            <div className="flex-container">
                 {isLoggedIn && (
                     <Dropdown
                         arrowIcon={false}
@@ -60,7 +60,7 @@ const NavChabad = () => {
                 <DarkThemeToggle className="theme-toggle" />
             </div>
 
-            <Navbar.Collapse className="nav-links">
+            <Navbar.Collapse className="nav-items">
                 <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/") ? "font-bold" : ""}`}>
                     בית
                 </Navbar.Link>
@@ -83,7 +83,7 @@ const NavChabad = () => {
                 
                 <Navbar.Link
                     href="/beitChabad"
-                    className={`nav-link donate-link ${isActive("/beitChabad") ? "font-bold" : ""}`}
+                    className={`nav-link nav-link-highlight ${isActive("/beitChabad") ? "font-bold" : ""}`}
                 >
                     <FiHeart size={20} className="icon" />
                     אני רוצה לתרום 
