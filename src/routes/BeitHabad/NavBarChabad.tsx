@@ -4,13 +4,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import UserAvatar from "../../components/UseAvatar";
 import { useAuth } from "../../hooks/useAuth";
 import './NavBarChabad.scss';
-
+import { useState } from "react";
 
 const NavChabad = () => {
     const { isLoggedIn, user, logout } = useAuth();
     const navigate = useNavigate();
-
     const location = useLocation();
+    const [isOpen, setIsOpen] = useState(false); // State to manage navbar toggle
+
     const isActive = (path: string) => location.pathname === path;
 
     return (
@@ -20,10 +21,10 @@ const NavChabad = () => {
                     src="/img/LogoChabad (2).png"
                     alt="בית חבד - יפו העתיקה"
                 />
-
             </Navbar.Brand>
 
-            <Navbar.Collapse className="navbar-collapse">
+            {/* Navbar Links */}
+            <Navbar.Collapse className={`navbar-collapse ${isOpen ? 'active' : ''}`}>
                 <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/") ? "active" : ""}`}>
                     בית
                 </Navbar.Link>
@@ -36,14 +37,12 @@ const NavChabad = () => {
                 <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
                     מידע למטייל
                 </Navbar.Link>
-
                 <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
                     יצירת קשר
                 </Navbar.Link>
                 <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
                     הרשמה לארוחת שבת
                 </Navbar.Link>
-
                 <Navbar.Link href="/beitChabad" className={`donation-link ${isActive("/beitChabad") ? "active" : ""}`}>
                     <FiHeart size={20} className="donation-icon" />
                     אני רוצה לתרום
@@ -83,13 +82,12 @@ const NavChabad = () => {
                     </Tooltip>
                 )}
 
-                <Navbar.Toggle />
+                <Navbar.Toggle
+                    onClick={() => setIsOpen(!isOpen)} // Toggle the collapse state
+                    className={`navbar-toggle ${isOpen ? 'active' : ''}`} 
+                />
                 <DarkThemeToggle />
             </div>
-
-         
-
-
         </Navbar>
     );
 }
