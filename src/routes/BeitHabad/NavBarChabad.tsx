@@ -5,11 +5,9 @@ import UserAvatar from "../../components/UseAvatar";
 import { useAuth } from "../../hooks/useAuth";
 import './NavBarChabad.scss';
 
-
 const NavChabad = () => {
     const { isLoggedIn, user, logout } = useAuth();
     const navigate = useNavigate();
-
     const location = useLocation();
     const isActive = (path: string) => location.pathname === path;
 
@@ -20,10 +18,9 @@ const NavChabad = () => {
                     src="/img/LogoChabad (2).png"
                     alt="בית חבד - יפו העתיקה"
                 />
-
             </Navbar.Brand>
 
-               <Navbar.Collapse className="navbar-collapse">
+            <Navbar.Collapse className="navbar-collapse">
                 <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/") ? "active" : ""}`}>
                     בית
                 </Navbar.Link>
@@ -86,10 +83,6 @@ const NavChabad = () => {
                 <Navbar.Toggle />
                 <DarkThemeToggle />
             </div>
-
-         
-
-
         </Navbar>
     );
 }
