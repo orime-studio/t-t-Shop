@@ -1,101 +1,80 @@
-// NavBarChabad.scss
-
 .nav-chabad-navbar {
-    width: 100%;
+    background-color: #ffffff; // צבע רקע של ה-navbar
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // צלליות עדינות סביב ה-navbar
     direction: rtl;
-    background-color: #fff;
-    border-radius: 0.375rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   
     .logo-chabad {
-      height: 3rem;
-      width: auto;
+      height: 40px; // גובה הלוגו
+      object-fit: contain; // לשמור על יחס הגודל של הלוגו
+      margin-left: auto; // דחיפת הלוגו לצד ימין
     }
-  }
   
-  .navbar-collapse {
-    padding-right: 1rem; // Adjust for navbar items
-    display: flex;  // Enable flexbox layout
+    .navbar-collapse {
+      display: flex;
+      justify-content: flex-end; // מיישר את כל האלמנטים בסוף (ימין)
+      align-items: center;
+      padding: 1rem;
+    }
   
     .navbar-link {
-      font-size: 0.875rem;
-      transition: font-weight 0.3s ease;
-      margin-right: 0;  // Remove individual margins
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333333; // צבע טקסט של הלינקים
+      margin: 0 1rem;
+      transition: color 0.3s ease, font-weight 0.3s ease;
+  
+      &:hover {
+        color: #007bff; // צבע הטקסט בלחיצה
+        font-weight: 700; // הדגשת הטקסט בעת ריחוף
+      }
   
       &.active {
-        font-weight: 700;
+        color: #007bff; // צבע של הלינק כאשר הוא פעיל
       }
     }
-  
-    // Adding gap between the links
-    gap: 2rem;  // Space between all links
   
     .donation-link {
-      font-size: 0.875rem;
-      margin-right: 2.5rem;
-      padding: 1.25rem 1rem;
-      background-color: #5e407d;
-      color: white;
-      border-radius: 0.375rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: font-weight 0.3s ease;
-  
-      &.active {
-        font-weight: 700;
-      }
-  
-      &:not(.active) {
-        font-weight: normal;
-      }
+      font-size: 1rem;
+      color: #e44d60; // צבע של קישור התרומה
+      font-weight: 600;
+      margin-left: auto; // דחיפת הקישור לצד ימין
   
       .donation-icon {
-        color: white;
+        margin-right: 0.5rem; // רווח בין האייקון לטקסט
+      }
+  
+      &:hover {
+        color: #cc3b4f; // צבע בעת ריחוף על קישור התרומה
       }
     }
-  }
   
-  .navbar-actions {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    .navbar-actions {
+      display: flex;
+      align-items: center;
   
-    .user-name {
-      font-size: 0.75rem;
-    }
+      .login-link {
+        font-size: 1.25rem;
+        color: #007bff; // צבע אייקון הלוגין
+        margin-left: 1rem;
   
-    .user-email {
-      font-size: 0.75rem;
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        &:hover {
+          color: #0056b3; // שינוי צבע כאשר מרחפים מעל האייקון
+        }
+      }
+  
+      .icon {
+        margin-right: 0.5rem;
+      }
     }
   
     .tooltip {
-      font-size: 0.75rem;
-      background-color: #4b5563;
-      color: white;
-      border-radius: 0.25rem;
-      padding: 0.25rem 0.5rem;
-    }
-  
-    .login-link {
-      margin-right: 1rem;
-      display: flex;
-      align-items: center;
-  
-      .icon {
-        color: #6b7280;
-  
-        &:hover {
-          color: #d1d5db;
-        }
-      }
+      background-color: #333333; // צבע הרקע של הטול טיפ
+      color: #ffffff; // צבע הטקסט של הטול טיפ
+      font-size: 0.875rem; // גודל הטקסט
     }
   }
-  
   @media (max-width: 768px) {
     .navbar-collapse {
       max-height: 40vh;
