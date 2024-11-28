@@ -15,10 +15,9 @@ const NavChabad = () => {
     return (
         <Navbar fluid rounded className="nav-chabad-navbar">
             <Navbar.Brand href="/">
-                <img
+                <img className="logo-chabad"
                     src="/img/LogoChabad (2).png"
                     alt="בית חבד - יפו העתיקה"
-                    className="logo-chabad"
                 />
 
             </Navbar.Brand>
