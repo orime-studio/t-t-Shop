@@ -1,96 +1,95 @@
 .nav-chabad-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-chabad {
+  max-height: 40px;
+}
+
+.navbar-collapse {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+
+  .navbar-link {
+    font-size: 1rem;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #333;
+    transition: font-weight 0.3s ease;
+
+    &.active {
+      font-weight: bold;
+    }
+
+    &:hover {
+      color: #0066cc;
+    }
+  }
+
+  .donation-link {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #ff6600;
+
+    &:hover {
+      color: #ff9900;
+    }
+  }
+}
+
+.navbar-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  .login-link {
+    color: #0066cc;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #003366;
+    }
+  }
+
+  .navbar-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-collapse {
+    display: none;
+    flex-direction: column;
+    align-items: center;
     background-color: #fff;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
-  
-  .logo-chabad {
-    max-height: 40px;
-  }
-  
-  .navbar-collapse {
+
+  .navbar-collapse.active {
     display: flex;
-    gap: 1rem;
-    justify-content: flex-start;
-  
-    .navbar-link {
-      font-size: 1rem;
-      font-weight: normal;
-      text-transform: uppercase;
-      color: #333;
-      transition: font-weight 0.3s ease;
-  
-      &.active {
-        font-weight: bold;
-      }
-  
-      &:hover {
-        color: #0066cc;
-      }
-    }
-  
-    .donation-link {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-      color: #ff6600;
-  
-      &:hover {
-        color: #ff9900;
-      }
-    }
   }
-  
-  .navbar-actions {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-  
-    .login-link {
-      color: #0066cc;
-      transition: color 0.3s ease;
-  
-      &:hover {
-        color: #003366;
-      }
-    }
-  
-    .navbar-toggle {
-      display: none;
-    }
+
+  .navbar-toggle {
+    display: block;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
   }
-  
-  @media (max-width: 768px) {
-    .navbar-collapse {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      background-color: #fff;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      right: 0;
-      padding: 1rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-  
-    .navbar-collapse.active {
-      display: flex;
-    }
-  
-    .navbar-toggle {
-      display: block;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: #333;
-    }
-  
-    .navbar-toggle.active {
-      color: #0066cc;
-    }
+
+  .navbar-toggle.active {
+    color: #0066cc;
   }
-  
+}
