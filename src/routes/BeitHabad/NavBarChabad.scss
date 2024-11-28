@@ -1,80 +1,144 @@
-// NavBarChabad.scss
-
 .nav-chabad-navbar {
     background-color: #ffffff; // צבע רקע של ה-navbar
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); // צלליות עדינות סביב ה-navbar
     direction: rtl;
-  
+
     .logo-chabad {
-      height: 40px; // גובה הלוגו
-      object-fit: contain; // לשמור על יחס הגודל של הלוגו
-      margin-left: auto; // דחיפת הלוגו לצד ימין
+        height: 40px; // גובה הלוגו
+        object-fit: contain; // לשמור על יחס הגודל של הלוגו
+        margin-left: auto; // דחיפת הלוגו לצד ימין
     }
-  
+
     .navbar-collapse {
-      display: flex;
-      justify-content: flex-end; // מיישר את כל האלמנטים בסוף (ימין)
-      align-items: center;
-      padding: 1rem;
+        display: flex;
+        justify-content: flex-end; // מיישר את כל האלמנטים בסוף (ימין)
+        align-items: center;
+        padding: 1rem;
     }
-  
+
     .navbar-link {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #333333; // צבע טקסט של הלינקים
-      margin: 0 1rem;
-      transition: color 0.3s ease, font-weight 0.3s ease;
-  
-      &:hover {
-        color: #007bff; // צבע הטקסט בלחיצה
-        font-weight: 700; // הדגשת הטקסט בעת ריחוף
-      }
-  
-      &.active {
-        color: #007bff; // צבע של הלינק כאשר הוא פעיל
-      }
-    }
-  
-    .donation-link {
-      display: flex;
-      align-items: center;
-      font-size: 1rem;
-      color: #e44d60; // צבע של קישור התרומה
-      font-weight: 600;
-      margin-left: auto; // דחיפת הקישור לצד ימין
-  
-      .donation-icon {
-        margin-right: 0.5rem; // רווח בין האייקון לטקסט
-      }
-  
-      &:hover {
-        color: #cc3b4f; // צבע בעת ריחוף על קישור התרומה
-      }
-    }
-  
-    .navbar-actions {
-      display: flex;
-      align-items: center;
-  
-      .login-link {
-        font-size: 1.25rem;
-        color: #007bff; // צבע אייקון הלוגין
-        margin-left: 1rem;
-  
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333333; // צבע טקסט של הלינקים
+        margin: 0 1rem;
+        transition: color 0.3s ease, font-weight 0.3s ease;
+
         &:hover {
-          color: #0056b3; // שינוי צבע כאשר מרחפים מעל האייקון
+            color: #007bff; // צבע הטקסט בלחיצה
+            font-weight: 700; // הדגשת הטקסט בעת ריחוף
         }
-      }
-  
-      .icon {
-        margin-right: 0.5rem;
-      }
+
+        &.active {
+            color: #007bff; // צבע של הלינק כאשר הוא פעיל
+        }
     }
-  
+
+    .donation-link {
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+        color: #e44d60; // צבע של קישור התרומה
+        font-weight: 600;
+        margin-left: auto; // דחיפת הקישור לצד ימין
+
+        .donation-icon {
+            margin-right: 0.5rem; // רווח בין האייקון לטקסט
+        }
+
+        &:hover {
+            color: #cc3b4f; // צבע בעת ריחוף על קישור התרומה
+        }
+    }
+
+    .navbar-actions {
+        display: flex;
+        align-items: center;
+
+        .login-link {
+            font-size: 1.25rem;
+            color: #007bff; // צבע אייקון הלוגין
+            margin-left: 1rem;
+
+            &:hover {
+                color: #0056b3; // שינוי צבע כאשר מרחפים מעל האייקון
+            }
+        }
+
+        .icon {
+            margin-right: 0.5rem;
+        }
+    }
+
     .tooltip {
-      background-color: #333333; // צבע הרקע של הטול טיפ
-      color: #ffffff; // צבע הטקסט של הטול טיפ
-      font-size: 0.875rem; // גודל הטקסט
+        background-color: #333333; // צבע הרקע של הטול טיפ
+        color: #ffffff; // צבע הטקסט של הטול טיפ
+        font-size: 0.875rem; // גודל הטקסט
     }
-  }
-  
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        max-height: 40vh;
+        overflow-y: auto;
+        font-size: 0.75rem !important;
+    }
+
+    .navbar {
+        font-size: 0.75rem !important;
+        width: 100% !important;
+    }
+
+    .navbar-brand {
+        font-size: 0.875rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-link {
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-toggle {
+        margin-right: 0.5rem;
+    }
+
+    .navbar-dark-toggle {
+        margin-right: 0.5rem;
+    }
+
+    .fi-shopping-cart,
+    .fi-user,
+    .fi-settings {
+        font-size: 16px !important;
+    }
+}
+
+
+// תמיכה למובייל
+@media (max-width: 768px) {
+    .navbar {
+        font-size: 0.75rem !important;
+        width: 100% !important;
+    }
+
+    .navbar-brand {
+        font-size: 0.875rem;
+        text-align: center;
+    }
+
+    .navbar-search,
+    .navbar-link {
+        padding: 0.5rem 1rem;
+    }
+
+    .navbar-toggle,
+    .navbar-dark-toggle {
+        margin-right: 0.5rem;
+    }
+
+    .fi-shopping-cart,
+    .fi-user,
+    .fi-settings {
+        font-size: 16px !important;
+    }
+}
