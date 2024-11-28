@@ -50,7 +50,7 @@ const NavChabad = () => {
                 {!isLoggedIn && (
                     <Tooltip content="Login" placement="bottom" className="tooltip">
                         <Link to="/login" className="login-link">
-                            <FiUser size={20} className="text-gray hover:text-gray-300" />
+                            <FiUser size={20} className="icon" />
                         </Link>
                     </Tooltip>
                 )}
