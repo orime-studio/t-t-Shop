@@ -102,7 +102,7 @@ const NavChabad = () => {
     
     <Navbar.Link
         href="/beitChabad"
-        className={`text-s mr-10 px-4 py-5 bg-[#5e407d] text-white rounded-md flex items-center gap-2 ${isActive("/beitChabad") ? "font-bold" : ""}`}
+        className={`text-s m-10 px-8 py-5 bg-[#5e407d] text-white rounded-md flex items-center gap-2 ${isActive("/beitChabad") ? "font-bold" : ""}`}
     >
         <FiHeart size={20} className="text-white" />
          אני רוצה לתרום 
