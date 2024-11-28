@@ -101,12 +101,13 @@ const NavChabad = () => {
     </Navbar.Link>
     
     <Navbar.Link
-        href="/beitChabad"
-        className={`text-s mr-10 p-4 rounded-md flex items-center gap-2 ${isActive("/beitChabad") ? "font-bold" : ""}`}
-    >
-        <FiHeart size={20} className="text-red" />
-         אני רוצה לתרום 
-    </Navbar.Link>
+    href="/beitChabad"
+    className={`text-s mr-10 py-4 px-5 rounded-md flex items-center gap-2 ${isActive("/beitChabad") ? "font-bold" : ""} text-red-500`}
+>
+    <FiHeart size={20} className="text-red-500" />
+    אני רוצה לתרום
+</Navbar.Link>
+
 
 
 </Navbar.Collapse>
