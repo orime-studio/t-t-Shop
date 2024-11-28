@@ -3,26 +3,27 @@ import { FiHeart, FiUser } from "react-icons/fi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import UserAvatar from "../../components/UseAvatar";
 import { useAuth } from "../../hooks/useAuth";
-import './NavBarChabad.scss';
+
 
 const NavChabad = () => {
     const { isLoggedIn, user, logout } = useAuth();
     const navigate = useNavigate();
-  
+
     const location = useLocation();
     const isActive = (path: string) => location.pathname === path;
 
     return (
-        <Navbar fluid rounded className="nav-chabad-container">
+        <Navbar fluid rounded className="nav-chabad-navbar">
             <Navbar.Brand href="/">
                 <img
                     src="/img/LogoChabad (2).png"
                     alt="בית חבד - יפו העתיקה"
-                    className="nav-chabad-logo"
+                    className="logo-chabad"
                 />
+
             </Navbar.Brand>
 
-            <div className="nav-chabad-flex">
+            <div className="navbar-actions">
                 {isLoggedIn && (
                     <Dropdown
                         arrowIcon={false}
@@ -30,8 +31,8 @@ const NavChabad = () => {
                         label={<UserAvatar firstName={user.name.first} lastName={user.name.last} />}
                     >
                         <Dropdown.Header>
-                            <span className="text-xs">{user.name.first} {user.name.last}</span>
-                            <span className="text-xs font-medium">{user.email}</span>
+                            <span className="user-name">{user.name.first} {user.name.last}</span>
+                            <span className="user-email">{user.email}</span>
                         </Dropdown.Header>
                         <Dropdown.Divider />
                         {user.isAdmin && (
@@ -55,38 +56,38 @@ const NavChabad = () => {
                     </Tooltip>
                 )}
 
-                <Navbar.Toggle className="nav-toggle" />
-                <DarkThemeToggle className="theme-toggle" />
+                <Navbar.Toggle />
+                <DarkThemeToggle />
             </div>
 
-            <Navbar.Collapse className="nav-chabad-links">
-                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/") ? "active" : ""}`}>
+            <Navbar.Collapse className="navbar-collapse">
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/") ? "active" : ""}`}>
                     בית
                 </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/about") ? "active" : ""}`}>
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/about") ? "active" : ""}`}>
                     אודות
                 </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/gallery") ? "active" : ""}`}>
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/gallery") ? "active" : ""}`}>
                     גלריה
                 </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/contact") ? "active" : ""}`}>
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
                     מידע למטייל
                 </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/contact") ? "active" : ""}`}>
+
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
                     יצירת קשר
                 </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`nav-link ${isActive("/contact") ? "active" : ""}`}>
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
                     הרשמה לארוחת שבת
                 </Navbar.Link>
-                
-                <Navbar.Link
-                    href="/beitChabad"
-                    className={`donate-link ${isActive("/beitChabad") ? "active" : ""}`}
-                >
-                    <FiHeart size={20} className="donate-icon" />
+
+                <Navbar.Link href="/beitChabad" className={`donation-link ${isActive("/beitChabad") ? "active" : ""}`}>
+                    <FiHeart size={20} className="donation-icon" />
                     אני רוצה לתרום
                 </Navbar.Link>
             </Navbar.Collapse>
+
+
         </Navbar>
     );
 }
