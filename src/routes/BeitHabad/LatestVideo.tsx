@@ -36,21 +36,20 @@ function LatestVideo() {
   }, []);
 
   return (
-    <div>
+    <div className="latest-video-container">
       {videoUrl ? (
         <iframe
-          width="560"
-          height="315"
-          src={getEmbedUrl(videoUrl)} // המרת URL ל-Embed URL
+          src={getEmbedUrl(videoUrl)}
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
       ) : (
-        <p>Loading...</p>
+        <p className="loading">Loading...</p>
       )}
     </div>
   );
+  
 }
 
 export default LatestVideo;
