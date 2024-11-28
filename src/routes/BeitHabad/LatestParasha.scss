@@ -3,7 +3,7 @@
   border: 1px solid #ddd;
   border-radius: 16px;
   padding: 0;
-  direction: rtl;
+  direction: rtl; // מגדיר יישור עברי
   width: 95%; // רוחב מוגדל ל-95%, כמו בקומפוננטת "אודות"
   max-width: 1800px;
   margin: 16px auto;
@@ -72,5 +72,67 @@
     font-size: 1rem;
     color: #777;
     text-align: center;
+  }
+
+  /* התאמות למובייל */
+  @media (max-width: 768px) {
+    .parasha-link {
+      flex-direction: column; // מעבר לפריסה אנכית במובייל
+      align-items: center;
+
+      .parasha-card {
+        flex-direction: column; // שינוי פריסת הכרטיסייה לאנכית
+
+        .parasha-image-wrapper {
+          width: 100%; // התמונה תתפוס את כל הרוחב
+          min-width: auto;
+        }
+
+        .parasha-image {
+          border-radius: 16px 16px 0 0; // מעגל קצוות בחלק העליון
+        }
+
+        .parasha-details {
+          padding: 16px;
+          text-align: center; // טקסט מיושר למרכז במובייל
+        }
+
+        .parasha-title {
+          font-size: 22px;
+          margin-bottom: 12px;
+        }
+
+        .parasha-mini-text {
+          font-size: 16px;
+          margin-bottom: 12px;
+        }
+
+        .parasha-source {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .parasha-link {
+      .parasha-card {
+        .parasha-details {
+          padding: 12px;
+
+          .parasha-title {
+            font-size: 20px;
+          }
+
+          .parasha-mini-text {
+            font-size: 14px;
+          }
+
+          .parasha-source {
+            font-size: 12px;
+          }
+        }
+      }
+    }
   }
 }
