@@ -102,9 +102,9 @@ const NavChabad = () => {
     
     <Navbar.Link
         href="/beitChabad"
-        className={`text-s mr-10 p-4  text-red rounded-md flex items-center gap-2 ${isActive("/beitChabad") ? "font-bold" : ""}`}
+        className={`text-s mr-10 p-4 rounded-md flex items-center gap-2 ${isActive("/beitChabad") ? "font-bold" : ""}`}
     >
-        <FiHeart size={20} className="text-white" />
+        <FiHeart size={20} className="text-red" />
          אני רוצה לתרום 
     </Navbar.Link>
 
