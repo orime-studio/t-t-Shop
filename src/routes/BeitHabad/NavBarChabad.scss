@@ -7,11 +7,12 @@
     .logo-chabad {
       height: 40px; // גובה הלוגו
       object-fit: contain; // לשמור על יחס הגודל של הלוגו
+      margin-left: auto; // דחיפת הלוגו לצד ימין
     }
   
     .navbar-collapse {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end; // מיישר את כל האלמנטים בסוף (ימין)
       align-items: center;
       padding: 1rem;
     }
