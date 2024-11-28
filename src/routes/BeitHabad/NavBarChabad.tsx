@@ -23,6 +23,33 @@ const NavChabad = () => {
 
             </Navbar.Brand>
 
+            <Navbar.Collapse className="navbar-collapse">
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/") ? "active" : ""}`}>
+                    בית
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/about") ? "active" : ""}`}>
+                    אודות
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/gallery") ? "active" : ""}`}>
+                    גלריה
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
+                    מידע למטייל
+                </Navbar.Link>
+
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
+                    יצירת קשר
+                </Navbar.Link>
+                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
+                    הרשמה לארוחת שבת
+                </Navbar.Link>
+
+                <Navbar.Link href="/beitChabad" className={`donation-link ${isActive("/beitChabad") ? "active" : ""}`}>
+                    <FiHeart size={20} className="donation-icon" />
+                    אני רוצה לתרום
+                </Navbar.Link>
+            </Navbar.Collapse>
+
             <div className="navbar-actions">
                 {isLoggedIn && (
                     <Dropdown
@@ -60,32 +87,7 @@ const NavChabad = () => {
                 <DarkThemeToggle />
             </div>
 
-            <Navbar.Collapse className="navbar-collapse">
-                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/") ? "active" : ""}`}>
-                    בית
-                </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/about") ? "active" : ""}`}>
-                    אודות
-                </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/gallery") ? "active" : ""}`}>
-                    גלריה
-                </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
-                    מידע למטייל
-                </Navbar.Link>
-
-                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
-                    יצירת קשר
-                </Navbar.Link>
-                <Navbar.Link href="/beitChabad" className={`navbar-link ${isActive("/contact") ? "active" : ""}`}>
-                    הרשמה לארוחת שבת
-                </Navbar.Link>
-
-                <Navbar.Link href="/beitChabad" className={`donation-link ${isActive("/beitChabad") ? "active" : ""}`}>
-                    <FiHeart size={20} className="donation-icon" />
-                    אני רוצה לתרום
-                </Navbar.Link>
-            </Navbar.Collapse>
+         
 
 
         </Navbar>
