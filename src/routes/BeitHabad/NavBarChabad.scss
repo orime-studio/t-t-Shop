@@ -1,56 +1,164 @@
-@media (max-width: 768px) {
-    .navbar-collapse {
-        max-height: 40vh;
-        overflow-y: auto;
-        font-size: 0.75rem !important;
-    }
-
-    .navbar {
-        font-size: 0.75rem !important;
-        width: 100% !important;
-    }
-
+.navbar-container {
+    width: 100%;
+    direction: rtl;
+  
     .navbar-brand {
-        font-size: 0.875rem;
-        width: 100%;
-        text-align: center;
-        /* למרכז את שם המשתמש */
+      img {
+        height: 3rem;
+        width: auto;
+      }
     }
-
+  
     .navbar-collapse {
-        font-size: 0.75rem;
+      padding-right: 1rem;
+  
+      .navbar-link {
+        font-size: 1rem;
+        margin-right: 0;
+        &.mr-8 {
+          margin-right: 2rem;
+        }
+        &.m-10 {
+          margin: 2.5rem;
+        }
+        &.bg-custom {
+          background-color: #5e407d;
+          color: white;
+          padding: 1.25rem;
+          border-radius: 0.5rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+  
+          .icon {
+            font-size: 1.25rem;
+          }
+  
+          &:hover {
+            background-color: #7a5ba2;
+          }
+        }
+  
+        &.font-bold {
+          font-weight: bold;
+        }
+      }
     }
-
-    .navbar-dropdown {
-        font-size: 0.75rem;
-    }
-
-    .navbar-search {
-        width: 100%;
-        margin: 0 auto;
-    }
-
-    .navbar-link {
-        padding: 0.5rem 1rem;
-    }
-
+  
     .navbar-toggle {
-        margin-right: 0.5rem;
+      margin-right: 1rem;
     }
-
+  
+    .dark-theme-toggle {
+      margin-left: 1rem;
+    }
+  
+    .flex {
+      display: flex;
+      align-items: center;
+    }
+  
+    .dropdown-menu {
+      text-align: right;
+  
+      .dropdown-header {
+        .block {
+          font-size: 0.75rem;
+  
+          &.text-xs {
+            font-size: 0.875rem;
+          }
+  
+          &.font-medium {
+            font-weight: 500;
+          }
+        }
+      }
+  
+      .dropdown-item {
+        font-size: 0.875rem;
+  
+        &:hover {
+          background-color: #f3f4f6;
+        }
+      }
+  
+      .divider {
+        border-top: 1px solid #e5e7eb;
+      }
+    }
+  
+    .tooltip {
+      font-size: 0.75rem;
+      background-color: #555;
+      color: white;
+      border-radius: 0.25rem;
+      padding: 0.25rem 0.5rem;
+    }
+  
+    .user-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      width: 2rem;
+      height: 2rem;
+      background-color: #e5e7eb;
+      color: #374151;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-collapse {
+      max-height: 40vh;
+      overflow-y: auto;
+      font-size: 0.75rem !important;
+    }
+  
+    .navbar {
+      font-size: 0.75rem !important;
+      width: 100% !important;
+    }
+  
+    .navbar-brand {
+      font-size: 0.875rem;
+      width: 100%;
+      text-align: center;
+    }
+  
+    .navbar-collapse {
+      font-size: 0.75rem;
+    }
+  
+    .navbar-dropdown {
+      font-size: 0.75rem;
+    }
+  
+    .navbar-search {
+      width: 100%;
+      margin: 0 auto;
+    }
+  
+    .navbar-link {
+      padding: 0.5rem 1rem;
+    }
+  
+    .navbar-toggle {
+      margin-right: 0.5rem;
+    }
+  
     .navbar-dark-toggle {
-        margin-right: 0.5rem;
+      margin-right: 0.5rem;
     }
-
+  
     .text-xl {
-        font-size: 1rem !important;
-        /* הקטנת גודל הטקסט של השם */
+      font-size: 1rem !important;
     }
-
+  
     .fi-shopping-cart,
     .fi-user,
     .fi-settings {
-        font-size: 16px !important;
-        /* הקטנת גודל האייקונים */
+      font-size: 16px !important;
     }
-}
+  }
+  
