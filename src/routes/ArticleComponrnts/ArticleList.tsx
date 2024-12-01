@@ -1,5 +1,3 @@
-// components/ArticleList.tsx
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Article } from "../../@Types/productType";
@@ -37,24 +35,26 @@ const ArticleList = () => {
   return (
     <div className="article-list">
       <h1>All Articles</h1>
-      {articles.length === 0 ? (
-        <p>No articles available at the moment.</p>
-      ) : (
-        articles.map(article => (
-          <div key={article._id} className="article-item">
-            <h2>{article.title}</h2>
-            <p>{article.miniText}</p>
-            {article.images?.[0]?.url && (
-              <img
-                src={article.images[0].url}
-                alt={article.images[0].alt || article.title}
-                className="article-image"
-              />
-            )}
-            <Link to={`/article/${article._id}`}>Read More</Link>
-          </div>
-        ))
-      )}
+      <div className="article-list-grid">
+        {articles.length === 0 ? (
+          <p>No articles available at the moment.</p>
+        ) : (
+          articles.map(article => (
+            <div key={article._id} className="article-item">
+              <h2>{article.title}</h2>
+              <p>{article.miniText}</p>
+              {article.images?.[0]?.url && (
+                <img
+                  src={article.images[0].url}
+                  alt={article.images[0].alt || article.title}
+                  className="article-image"
+                />
+              )}
+              <Link to={`/article/${article._id}`}>Read More</Link>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };
