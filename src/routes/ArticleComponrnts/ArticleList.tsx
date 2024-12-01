@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Article } from "../../@Types/productType";
 import { getAllArticles } from "../../services/article-service";
+import './ArticleList.scss';
 
 const ArticleList = () => {
   const [articles, setArticles] = useState<Article[]>([]);
