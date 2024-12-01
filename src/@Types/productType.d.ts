@@ -132,3 +132,33 @@ export type IParasha = IParashaInput & {
     _id: string;
     createdAt: Date;
 };
+
+
+// types/client-articleType.ts
+
+export type IImages = {
+    url: string;       // Image URL
+    alt: string;       // Image description (alt)
+    description?: string; // Optional additional description or caption for the image
+};
+
+export type ArticleInput = {
+    source: string;          // Author name
+    title: string;           // Article title
+    miniText: string;        // Short description of the article
+    alt: string;             // Image description (alt)
+    images: IImages[];        // Array of images for the article
+    longText: ArticleLongText[];    // List of article pages
+};
+
+export type ArticleLongText = {
+    title?: string; // Page title
+    text: string;  // Page content
+};
+
+export type Article = ArticleInput & {
+    _id: string;
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+};

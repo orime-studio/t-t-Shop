@@ -28,6 +28,9 @@ import UpdateUser from "./UpdateUser";
 import UserOrders from "./UserOrders";
 import ChabadDashboard from "./BeitHabad/ChabadDashboard";
 import CreateNewParasha from "./BeitHabad/createNewParasha";
+import CreateArticle from "./ArticleComponrnts/CreateArticle";
+import ArticlePage from "./ArticleComponrnts/ArticlePage";
+import ArticleList from "./ArticleComponrnts/ArticleList";
 
 export const router = createBrowserRouter([
     {
@@ -86,6 +89,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/create-page", element: <CreatePage />
+            },
+            {
+                path: "/article", element: <ArticleList />
+            },
+            {
+                path: "/articles/:id", element: <ArticlePage />
+            },
+            {
+                path: "/create-article", element: <CreateArticle />
             },
         ],
     },
