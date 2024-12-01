@@ -50,6 +50,7 @@ const EditArticle = () => {
                 formData.append("title", data.title);
                 formData.append("miniText", data.miniText);
 
+                // הוספת תוכן מאמר
                 data.longText.forEach((page, index) => {
                     formData.append(`longText[${index}][title]`, page.title);
                     formData.append(`longText[${index}][text]`, page.text);
@@ -57,10 +58,12 @@ const EditArticle = () => {
 
                 formData.append("alt", data.alt);
 
+                // הוספת תמונות חדשות אם קיימות
                 images.forEach((image, index) => {
                     formData.append(`images[${index}]`, image);
                 });
 
+                // אם אין תמונות חדשות, שלח את ה-URLs של התמונות הישנות
                 if (!images.length && imageUrls.length) {
                     imageUrls.forEach((url, index) => {
                         formData.append(`imageUrls[${index}]`, url);
@@ -69,6 +72,7 @@ const EditArticle = () => {
 
                 console.log("FormData before sending:", [...formData.entries()]); // תוכן ה-FormData
 
+                // שלח את הבקשה לעדכון המאמר
                 await updateArticle(id, formData);
                 dialogs.success("Success", "Article updated successfully").then(() => {
                     navigate("/admin/dashboard");
@@ -79,6 +83,7 @@ const EditArticle = () => {
             dialogs.error("Error", error.response?.data?.message || "Failed to update the article");
         }
     };
+
 
     if (error) return <div>Error: {error.message}</div>;
 
@@ -123,11 +128,15 @@ const EditArticle = () => {
                         ))}
                     </div>
                 </section>
-
                 <section className="input-section">
-                    <input className="input-field" placeholder="Image Description (alt)" {...register("alt", { required: "Image description is required" })} />
+                    <input
+                        className="input-field"
+                        placeholder="Image Description (alt)"
+                        {...register("alt", { required: "Image description is required" })}
+                    />
                     {errors.alt && <p className="error-message">{errors.alt.message}</p>}
                 </section>
+
 
                 <section className="pages-section">
                     <h3 className="pages-header">Article Pages:</h3>
