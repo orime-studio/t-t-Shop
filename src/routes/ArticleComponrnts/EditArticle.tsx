@@ -20,29 +20,28 @@ const EditArticle = () => {
 
     useEffect(() => {
         if (id) {
-            console.log("Fetching article with ID:", id); // בדיקת ID
+            console.log("Fetching article with ID:", id);
             getArticleById(id)
                 .then(res => {
                     const article = res.data;
-                    console.log("Article data fetched:", article); // הדפסת נתונים שהתקבלו
+                    console.log("Article data fetched:", article);
                     setValue('source', article.source);
                     setValue('title', article.title);
                     setValue('miniText', article.miniText);
                     setValue('alt', article.alt || article.title);
                     setImageUrls(article.images.map((image: { url: string }) => image.url));
-
                     setValue('longText', article.longText);
                     setImageNames(article.images.map((image: { url: string }) => image.url.split('/').pop() || ""));
                 })
                 .catch(err => {
-                    console.error("Error fetching article:", err); // הדפסת שגיאה בשליפה
+                    console.error("Error fetching article:", err);
                     setError(err);
                 });
         }
     }, [id, setValue]);
 
     const onSubmit = async (data: ArticleInput) => {
-        console.log("Form data before submission:", data); // נתונים לפני שליחה
+        console.log("Form data before submission:", data);  // הדפסת הנתונים לפני שליחה
         try {
             if (id) {
                 const formData = new FormData();
@@ -50,7 +49,6 @@ const EditArticle = () => {
                 formData.append("title", data.title);
                 formData.append("miniText", data.miniText);
 
-                // הוספת תוכן מאמר
                 data.longText.forEach((page, index) => {
                     formData.append(`longText[${index}][title]`, page.title);
                     formData.append(`longText[${index}][text]`, page.text);
@@ -58,32 +56,35 @@ const EditArticle = () => {
 
                 formData.append("alt", data.alt);
 
-                // הוספת תמונות חדשות אם קיימות
                 images.forEach((image, index) => {
                     formData.append(`images[${index}]`, image);
                 });
 
-                // אם אין תמונות חדשות, שלח את ה-URLs של התמונות הישנות
                 if (!images.length && imageUrls.length) {
                     imageUrls.forEach((url, index) => {
                         formData.append(`imageUrls[${index}]`, url);
                     });
                 }
 
-                console.log("FormData before sending:", [...formData.entries()]); // תוכן ה-FormData
+                // הצגת כל הנתונים שנשלחים ב-FormData
+                formData.forEach((value, key) => {
+                    console.log(`${key}: ${value}`);
+                });
 
-                // שלח את הבקשה לעדכון המאמר
+                // שליחה לשרת
                 await updateArticle(id, formData);
                 dialogs.success("Success", "Article updated successfully").then(() => {
                     navigate("/admin/dashboard");
                 });
             }
         } catch (error: any) {
-            console.error("Error updating article:", error); // הדפסת שגיאה בעדכון
+            console.error("Error updating article:", error);  // הצגת שגיאה אם יש
+            if (error.response) {
+                console.error("Server error response:", error.response.data);
+            }
             dialogs.error("Error", error.response?.data?.message || "Failed to update the article");
         }
     };
-
 
     if (error) return <div>Error: {error.message}</div>;
 
@@ -114,7 +115,7 @@ const EditArticle = () => {
                         multiple
                         onChange={(e) => {
                             const files = Array.from(e.target.files || []);
-                            console.log("Selected files:", files); // בדיקת קבצים שנבחרו
+                            console.log("Selected files:", files);  // בדיקת קבצים שנבחרו
                             setImages(files);
                             setImageNames(files.map((file) => file.name));
                         }}
@@ -128,15 +129,11 @@ const EditArticle = () => {
                         ))}
                     </div>
                 </section>
+
                 <section className="input-section">
-                    <input
-                        className="input-field"
-                        placeholder="Image Description (alt)"
-                        {...register("alt", { required: "Image description is required" })}
-                    />
+                    <input className="input-field" placeholder="Image Description (alt)" {...register("alt", { required: "Image description is required" })} />
                     {errors.alt && <p className="error-message">{errors.alt.message}</p>}
                 </section>
-
 
                 <section className="pages-section">
                     <h3 className="pages-header">Article Pages:</h3>
@@ -146,13 +143,13 @@ const EditArticle = () => {
                             <textarea className="textarea-field" placeholder="Page Content" {...register(`longText.${index}.text` as const, { required: "Page content is required" })} />
                             <button type="button" className="remove-text-button" onClick={() => {
                                 remove(index);
-                                console.log("Removed section, current fields:", fields); // בדיקת מצב לאחר מחיקה
+                                console.log("Removed section, current fields:", fields);  // בדיקת מצב לאחר מחיקה
                             }}>Remove</button>
                         </div>
                     ))}
                     <button type="button" className="add-text-button" onClick={() => {
                         append({ title: "", text: "" });
-                        console.log("Added section, current fields:", fields); // בדיקת מצב לאחר הוספה
+                        console.log("Added section, current fields:", fields);  // בדיקת מצב לאחר הוספה
                     }}>Add Section</button>
                 </section>
 
