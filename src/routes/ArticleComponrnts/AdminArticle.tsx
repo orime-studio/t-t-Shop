@@ -61,7 +61,7 @@ const AdminArticles = () => {
             <h2 className="admin-articles-header">Articles List</h2>
             <div className="admin-articles-add-button">
                 <Tooltip content="Add Article" placement="top">
-                    <Link to="admin/article/create" className="button-add-article">
+                    <Link to="/create-article" className="button-add-article">
                         <FiPlus size={20} />
                     </Link>
                 </Tooltip>

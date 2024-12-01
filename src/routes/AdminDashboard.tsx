@@ -6,6 +6,7 @@ import AdminOrders from "./AdminOrders";
 import SalesChart from "./SalesByDate";
 import './AdminDashboard.scss';
 import AdminMessages from "./AdminMessage";
+import AdminArticles from "./ArticleComponrnts/AdminArticle";
 
 const AdminDashboard = () => {
     return (
@@ -21,6 +22,9 @@ const AdminDashboard = () => {
             </Tabs.Item>
             <Tabs.Item title="Analytics" icon={FiTrendingUp}>
                 <SalesChart />
+            </Tabs.Item>
+            <Tabs.Item title="Articles" icon={FiFileText}>
+                <AdminArticles />
             </Tabs.Item>
             <Tabs.Item title="Leads" icon={FiFileText}>
                 <AdminMessages />

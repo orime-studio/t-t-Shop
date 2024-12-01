@@ -1,54 +1,76 @@
-// components/ArticleDetail.tsx
-
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Article } from "../../@Types/productType";
 import { getArticleById } from "../../services/article-service";
+import './ArticlePage.scss';
 
 const ArticlePage = () => {
     const { id } = useParams<{ id: string }>();
     const [article, setArticle] = useState<Article | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (id) {
             getArticleById(id)
                 .then(res => {
-                    console.log("Response from getArticleById:", res);
                     setArticle(res.data);
+                    setLoading(false);
                 })
                 .catch(err => {
-                    console.error("Error fetching article:", err);
+                    setError("Failed to load article.");
+                    setLoading(false);
                 });
         }
     }, [id]);
 
+    if (loading) {
+        return <div className="loading">טוען...</div>;
+    }
+
+    if (error) {
+        return <div className="error-message">{error}</div>;
+    }
+
     if (!article) {
-        return <div>Loading...</div>;
+        return <div className="no-article">לא נמצא מאמר</div>;
     }
 
     return (
-        <div className="article-detail">
-            {article.images?.map((image, index) => (
-                <img
+        <div className="article-container">
+            {/* תמונה ראשית */}
+            {article.images.length > 0 && (
+                <div className="full-width-image-container">
+                    <img src={article.images[0].url} alt={article.images[0].alt} className="full-width-image" />
+                </div>
+            )}
+
+            {article.longText.map((page, index) => (
+                <Section
                     key={index}
-                    src={image.url}
-                    alt={image.alt || "Article Image"}
-                    className="article-image"
+                    title={page.title}
+                    text={page.text}
+                    image={article.images[index + 1]}
+                    isLeftAligned={index % 2 !== 0} // לסירוגין: פעם אחת ימין, פעם אחת שמאל
                 />
             ))}
-            <h1>{article.title}</h1>
-            <div className="article-pages">
-                {article.longText.map((page, index) => (
-                    <div key={index} className="article-page">
-                        <h2>{page.title}</h2>
-                        <p>{page.text}</p>
-                    </div>
-                ))}
-            </div>
 
-            <a href="/articles">Back to Articles</a>
+            <a href="/articles" className="back-to-articles">חזרה למאמרים</a>
         </div>
     );
 };
 
+const Section = ({ title, text, image, isLeftAligned }) => (
+    <section className={`section ${isLeftAligned ? 'left-align' : 'right-align'}`}>
+        <div className="text-image-container">
+            <div className="text-content">
+                <h2 className="section-title">{title}</h2>
+                <p className="section-description">{text}</p>
+            </div>
+            {image && <img src={image.url} alt={image.alt} className="section-image" />}
+        </div>
+    </section>
+);
+
 export default ArticlePage;
+

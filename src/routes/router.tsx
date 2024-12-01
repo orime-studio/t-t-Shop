@@ -31,6 +31,7 @@ import CreateNewParasha from "./BeitHabad/createNewParasha";
 import CreateArticle from "./ArticleComponrnts/CreateArticle";
 import ArticlePage from "./ArticleComponrnts/ArticlePage";
 import ArticleList from "./ArticleComponrnts/ArticleList";
+import EditArticle from "./ArticleComponrnts/EditArticle";
 
 export const router = createBrowserRouter([
     {
@@ -98,6 +99,9 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/create-article", element: <CreateArticle />
+            },
+            {
+                path: "/edit-article", element: <EditArticle />
             },
         ],
     },
