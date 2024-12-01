@@ -1,5 +1,3 @@
-// components/EditArticle.tsx
-
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -22,9 +20,11 @@ const EditArticle = () => {
 
     useEffect(() => {
         if (id) {
+            console.log("Fetching article with ID:", id); // בדיקת ID
             getArticleById(id)
                 .then(res => {
                     const article = res.data;
+                    console.log("Article data fetched:", article); // הדפסת נתונים שהתקבלו
                     setValue('source', article.source);
                     setValue('title', article.title);
                     setValue('miniText', article.miniText);
@@ -34,11 +34,15 @@ const EditArticle = () => {
                     setValue('longText', article.longText);
                     setImageNames(article.images.map((image: { url: string }) => image.url.split('/').pop() || ""));
                 })
-                .catch(err => setError(err));
+                .catch(err => {
+                    console.error("Error fetching article:", err); // הדפסת שגיאה בשליפה
+                    setError(err);
+                });
         }
     }, [id, setValue]);
 
     const onSubmit = async (data: ArticleInput) => {
+        console.log("Form data before submission:", data); // נתונים לפני שליחה
         try {
             if (id) {
                 const formData = new FormData();
@@ -63,14 +67,16 @@ const EditArticle = () => {
                     });
                 }
 
+                console.log("FormData before sending:", [...formData.entries()]); // תוכן ה-FormData
+
                 await updateArticle(id, formData);
                 dialogs.success("Success", "Article updated successfully").then(() => {
-                    navigate("/admin");
+                    navigate("/admin/dashboard");
                 });
             }
         } catch (error: any) {
+            console.error("Error updating article:", error); // הדפסת שגיאה בעדכון
             dialogs.error("Error", error.response?.data?.message || "Failed to update the article");
-            console.log(error);
         }
     };
 
@@ -93,6 +99,9 @@ const EditArticle = () => {
                     {errors.miniText && <p className="error-message">{errors.miniText.message}</p>}
                 </section>
                 <section>
+                    <label htmlFor="image-upload" className="file-upload-label">
+                        בחר תמונות
+                    </label>
                     <input
                         id="image-upload"
                         type="file"
@@ -100,15 +109,21 @@ const EditArticle = () => {
                         multiple
                         onChange={(e) => {
                             const files = Array.from(e.target.files || []);
+                            console.log("Selected files:", files); // בדיקת קבצים שנבחרו
                             setImages(files);
                             setImageNames(files.map((file) => file.name));
                         }}
                         className="file-input"
                     />
-                    {imageNames.map((name, index) => (
-                        <p key={index} className="file-name">{name}</p>
-                    ))}
+                    <div className="file-names-list">
+                        {imageNames.map((name, index) => (
+                            <p key={index} className="file-name">
+                                {name}
+                            </p>
+                        ))}
+                    </div>
                 </section>
+
                 <section className="input-section">
                     <input className="input-field" placeholder="Image Description (alt)" {...register("alt", { required: "Image description is required" })} />
                     {errors.alt && <p className="error-message">{errors.alt.message}</p>}
@@ -120,10 +135,16 @@ const EditArticle = () => {
                         <div key={page.id} className="article-page">
                             <input className="input-field" placeholder="Page Title" {...register(`longText.${index}.title` as const)} />
                             <textarea className="textarea-field" placeholder="Page Content" {...register(`longText.${index}.text` as const, { required: "Page content is required" })} />
-                            <button type="button" className="remove-text-button" onClick={() => remove(index)}>Remove</button>
+                            <button type="button" className="remove-text-button" onClick={() => {
+                                remove(index);
+                                console.log("Removed section, current fields:", fields); // בדיקת מצב לאחר מחיקה
+                            }}>Remove</button>
                         </div>
                     ))}
-                    <button type="button" className="add-text-button" onClick={() => append({ title: "", text: "" })}>Add Section</button>
+                    <button type="button" className="add-text-button" onClick={() => {
+                        append({ title: "", text: "" });
+                        console.log("Added section, current fields:", fields); // בדיקת מצב לאחר הוספה
+                    }}>Add Section</button>
                 </section>
 
                 <button type="submit" className="submit-button">Save</button>
