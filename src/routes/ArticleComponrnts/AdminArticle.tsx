@@ -1,5 +1,3 @@
-// components/AdminArticles.tsx
-
 import { Table, Tooltip } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { FiPlus, FiTrash2 } from 'react-icons/fi';
@@ -8,6 +6,7 @@ import { useSearch } from '../../hooks/useSearch';
 import dialogs from '../../ui/dialogs';
 import { Article } from '../../@Types/productType';
 import { deleteArticleById, getAllArticles } from '../../services/article-service';
+import './AdminArticle.scss';
 
 const AdminArticles = () => {
     const { searchTerm } = useSearch();
@@ -86,20 +85,26 @@ const AdminArticles = () => {
                                 <Table.Row key={article._id} className="text-right">
                                     <Table.Cell>
                                         {article.images?.[0]?.url && (
-                                            <img
-                                                src={article.images[0].url}
-                                                alt={article.images[0].alt}
-                                                className="article-image"
-                                            />
+                                            <Link to={`/article/${article._id}`}>
+                                                <img
+                                                    src={article.images[0].url}
+                                                    alt={article.images[0].alt}
+                                                    className="article-image"
+                                                />
+                                            </Link>
                                         )}
                                     </Table.Cell>
                                     <Table.Cell>{article.source}</Table.Cell>
-                                    <Table.Cell>{article.title}</Table.Cell>
+                                    <Table.Cell>
+                                        <Link to={`/article/${article._id}`} className="article-title-link">
+                                            {article.title}
+                                        </Link>
+                                    </Table.Cell>
                                     <Table.Cell>{article.miniText}</Table.Cell>
                                     <Table.Cell>{new Date(article.createdAt).toLocaleDateString()}</Table.Cell>
                                     <Table.Cell className="flex-col">
                                         <div className="article-actions">
-                                            <Link to={`/admin/article/edit/${article._id}`} className="article-actions-link">
+                                            <Link to={`/edit-article/${article._id}`} className="article-actions-link">
                                                 Edit
                                             </Link>
                                             <button onClick={() => handleDeleteArticle(article._id)} className="article-actions-button">
