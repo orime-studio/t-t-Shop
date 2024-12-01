@@ -91,10 +91,10 @@ export const router = createBrowserRouter([
                 path: "/create-page", element: <CreatePage />
             },
             {
-                path: "/article", element: <ArticleList />
+                path: "/articles", element: <ArticleList />
             },
             {
-                path: "/articles/:id", element: <ArticlePage />
+                path: "/article/:id", element: <ArticlePage />
             },
             {
                 path: "/create-article", element: <CreateArticle />
