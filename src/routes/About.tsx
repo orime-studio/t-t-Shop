@@ -1,7 +1,7 @@
-import React from 'react';
+import { FC } from 'react';
 import './About.scss';
 
-const About: React.FC = () => {
+const About: FC = () => {
     return (
         <div className="about-container">
             <section className="section welcome">
