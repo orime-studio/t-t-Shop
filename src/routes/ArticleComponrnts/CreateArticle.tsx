@@ -47,7 +47,7 @@ const CreateArticle = () => {
     });
 
     // Adding main image with alt text
-    formData.append("mainImage", mainImage);
+    formData.append("image", mainImage);
     formData.append("mainImageAlt", mainImageAlt); // append alt for main image
 
     // Adding additional images with their alt texts
