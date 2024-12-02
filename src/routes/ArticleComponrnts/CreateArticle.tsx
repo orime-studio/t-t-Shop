@@ -18,10 +18,13 @@ const CreateArticle = () => {
     control,
     name: "longText",
   });
+
   const [mainImage, setMainImage] = useState<File | null>(null);
-  const [mainImageAlt, setMainImageAlt] = useState<string>(""); // alt for main image
+  const [mainImageAlt, setMainImageAlt] = useState<string>(""); 
   const [additionalImages, setAdditionalImages] = useState<File[]>([]);
-  const [additionalImagesAlts, setAdditionalImagesAlts] = useState<string[]>([]); // alt for additional images
+  const [additionalImagesMeta, setAdditionalImagesMeta] = useState<
+    { file: File; alt: string }[]
+  >([]);
 
   const onSubmit = async (data: Article) => {
     if (!mainImage) {
@@ -45,17 +48,15 @@ const CreateArticle = () => {
       formData.append(`longText[${index}][text]`, page.text);
     });
 
-    // Adding main image with alt text
-    formData.append("image", mainImage);  // Single main image
-    formData.append("mainImageAlt", mainImageAlt);  // Alt text for main image
+    // Main image
+    formData.append("mainImage", mainImage);
+    formData.append("mainImageAlt", mainImageAlt);
 
-    // Adding additional images with their alt texts
-    additionalImages.forEach((image, index) => {
-      formData.append("images", image);  // Multiple additional images
+    // Additional images
+    additionalImagesMeta.forEach((image, index) => {
+      formData.append(`additionalImages`, image.file);
+      formData.append(`additionalImagesAlt[${index}]`, image.alt);
     });
-
-    // Log the formData before sending
-    console.log("Form Data being sent:", formData);
 
     try {
       await createNewArticle(formData);
@@ -64,7 +65,6 @@ const CreateArticle = () => {
       });
     } catch (error: any) {
       console.error("Error submitting form data:", error);
-      console.log("Error details:", error.response?.data);  // Log the error response for debugging
       dialogs.error("Error", error.response?.data?.message || "Failed to create the article");
     }
   };
@@ -133,30 +133,29 @@ const CreateArticle = () => {
             multiple
             onChange={(e) => {
               const files = Array.from(e.target.files || []);
-              setAdditionalImages(files);
-              setAdditionalImagesAlts(new Array(files.length).fill("")); // reset alts for new files
+              const newMeta = files.map((file) => ({ file, alt: "" }));
+              setAdditionalImagesMeta(newMeta);
             }}
           />
           <div className="additional-images-preview">
-            {additionalImages.map((image, index) => (
+            {additionalImagesMeta.map((image, index) => (
               <div key={index} className="additional-image">
-                <img src={URL.createObjectURL(image)} alt={`Additional ${index}`} className="additional-image-preview" />
+                <img src={URL.createObjectURL(image.file)} alt={`Additional ${index}`} className="additional-image-preview" />
                 <input
                   className="article-input"
                   placeholder={`Alt Text for Image ${index + 1}`}
-                  value={additionalImagesAlts[index]}
+                  value={image.alt}
                   onChange={(e) => {
-                    const newAlts = [...additionalImagesAlts];
-                    newAlts[index] = e.target.value;
-                    setAdditionalImagesAlts(newAlts);
+                    const newMeta = [...additionalImagesMeta];
+                    newMeta[index].alt = e.target.value;
+                    setAdditionalImagesMeta(newMeta);
                   }}
                 />
                 <button
                   type="button"
                   className="remove-article-button"
                   onClick={() => {
-                    setAdditionalImages(additionalImages.filter((_, i) => i !== index));
-                    setAdditionalImagesAlts(additionalImagesAlts.filter((_, i) => i !== index));
+                    setAdditionalImagesMeta(additionalImagesMeta.filter((_, i) => i !== index));
                   }}
                 >
                   X
