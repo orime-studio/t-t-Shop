@@ -52,7 +52,6 @@ const CreateArticle = () => {
     // Adding additional images with their alt texts
     additionalImages.forEach((image, index) => {
       formData.append("images", image);  // Multiple additional images
-      formData.append(`additionalImageAlt[${index}]`, additionalImagesAlts[index] || "");  // Alt text for each additional image
     });
 
     // Log the formData before sending
