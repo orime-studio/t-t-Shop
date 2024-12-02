@@ -6,6 +6,8 @@ import { useState } from "react";
 import dialogs from "../../ui/dialogs";
 import { Article } from "../../@Types/productType";
 import { createNewArticle } from "../../services/article-service";
+import './CreateArticle.scss';
+
 
 const CreateArticle = () => {
   const navigate = useNavigate();
