@@ -69,17 +69,18 @@ const EditArticle = () => {
             });
 
             if (images.length) {
-                images.forEach((image, index) => {
-                    formData.append(`images[${index}]`, image);
+                images.forEach((image) => {
+                    formData.append("images", image); // השתמש בשם שדה פשוט
                 });
             } else if (imageUrls.length) {
-                imageUrls.forEach((url, index) => {
-                    formData.append(`imageUrls[${index}]`, url);
+                imageUrls.forEach((url) => {
+                    formData.append("imageUrls", url); // אותו דבר עבור imageUrls
                 });
             } else {
                 dialogs.error("Error", "At least one image is required");
                 return;
             }
+            
 
             console.log("FormData before sending:", [...formData.entries()]);
             const response = await updateArticle(id, formData);
