@@ -19,69 +19,80 @@ const EditArticle = () => {
     const [imageUrls, setImageUrls] = useState<string[]>([]);
 
     useEffect(() => {
-        if (id) {
-            console.log("Fetching article with ID:", id);
-            getArticleById(id)
-                .then(res => {
-                    const article = res.data;
-                    console.log("Article data fetched:", article);
-                    setValue('source', article.source);
-                    setValue('title', article.title);
-                    setValue('miniText', article.miniText);
-                    setValue('alt', article.alt || article.title);
-                    setImageUrls(article.images.map((image: { url: string }) => image.url));
-                    setValue('longText', article.longText);
-                    setImageNames(article.images.map((image: { url: string }) => image.url.split('/').pop() || ""));
-                })
-                .catch(err => {
-                    console.error("Error fetching article:", err);
-                    setError(err);
-                });
+        if (!id) {
+            dialogs.error("Error", "Invalid article ID");
+            return;
         }
+
+        console.log("Fetching article with ID:", id);
+        getArticleById(id)
+            .then(res => {
+                const article = res.data;
+                console.log("Article data fetched:", article);
+                setValue('source', article.source);
+                setValue('title', article.title);
+                setValue('miniText', article.miniText);
+                setValue('alt', article.alt || article.title);
+                setValue('longText', article.longText);
+                setImageUrls(article.images.map((image: { url: string }) => image.url));
+                setImageNames(article.images.map((image: { url: string }) => image.url.split('/').pop() || ""));
+            })
+            .catch(err => {
+                console.error("Error fetching article:", err);
+                setError(err);
+            });
     }, [id, setValue]);
 
     const onSubmit = async (data: ArticleInput) => {
-        console.log("Form data before submission:", data);  // הדפסת הנתונים לפני שליחה
+        console.log("Form data before submission:", data);
+
+        if (!id) {
+            dialogs.error("Error", "Invalid article ID");
+            return;
+        }
+
+        if (!data.source || !data.title || !data.miniText || !data.alt) {
+            dialogs.error("Error", "All fields are required");
+            return;
+        }
+
         try {
-            if (id) {
-                const formData = new FormData();
-                formData.append("source", data.source);
-                formData.append("title", data.title);
-                formData.append("miniText", data.miniText);
+            const formData = new FormData();
+            formData.append("source", data.source);
+            formData.append("title", data.title);
+            formData.append("miniText", data.miniText);
+            formData.append("alt", data.alt);
 
-                data.longText.forEach((page, index) => {
-                    formData.append(`longText[${index}][title]`, page.title);
-                    formData.append(`longText[${index}][text]`, page.text);
-                });
+            data.longText.forEach((page, index) => {
+                formData.append(`longText[${index}][title]`, page.title);
+                formData.append(`longText[${index}][text]`, page.text);
+            });
 
-                formData.append("alt", data.alt);
-
+            if (images.length) {
                 images.forEach((image, index) => {
                     formData.append(`images[${index}]`, image);
                 });
-
-                if (!images.length && imageUrls.length) {
-                    imageUrls.forEach((url, index) => {
-                        formData.append(`imageUrls[${index}]`, url);
-                    });
-                }
-
-                // הצגת כל הנתונים שנשלחים ב-FormData
-                formData.forEach((value, key) => {
-                    console.log(`${key}: ${value}`);
+            } else if (imageUrls.length) {
+                imageUrls.forEach((url, index) => {
+                    formData.append(`imageUrls[${index}]`, url);
                 });
+            } else {
+                dialogs.error("Error", "At least one image is required");
+                return;
+            }
 
-                // שליחה לשרת
-                await updateArticle(id, formData);
+            console.log("FormData before sending:", [...formData.entries()]);
+            const response = await updateArticle(id, formData);
+
+            if (response.status === 200) {
                 dialogs.success("Success", "Article updated successfully").then(() => {
                     navigate("/admin/dashboard");
                 });
+            } else {
+                throw new Error(response.data.message || "Unexpected error");
             }
         } catch (error: any) {
-            console.error("Error updating article:", error);  // הצגת שגיאה אם יש
-            if (error.response) {
-                console.error("Server error response:", error.response.data);
-            }
+            console.error("Error updating article:", error);
             dialogs.error("Error", error.response?.data?.message || "Failed to update the article");
         }
     };
@@ -105,9 +116,7 @@ const EditArticle = () => {
                     {errors.miniText && <p className="error-message">{errors.miniText.message}</p>}
                 </section>
                 <section>
-                    <label htmlFor="image-upload" className="file-upload-label">
-                        בחר תמונות
-                    </label>
+                    <label htmlFor="image-upload" className="file-upload-label">Select Images</label>
                     <input
                         id="image-upload"
                         type="file"
@@ -115,44 +124,36 @@ const EditArticle = () => {
                         multiple
                         onChange={(e) => {
                             const files = Array.from(e.target.files || []);
-                            console.log("Selected files:", files);  // בדיקת קבצים שנבחרו
-                            setImages(files);
-                            setImageNames(files.map((file) => file.name));
+                            const validFiles = files.filter((file) => file.type.startsWith("image/"));
+                            if (validFiles.length !== files.length) {
+                                dialogs.error("Error", "Only image files are allowed");
+                            }
+                            setImages(validFiles);
+                            setImageNames(validFiles.map((file) => file.name));
                         }}
                         className="file-input"
                     />
                     <div className="file-names-list">
                         {imageNames.map((name, index) => (
-                            <p key={index} className="file-name">
-                                {name}
-                            </p>
+                            <p key={index} className="file-name">{name}</p>
                         ))}
                     </div>
                 </section>
-
                 <section className="input-section">
                     <input className="input-field" placeholder="Image Description (alt)" {...register("alt", { required: "Image description is required" })} />
                     {errors.alt && <p className="error-message">{errors.alt.message}</p>}
                 </section>
-
                 <section className="pages-section">
                     <h3 className="pages-header">Article Pages:</h3>
                     {fields.map((page, index) => (
                         <div key={page.id} className="article-page">
                             <input className="input-field" placeholder="Page Title" {...register(`longText.${index}.title` as const)} />
                             <textarea className="textarea-field" placeholder="Page Content" {...register(`longText.${index}.text` as const, { required: "Page content is required" })} />
-                            <button type="button" className="remove-text-button" onClick={() => {
-                                remove(index);
-                                console.log("Removed section, current fields:", fields);  // בדיקת מצב לאחר מחיקה
-                            }}>Remove</button>
+                            <button type="button" className="remove-text-button" onClick={() => remove(index)}>Remove</button>
                         </div>
                     ))}
-                    <button type="button" className="add-text-button" onClick={() => {
-                        append({ title: "", text: "" });
-                        console.log("Added section, current fields:", fields);  // בדיקת מצב לאחר הוספה
-                    }}>Add Section</button>
+                    <button type="button" className="add-text-button" onClick={() => append({ title: "", text: "" })}>Add Section</button>
                 </section>
-
                 <button type="submit" className="submit-button">Save</button>
             </form>
         </div>
