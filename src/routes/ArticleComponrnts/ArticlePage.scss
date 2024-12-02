@@ -26,7 +26,7 @@
     margin-bottom: 2rem;
 }
 
-.section-title {
+.section-title-article {
     font-size: 2rem;
     color: #333;
     margin-bottom: 1rem;
@@ -48,17 +48,18 @@
     flex-direction: row-reverse; // תמונה בצד שמאל, טקסט בצד ימין
 }
 
-.section-image {
+.section-image-article {
     width: 50%;
     height: auto;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
-.section-image:hover {
-    transform: scale(1.05);
-}
 
 .back-to-articles {
     display: inline-block;
@@ -84,11 +85,11 @@
         padding: 1rem 2rem;
     }
 
-    .section-title {
+    .section-title-article {
         font-size: 1.5rem;
     }
 
-    .section-description {
+    .section-description-article {
         font-size: 0.9rem;
     }
 
@@ -97,7 +98,7 @@
         text-align: center;
     }
 
-    .section-image {
+    .section-image-article {
         width: 100%;
         max-width: 300px;
         margin-bottom: 1rem;
