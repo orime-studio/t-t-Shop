@@ -19,7 +19,9 @@ const CreateArticle = () => {
     name: "longText",
   });
   const [mainImage, setMainImage] = useState<File | null>(null);
+  const [mainImageAlt, setMainImageAlt] = useState<string>(""); // alt for main image
   const [additionalImages, setAdditionalImages] = useState<File[]>([]);
+  const [additionalImagesAlts, setAdditionalImagesAlts] = useState<string[]>([]); // alt for additional images
 
   const onSubmit = async (data: Article) => {
     if (!mainImage) {
@@ -36,7 +38,7 @@ const CreateArticle = () => {
     formData.append("source", data.source);
     formData.append("title", data.title);
     formData.append("miniText", data.miniText);
-    formData.append("alt", data.alt);
+    // formData.append("alt", data.alt);
 
     // Adding long text sections
     data.longText.forEach((page, index) => {
@@ -44,12 +46,14 @@ const CreateArticle = () => {
       formData.append(`longText[${index}][text]`, page.text);
     });
 
-    // Adding main image
+    // Adding main image with alt text
     formData.append("mainImage", mainImage);
+    formData.append("mainImageAlt", mainImageAlt); // append alt for main image
 
-    // Adding additional images
-    additionalImages.forEach((image) => {
+    // Adding additional images with their alt texts
+    additionalImages.forEach((image, index) => {
       formData.append("additionalImages", image);
+      formData.append(`additionalImageAlt[${index}]`, additionalImagesAlts[index] || ""); // append alt for each additional image
     });
 
     try {
@@ -109,6 +113,12 @@ const CreateArticle = () => {
               setMainImage(file);
             }}
           />
+          <input
+            className="article-input"
+            placeholder="Main Image Alt Text"
+            value={mainImageAlt}
+            onChange={(e) => setMainImageAlt(e.target.value)}
+          />
           {mainImage && <img src={URL.createObjectURL(mainImage)} alt="Main Image" className="main-image-preview" />}
         </section>
 
@@ -122,17 +132,29 @@ const CreateArticle = () => {
             onChange={(e) => {
               const files = Array.from(e.target.files || []);
               setAdditionalImages(files);
+              setAdditionalImagesAlts(new Array(files.length).fill("")); // reset alts for new files
             }}
           />
           <div className="additional-images-preview">
             {additionalImages.map((image, index) => (
               <div key={index} className="additional-image">
                 <img src={URL.createObjectURL(image)} alt={`Additional ${index}`} className="additional-image-preview" />
+                <input
+                  className="article-input"
+                  placeholder={`Alt Text for Image ${index + 1}`}
+                  value={additionalImagesAlts[index]}
+                  onChange={(e) => {
+                    const newAlts = [...additionalImagesAlts];
+                    newAlts[index] = e.target.value;
+                    setAdditionalImagesAlts(newAlts);
+                  }}
+                />
                 <button
                   type="button"
                   className="remove-article-button"
                   onClick={() => {
                     setAdditionalImages(additionalImages.filter((_, i) => i !== index));
+                    setAdditionalImagesAlts(additionalImagesAlts.filter((_, i) => i !== index));
                   }}
                 >
                   X
@@ -140,16 +162,6 @@ const CreateArticle = () => {
               </div>
             ))}
           </div>
-        </section>
-
-        {/* Image Alt Text */}
-        <section className="article-section">
-          <input
-            className="article-input"
-            placeholder="Image Description (alt)"
-            {...register("alt", { required: "Image description is required" })}
-          />
-          {errors.alt && <p className="errorMessage">{errors.alt.message}</p>}
         </section>
 
         {/* Article Pages */}
