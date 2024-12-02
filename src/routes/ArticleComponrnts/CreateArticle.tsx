@@ -18,13 +18,8 @@ const CreateArticle = () => {
     control,
     name: "longText",
   });
-
   const [mainImage, setMainImage] = useState<File | null>(null);
-  const [mainImageAlt, setMainImageAlt] = useState<string>(""); 
   const [additionalImages, setAdditionalImages] = useState<File[]>([]);
-  const [additionalImagesMeta, setAdditionalImagesMeta] = useState<
-    { file: File; alt: string }[]
-  >([]);
 
   const onSubmit = async (data: Article) => {
     if (!mainImage) {
@@ -41,21 +36,19 @@ const CreateArticle = () => {
     formData.append("source", data.source);
     formData.append("title", data.title);
     formData.append("miniText", data.miniText);
+    formData.append("alt", data.alt);
 
-    // Adding long text sections
+    // הוספת התמונה הראשית
+    formData.append("mainImage", mainImage);
+
+    // הוספת התמונות הנוספות
+    additionalImages.forEach((image) => {
+      formData.append("additionalImages", image);
+    });
+
     data.longText.forEach((page, index) => {
       formData.append(`longText[${index}][title]`, page.title || "");
       formData.append(`longText[${index}][text]`, page.text);
-    });
-
-    // Main image
-    formData.append("mainImage", mainImage);
-    formData.append("mainImageAlt", mainImageAlt);
-
-    // Additional images
-    additionalImagesMeta.forEach((image, index) => {
-      formData.append(`additionalImages`, image.file);
-      formData.append(`additionalImagesAlt[${index}]`, image.alt);
     });
 
     try {
@@ -73,8 +66,6 @@ const CreateArticle = () => {
     <div className="create-article-container">
       <h2 className="create-article-title">Create New Article</h2>
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-container">
-        
-        {/* Author */}
         <section className="article-section">
           <input
             className="article-input"
@@ -83,8 +74,6 @@ const CreateArticle = () => {
           />
           {errors.source && <p className="errorMessage">{errors.source.message}</p>}
         </section>
-
-        {/* Title */}
         <section className="article-section">
           <input
             className="article-input"
@@ -93,8 +82,6 @@ const CreateArticle = () => {
           />
           {errors.title && <p className="errorMessage">{errors.title.message}</p>}
         </section>
-
-        {/* Short Description */}
         <section className="article-section">
           <textarea
             className="article-textarea"
@@ -104,27 +91,22 @@ const CreateArticle = () => {
           {errors.miniText && <p className="errorMessage">{errors.miniText.message}</p>}
         </section>
 
-        {/* Main Image */}
+        {/* שדה עבור התמונה הראשית */}
         <section className="article-section">
           <input
             className="article-input-file"
             type="file"
             accept="image/*"
             onChange={(e) => {
-              const file = e.target.files?.[0] || null;
-              setMainImage(file);
+              if (e.target.files?.length) {
+                setMainImage(e.target.files[0]);
+              }
             }}
           />
-          <input
-            className="article-input"
-            placeholder="Main Image Alt Text"
-            value={mainImageAlt}
-            onChange={(e) => setMainImageAlt(e.target.value)}
-          />
-          {mainImage && <img src={URL.createObjectURL(mainImage)} alt="Main Image" className="main-image-preview" />}
+          {errors.mainImage && <p className="errorMessage">{errors.mainImage.message}</p>}
         </section>
 
-        {/* Additional Images */}
+        {/* שדה עבור התמונות הנוספות */}
         <section className="article-section">
           <input
             className="article-input-file"
@@ -133,39 +115,20 @@ const CreateArticle = () => {
             multiple
             onChange={(e) => {
               const files = Array.from(e.target.files || []);
-              const newMeta = files.map((file) => ({ file, alt: "" }));
-              setAdditionalImagesMeta(newMeta);
+              setAdditionalImages(files);
             }}
           />
-          <div className="additional-images-preview">
-            {additionalImagesMeta.map((image, index) => (
-              <div key={index} className="additional-image">
-                <img src={URL.createObjectURL(image.file)} alt={`Additional ${index}`} className="additional-image-preview" />
-                <input
-                  className="article-input"
-                  placeholder={`Alt Text for Image ${index + 1}`}
-                  value={image.alt}
-                  onChange={(e) => {
-                    const newMeta = [...additionalImagesMeta];
-                    newMeta[index].alt = e.target.value;
-                    setAdditionalImagesMeta(newMeta);
-                  }}
-                />
-                <button
-                  type="button"
-                  className="remove-article-button"
-                  onClick={() => {
-                    setAdditionalImagesMeta(additionalImagesMeta.filter((_, i) => i !== index));
-                  }}
-                >
-                  X
-                </button>
-              </div>
-            ))}
-          </div>
         </section>
 
-        {/* Article Pages */}
+        <section className="article-section">
+          <input
+            className="article-input"
+            placeholder="Image Description (alt)"
+            {...register("alt", { required: "Image description is required" })}
+          />
+          {errors.alt && <p className="errorMessage">{errors.alt.message}</p>}
+        </section>
+
         <section className="article-section">
           <h3 className="article-section-title">Article Pages:</h3>
           {fields.map((page, index) => (
@@ -198,7 +161,6 @@ const CreateArticle = () => {
           </button>
         </section>
 
-        {/* Submit Button */}
         <button type="submit" className="create-article-button">Create Article</button>
       </form>
     </div>

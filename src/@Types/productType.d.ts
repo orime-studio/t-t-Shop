@@ -146,7 +146,8 @@ export type ArticleInput = {
     source: string;          // Author name
     title: string;           // Article title
     miniText: string;        // Short description of the article
-    alt: string;             // Image description (alt)
+    alt: string;      
+    mainImage?: File[];        // Image description (alt)
     images: IImages[];        // Array of images for the article
     longText: ArticleLongText[];    // List of article pages
 };
