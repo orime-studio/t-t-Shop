@@ -28,34 +28,33 @@ const CreateArticle = () => {
       dialogs.error("Error", "Please select a main image.");
       return;
     }
-
+  
     if (!data.longText.length) {
       dialogs.error("Error", "Please add at least one text section.");
       return;
     }
-
+  
     const formData = new FormData();
     formData.append("source", data.source);
     formData.append("title", data.title);
     formData.append("miniText", data.miniText);
-    // formData.append("alt", data.alt);
-
+  
     // Adding long text sections
     data.longText.forEach((page, index) => {
       formData.append(`longText[${index}][title]`, page.title || "");
       formData.append(`longText[${index}][text]`, page.text);
     });
-
+  
     // Adding main image with alt text
-    formData.append("image", mainImage);
-    formData.append("mainImageAlt", mainImageAlt); // append alt for main image
-
+    formData.append("image", mainImage);  // Single main image
+    formData.append("mainImageAlt", mainImageAlt);  // Alt text for main image
+  
     // Adding additional images with their alt texts
     additionalImages.forEach((image, index) => {
-      formData.append("additionalImages", image);
-      formData.append(`additionalImageAlt[${index}]`, additionalImagesAlts[index] || ""); // append alt for each additional image
+      formData.append("additionalImages", image);  // Multiple additional images
+      formData.append(`additionalImageAlt[${index}]`, additionalImagesAlts[index] || "");  // Alt text for each additional image
     });
-
+  
     try {
       await createNewArticle(formData);
       dialogs.success("Success", "Article created successfully").then(() => {
@@ -66,7 +65,7 @@ const CreateArticle = () => {
       dialogs.error("Error", error.response?.data?.message || "Failed to create the article");
     }
   };
-
+  
   return (
     <div className="create-article-container">
       <h2 className="create-article-title">Create New Article</h2>
