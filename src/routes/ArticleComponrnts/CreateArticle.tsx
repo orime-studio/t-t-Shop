@@ -1,5 +1,3 @@
-// components/CreateArticle.tsx
-
 import { useForm, useFieldArray } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -7,7 +5,6 @@ import dialogs from "../../ui/dialogs";
 import { Article } from "../../@Types/productType";
 import { createNewArticle } from "../../services/article-service";
 import './CreateArticle.scss';
-
 
 const CreateArticle = () => {
   const navigate = useNavigate();
@@ -21,11 +18,12 @@ const CreateArticle = () => {
     control,
     name: "longText",
   });
-  const [images, setImages] = useState<File[]>([]);
+  const [mainImage, setMainImage] = useState<File | null>(null);
+  const [additionalImages, setAdditionalImages] = useState<File[]>([]);
 
   const onSubmit = async (data: Article) => {
-    if (!images.length) {
-      dialogs.error("Error", "Please select at least one image.");
+    if (!mainImage) {
+      dialogs.error("Error", "Please select a main image.");
       return;
     }
 
@@ -40,13 +38,18 @@ const CreateArticle = () => {
     formData.append("miniText", data.miniText);
     formData.append("alt", data.alt);
 
+    // Adding long text sections
     data.longText.forEach((page, index) => {
       formData.append(`longText[${index}][title]`, page.title || "");
       formData.append(`longText[${index}][text]`, page.text);
     });
 
-    images.forEach((image) => {
-      formData.append("images", image);
+    // Adding main image
+    formData.append("mainImage", mainImage);
+
+    // Adding additional images
+    additionalImages.forEach((image) => {
+      formData.append("additionalImages", image);
     });
 
     try {
@@ -64,6 +67,8 @@ const CreateArticle = () => {
     <div className="create-article-container">
       <h2 className="create-article-title">Create New Article</h2>
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-container">
+        
+        {/* Author */}
         <section className="article-section">
           <input
             className="article-input"
@@ -72,6 +77,8 @@ const CreateArticle = () => {
           />
           {errors.source && <p className="errorMessage">{errors.source.message}</p>}
         </section>
+
+        {/* Title */}
         <section className="article-section">
           <input
             className="article-input"
@@ -80,6 +87,8 @@ const CreateArticle = () => {
           />
           {errors.title && <p className="errorMessage">{errors.title.message}</p>}
         </section>
+
+        {/* Short Description */}
         <section className="article-section">
           <textarea
             className="article-textarea"
@@ -89,6 +98,21 @@ const CreateArticle = () => {
           {errors.miniText && <p className="errorMessage">{errors.miniText.message}</p>}
         </section>
 
+        {/* Main Image */}
+        <section className="article-section">
+          <input
+            className="article-input-file"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0] || null;
+              setMainImage(file);
+            }}
+          />
+          {mainImage && <img src={URL.createObjectURL(mainImage)} alt="Main Image" className="main-image-preview" />}
+        </section>
+
+        {/* Additional Images */}
         <section className="article-section">
           <input
             className="article-input-file"
@@ -97,11 +121,28 @@ const CreateArticle = () => {
             multiple
             onChange={(e) => {
               const files = Array.from(e.target.files || []);
-              setImages(files);
+              setAdditionalImages(files);
             }}
           />
+          <div className="additional-images-preview">
+            {additionalImages.map((image, index) => (
+              <div key={index} className="additional-image">
+                <img src={URL.createObjectURL(image)} alt={`Additional ${index}`} className="additional-image-preview" />
+                <button
+                  type="button"
+                  className="remove-article-button"
+                  onClick={() => {
+                    setAdditionalImages(additionalImages.filter((_, i) => i !== index));
+                  }}
+                >
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
         </section>
 
+        {/* Image Alt Text */}
         <section className="article-section">
           <input
             className="article-input"
@@ -111,6 +152,7 @@ const CreateArticle = () => {
           {errors.alt && <p className="errorMessage">{errors.alt.message}</p>}
         </section>
 
+        {/* Article Pages */}
         <section className="article-section">
           <h3 className="article-section-title">Article Pages:</h3>
           {fields.map((page, index) => (
@@ -143,6 +185,7 @@ const CreateArticle = () => {
           </button>
         </section>
 
+        {/* Submit Button */}
         <button type="submit" className="create-article-button">Create Article</button>
       </form>
     </div>
