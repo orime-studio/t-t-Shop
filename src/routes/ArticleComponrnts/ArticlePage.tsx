@@ -38,23 +38,35 @@ const ArticlePage = () => {
 
     return (
         <div className="article-container">
-            {/* תמונה ראשית */}
+            {/* Main Image */}
             {article?.mainImage && (
                 <div className="full-width-image-container">
-                    <img src={article.mainImage.url} alt={article.mainImage.alt} className="full-width-image" />
+                    <img 
+                        src={article.mainImage.url} 
+                        alt={article.mainImage.alt || "Main image"} 
+                        className="full-width-image" 
+                    />
                 </div>
             )}
 
+            {/* Title and Short Description */}
+            <div className="article-header">
+                <h1 className="article-title">{article.title}</h1>
+                <p className="article-miniText">{article.miniText}</p>
+            </div>
+
+            {/* Article Content: Long Text and Images */}
             {article?.longText?.map((page, index) => (
                 <Section
                     key={index}
                     title={page.title}
                     text={page.text}
-                    images={article.images?.[index + 1]}
-                    isLeftAligned={index % 2 !== 0} // לסירוגין: פעם אחת ימין, פעם אחת שמאל
+                    images={article.images}  // Passing all images here
+                    isLeftAligned={index % 2 !== 0} // Alternate alignment: left and right
                 />
             ))}
 
+            {/* Back to Articles Link */}
             <a href="/articles" className="back-to-articles">חזרה למאמרים</a>
         </div>
     );
@@ -68,7 +80,7 @@ const Section = ({ title, text, images, isLeftAligned }) => (
                 <p className="section-description-article">{text}</p>
             </div>
 
-            {/* הצגת כל התמונות */}
+            {/* Displaying all images */}
             {images?.map((image, index) => (
                 <img 
                     key={index}
