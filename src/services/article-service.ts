@@ -16,7 +16,7 @@ export const getAllArticles = async () => {
   }
 };
 
-export const getLatestArticle = async () => {
+export const getLatestArticles = async () => {
   try {
     const response = await axios.get(articleBaseUrl, {
       params: { last: "true" },
