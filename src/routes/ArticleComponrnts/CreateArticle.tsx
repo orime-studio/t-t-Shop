@@ -19,7 +19,7 @@ const CreateArticle = () => {
     name: "longText",
   });
   const [mainImage, setMainImage] = useState<File | null>(null);
-  const [additionalImages, setAdditionalImages] = useState<File[]>([]);
+  const [images, setimages] = useState<File[]>([]);
 
   const onSubmit = async (data: Article) => {
     if (!mainImage) {
@@ -42,8 +42,8 @@ const CreateArticle = () => {
     formData.append("mainImage", mainImage);
 
     // הוספת התמונות הנוספות
-    additionalImages.forEach((image) => {
-      formData.append("additionalImages", image);
+    images.forEach((image) => {
+      formData.append("images", image);
     });
 
     data.longText.forEach((page, index) => {
@@ -112,11 +112,11 @@ const CreateArticle = () => {
             className="article-input-file"
             type="file"
             accept="image/*"
-            name="additionalImages" // שם השדה מותאם לנתיב בשרת
+            name="images" // שם השדה מותאם לנתיב בשרת
             multiple
             onChange={(e) => {
               const files = Array.from(e.target.files || []);
-              setAdditionalImages(files);
+              setimages(files);
             }}
           />
         </section>

@@ -14,7 +14,7 @@ const ArticlePage = () => {
         if (id) {
             getArticleById(id)
                 .then(res => {
-                    setArticle(res.data); // assuming the response is under res.data
+                    setArticle(res.data);
                     setLoading(false);
                 })
                 .catch(err => {
@@ -39,18 +39,18 @@ const ArticlePage = () => {
     return (
         <div className="article-container">
             {/* תמונה ראשית */}
-            {article.images.length > 0 && (
+            {article?.mainImage && (
                 <div className="full-width-image-container">
-                    <img src={article.images[0].url} alt={article.images[0].alt} className="full-width-image" />
+                    <img src={article.mainImage.url} alt={article.mainImage.alt} className="full-width-image" />
                 </div>
             )}
 
-            {article.longText.map((page, index) => (
+            {article?.longText?.map((page, index) => (
                 <Section
                     key={index}
                     title={page.title}
                     text={page.text}
-                    image={article.images[index + 1]}
+                    image={article.images?.[index + 1]}
                     isLeftAligned={index % 2 !== 0} // לסירוגין: פעם אחת ימין, פעם אחת שמאל
                 />
             ))}
@@ -71,5 +71,6 @@ const Section = ({ title, text, image, isLeftAligned }) => (
         </div>
     </section>
 );
+
 
 export default ArticlePage;
