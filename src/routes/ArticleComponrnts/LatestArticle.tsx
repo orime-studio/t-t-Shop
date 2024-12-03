@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import './LatestArticles.scss';
 import { Article } from "../../@Types/productType";
 import { getLatestArticles } from "../../services/article-service";
+import './LatestArticles.scss';
 
 const LatestArticles = () => {
   const [lastArticles, setLastArticles] = useState<Article[]>([]);
