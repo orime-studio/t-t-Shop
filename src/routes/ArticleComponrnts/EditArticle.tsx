@@ -45,6 +45,8 @@ const EditArticle = () => {
                 const existingImageUrls = article.images.map((image: { url: string }) => image.url);
                 setImageUrls(existingImageUrls);
 
+                setMainImagePreview(existingImageUrls[0]);
+
                 // יצירת תצוגות מקדימות לתמונות
                 setImagePreviews(existingImageUrls);
 
