@@ -29,39 +29,37 @@ const EditArticle = () => {
             dialogs.error("Error", "Invalid article ID");
             return;
         }
-
+    
         console.log("Fetching article with ID:", id);
         getArticleById(id)
             .then(res => {
                 const article = res.data;
                 console.log("Article data fetched:", article);
+    
+                // הגדרת תמונת ה-mainImage
+                if (article.mainImage && article.mainImage.url) {
+                    setMainImagePreview(article.mainImage.url); // שימוש ב-URL של תמונת mainImage
+                }
+    
                 setValue('source', article.source);
                 setValue('title', article.title);
                 setValue('miniText', article.miniText);
                 setValue('alt', article.alt || article.title);
                 setValue('longText', article.longText || []);
-
+    
                 // שמירת URLs של תמונות קיימות
                 const existingImageUrls = article.images.map((image: { url: string }) => image.url);
                 setImageUrls(existingImageUrls);
-
-                setMainImagePreview(existingImageUrls[0]);
-
+    
                 // יצירת תצוגות מקדימות לתמונות
                 setImagePreviews(existingImageUrls);
-
-                // שמירת שמות התמונות
-                setImageNames(existingImageUrls.map((url) => url.split('/').pop() || ""));
-
-                if (article.mainImage) {
-                    setMainImageName(article.mainImage.url.split('/').pop() || "");
-                }
             })
             .catch(err => {
                 console.error("Error fetching article:", err);
                 setError(err);
             });
     }, [id, setValue]);
+    
 
 
     const onSubmit = async (data: ArticleInput) => {
