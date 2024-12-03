@@ -17,6 +17,8 @@ const EditArticle = () => {
     const [images, setImages] = useState<File[]>([]);
     const [imageNames, setImageNames] = useState<string[]>([]);
     const [imageUrls, setImageUrls] = useState<string[]>([]);
+    const [mainImage, setMainImage] = useState<File | null>(null);
+    const [mainImageName, setMainImageName] = useState<string | null>(null);
 
     useEffect(() => {
         if (!id) {
@@ -36,6 +38,9 @@ const EditArticle = () => {
                 setValue('longText', article.longText);
                 setImageUrls(article.images.map((image: { url: string }) => image.url));
                 setImageNames(article.images.map((image: { url: string }) => image.url.split('/').pop() || ""));
+                if (article.mainImage) {
+                    setMainImageName(article.mainImage.url.split('/').pop() || "");
+                }
             })
             .catch(err => {
                 console.error("Error fetching article:", err);
@@ -68,14 +73,21 @@ const EditArticle = () => {
                 formData.append(`longText[${index}][text]`, page.text);
             });
 
-            // טיפול בתמונות - אם יש תמונות חדשות להעלות
+            // טיפול בתמונה ראשית
+            if (mainImage) {
+                formData.append("mainImage", mainImage);
+            } else if (mainImageName) {
+                formData.append("mainImage", mainImageName);
+            }
+
+            // טיפול בתמונות נוספות
             if (images.length) {
                 images.forEach((image) => {
                     formData.append("images", image); // הוספת תמונות חדשות
                 });
             } else if (imageUrls.length) {
                 imageUrls.forEach((url) => {
-                    formData.append("imageUrls", url); // הוספת תמונות קיימות לפי ה-URL
+                    formData.append("images", url); // הוספת תמונות קיימות לפי ה-URL
                 });
             } else {
                 dialogs.error("Error", "At least one image is required");
@@ -117,7 +129,24 @@ const EditArticle = () => {
                     {errors.miniText && <p className="error-message">{errors.miniText.message}</p>}
                 </section>
                 <section>
-                    <label htmlFor="image-upload" className="file-upload-label">Select Images</label>
+                    <label htmlFor="main-image-upload" className="file-upload-label">Main Image</label>
+                    <input
+                        id="main-image-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                            const file = e.target.files ? e.target.files[0] : null;
+                            if (file) {
+                                setMainImage(file);
+                                setMainImageName(file.name);
+                            }
+                        }}
+                        className="file-input"
+                    />
+                    {mainImageName && <p>{mainImageName}</p>}
+                </section>
+                <section>
+                    <label htmlFor="image-upload" className="file-upload-label">Additional Images</label>
                     <input
                         id="image-upload"
                         type="file"
