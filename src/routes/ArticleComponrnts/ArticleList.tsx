@@ -43,7 +43,7 @@ const ArticleList = () => {
             <div key={article._id} className="article-item">
               <h2>{article.title}</h2>
               <p>{article.miniText}</p>
-              {article.images?.length > 0 && article.images[0].url && (
+              {article.mainImage.url && (
                 <img
                   src={article.mainImage.url}
                   alt={article.mainImage.alt || article.title}
