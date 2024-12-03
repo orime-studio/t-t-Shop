@@ -152,21 +152,27 @@ const EditArticle = () => {
                         onChange={(e) => {
                             const file = e.target.files ? e.target.files[0] : null;
                             if (file) {
-                                setMainImage(file);
-                                setMainImageName(file.name);
-                                setMainImagePreview(URL.createObjectURL(file)); // יצירת URL זמני
+                                if (!file.type.startsWith("image/")) {
+                                    dialogs.error("Error", "Only image files are allowed");
+                                    return;
+                                }
+
+                                setMainImage(file); // שמירת התמונה הראשית
+                                setMainImagePreview(URL.createObjectURL(file)); // יצירת URL זמני לתצוגה מקדימה
                             }
                         }}
                         className="file-input"
                         name="mainImage"
                     />
+
+                    {/* תצוגת מקדימה של תמונת Main */}
                     {mainImagePreview && (
                         <div className="image-preview">
                             <img src={mainImagePreview} alt="Main Image Preview" />
                         </div>
                     )}
-                    {mainImageName && <p>{mainImageName}</p>}
                 </section>
+
 
                 <section>
                     <label htmlFor="image-upload" className="file-upload-label">Additional Images</label>
