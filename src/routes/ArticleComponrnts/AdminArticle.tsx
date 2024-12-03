@@ -84,11 +84,11 @@ const AdminArticles = () => {
                             {filteredArticles.map((article) => (
                                 <Table.Row key={article._id} className="text-right">
                                     <Table.Cell>
-                                        {article.images?.[0]?.url && (
+                                        {article.mainImage && (
                                             <Link to={`/article/${article._id}`}>
                                                 <img
-                                                    src={article.images[0].url}
-                                                    alt={article.images[0].alt}
+                                                    src={article.mainImage.url}
+                                                    alt={article.mainImage.alt}
                                                     className="article-image"
                                                 />
                                             </Link>
