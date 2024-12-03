@@ -3,7 +3,32 @@ import axios from "axios";
 export const baseUrl = "https://node-tandt-shop.onrender.com/api/v1/products";
 
 // get all products
-export const getAllProducts = () => axios.get(baseUrl);
+/* export const getAllProducts = () => axios.get(baseUrl);
+ */
+
+// product-service.ts
+export const getAllProducts = (filters?: {
+    minPrice?: number;
+    maxPrice?: number;
+    sizes?: string[];
+    searchTerm?: string;
+}) => {
+    const queryParams = new URLSearchParams();
+
+    if (filters?.minPrice !== undefined)
+        queryParams.append("minPrice", String(filters.minPrice));
+    if (filters?.maxPrice !== undefined)
+        queryParams.append("maxPrice", String(filters.maxPrice));
+    if (filters?.sizes && filters.sizes.length > 0)
+        queryParams.append("size", filters.sizes.join(','));
+    if (filters?.searchTerm)
+        queryParams.append("searchTerm", filters.searchTerm);
+
+    const url = `${baseUrl}?${queryParams.toString()}`;
+    return axios.get(url);
+};
+  
+
 
 //get product by id
 export const getProductById = (id: string) => axios.get(`${baseUrl}/${id}`);

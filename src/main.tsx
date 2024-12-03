@@ -7,10 +7,12 @@ import { SearchProvider } from "./contexts/SearchContext.tsx";
 import { CartProvider } from "./contexts/CartContext.tsx";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import {  FilterProvider } from "./contexts/FilterContext.tsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <AuthContextProvider>
+    <FilterProvider>
     <SearchProvider>
       <CartProvider>
         <DndProvider backend={HTML5Backend}>
@@ -18,5 +20,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </DndProvider>
       </CartProvider>
     </SearchProvider>
+    </FilterProvider>
   </AuthContextProvider>
 );

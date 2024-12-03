@@ -19,7 +19,10 @@ const Search = () => {
                 <FiSearch className="dark:text-white" />
             </button>
             <input
-                onChange={(e) => setSearchTerm(e.currentTarget.value)}
+                onChange={(e) => {
+                    console.log('Search term:', e.currentTarget.value);
+                    setSearchTerm(e.currentTarget.value);
+                }}
                 type="search"
                 className={`text-xs h-8 ${isOpen ? 'w-32 pr-6' : 'w-0 pr-0'} rounded-lg border bg-transparent outline-none focus:w-48 transition-all duration-300 ease-in-out`}
                 placeholder="Search"
@@ -30,3 +33,4 @@ const Search = () => {
 };
 
 export default Search;
+

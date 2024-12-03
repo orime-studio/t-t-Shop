@@ -98,10 +98,23 @@ export interface DecodedToken {
 }
 
 
-interface SearchContextType {
+/* interface SearchContextType {
     searchTerm: string;
     setSearchTerm: (term: string) => void;
+} */
+
+    // types.ts
+export interface SearchContextType {
+    searchTerm: string;
+    setSearchTerm: (term: string) => void;
+    minPrice: number;
+    setMinPrice: (price: number) => void;
+    maxPrice: number;
+    setMaxPrice: (price: number) => void;
+    selectedSizes: string[];
+    setSelectedSizes: (sizes: string[]) => void;
 }
+
 
 export type FCC = ({ children }: { children: ReactNode }) => ReactNode;
 
