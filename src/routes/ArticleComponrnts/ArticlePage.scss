@@ -37,7 +37,7 @@
 }
 
 /* Section Styles */
-.section {
+.article-section {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -51,7 +51,7 @@
         flex-direction: row;
     }
 
-    .text-image-container {
+    .article-text-image-container {
         display: flex;
         flex-direction: row;
         justify-content: space-between;

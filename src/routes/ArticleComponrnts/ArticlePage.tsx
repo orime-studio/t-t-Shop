@@ -73,8 +73,8 @@ const ArticlePage = () => {
 };
 
 const Section = ({ title, text, images, isLeftAligned }) => (
-    <section className={`section ${isLeftAligned ? 'left-align' : 'right-align'}`}>
-        <div className="text-image-container">
+    <section className={`article-section ${isLeftAligned ? 'left-align' : 'right-align'}`}>
+        <div className="article-text-image-container">
             <div className="article-text-content">
                 <h2 className="section-title-article">{title}</h2>
                 <p className="section-description-article">{text}</p>
