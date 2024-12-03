@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import dialogs from "../../ui/dialogs";
 import { ArticleInput, ArticleLongText } from "../../@Types/productType";
 import { getArticleById, updateArticle } from "../../services/article-service";
+import './EditArticle.scss';
 
 const EditArticle = () => {
     const { id } = useParams<{ id: string }>();
