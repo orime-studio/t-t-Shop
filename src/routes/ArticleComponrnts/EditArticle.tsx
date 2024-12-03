@@ -35,7 +35,7 @@ const EditArticle = () => {
                 setValue('title', article.title);
                 setValue('miniText', article.miniText);
                 setValue('alt', article.alt || article.title);
-                setValue('longText', article.longText);
+                setValue('longText', article.longText || []);
                 setImageUrls(article.images.map((image: { url: string }) => image.url));
                 setImageNames(article.images.map((image: { url: string }) => image.url.split('/').pop() || ""));
                 if (article.mainImage) {
