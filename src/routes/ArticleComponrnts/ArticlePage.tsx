@@ -14,7 +14,7 @@ const ArticlePage = () => {
         if (id) {
             getArticleById(id)
                 .then(res => {
-                    setArticle(res.data);
+                    setArticle(res.data); // assuming the response is under res.data
                     setLoading(false);
                 })
                 .catch(err => {
@@ -73,4 +73,3 @@ const Section = ({ title, text, image, isLeftAligned }) => (
 );
 
 export default ArticlePage;
-
