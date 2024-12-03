@@ -86,7 +86,7 @@ const Section = ({ title, text, images, isLeftAligned }) => (
                     key={index}
                     src={image.url} 
                     alt={image.alt || `Image ${index + 1}`} 
-                    className="section-image-article" 
+                    className={`section-image-article image-${index}`} 
                 />
             ))}
         </div>
