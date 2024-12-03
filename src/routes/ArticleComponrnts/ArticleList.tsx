@@ -39,14 +39,14 @@ const ArticleList = () => {
         {articles.length === 0 ? (
           <p>No articles available at the moment.</p>
         ) : (
-          articles.map(article => (
+          articles.map((article) => (
             <div key={article._id} className="article-item">
               <h2>{article.title}</h2>
               <p>{article.miniText}</p>
-              {article.images?.[0]?.url && (
+              {article.images?.length > 0 && article.images[0].url && (
                 <img
-                  src={article.images[0].url}
-                  alt={article.images[0].alt || article.title}
+                  src={article.mainImage.url}
+                  alt={article.mainImage.alt || article.title}
                   className="article-image"
                 />
               )}

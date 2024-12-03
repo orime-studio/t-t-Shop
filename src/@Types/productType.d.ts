@@ -147,7 +147,7 @@ export type ArticleInput = {
     title: string;           // Article title
     miniText: string;        // Short description of the article
     alt: string;      
-    mainImage?: File[];        // Image description (alt)
+    mainImage?: IImages;        // Image description (alt)
     images: IImages[];        // Array of images for the article
     longText: ArticleLongText[];    // List of article pages
 };
