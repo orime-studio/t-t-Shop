@@ -144,7 +144,9 @@ const EditArticle = () => {
                             }
                         }}
                         className="file-input"
+                        name="mainImage"  // תוודא שהשם תואם למה שהשרת מצפה
                     />
+
                     {mainImageName && <p>{mainImageName}</p>}
                 </section>
                 <section>
@@ -164,7 +166,9 @@ const EditArticle = () => {
                             setImageNames(validFiles.map((file) => file.name));
                         }}
                         className="file-input"
+                        name="images"  // תוודא שהשם תואם למה שהשרת מצפה
                     />
+
                     <div className="file-names-list">
                         {imageNames.map((name, index) => (
                             <p key={index} className="file-name">{name}</p>
