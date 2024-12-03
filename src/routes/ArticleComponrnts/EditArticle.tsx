@@ -68,19 +68,19 @@ const EditArticle = () => {
                 formData.append(`longText[${index}][text]`, page.text);
             });
 
+            // טיפול בתמונות - אם יש תמונות חדשות להעלות
             if (images.length) {
                 images.forEach((image) => {
-                    formData.append("images", image); // השתמש בשם שדה פשוט
+                    formData.append("images", image); // הוספת תמונות חדשות
                 });
             } else if (imageUrls.length) {
                 imageUrls.forEach((url) => {
-                    formData.append("imageUrls", url); // אותו דבר עבור imageUrls
+                    formData.append("imageUrls", url); // הוספת תמונות קיימות לפי ה-URL
                 });
             } else {
                 dialogs.error("Error", "At least one image is required");
                 return;
             }
-            
 
             console.log("FormData before sending:", [...formData.entries()]);
             const response = await updateArticle(id, formData);
