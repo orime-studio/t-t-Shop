@@ -104,6 +104,19 @@
                 background-color: #2b6cb0;
             }
         }
+        .image-preview {
+            width: 100px;  // גודל התמונות המוקטנות
+            height: 100px;
+            object-fit: cover;
+            margin: 5px;
+          }
+          
+          .image-previews {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+          }
+          
     }
 }
 

@@ -19,7 +19,9 @@ const CreateArticle = () => {
     name: "longText",
   });
   const [mainImage, setMainImage] = useState<File | null>(null);
-  const [images, setimages] = useState<File[]>([]);
+  const [images, setImages] = useState<File[]>([]);
+  const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
+  const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   const onSubmit = async (data: Article) => {
     if (!mainImage) {
@@ -62,6 +64,20 @@ const CreateArticle = () => {
     }
   };
 
+  const handleMainImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      const file = e.target.files[0];
+      setMainImage(file);
+      setMainImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleImagesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    setImages(files);
+    setImagePreviews(files.map(file => URL.createObjectURL(file)));
+  };
+
   return (
     <div className="create-article-container">
       <h2 className="create-article-title">Create New Article</h2>
@@ -93,32 +109,33 @@ const CreateArticle = () => {
 
         {/* שדה עבור התמונה הראשית */}
         <section className="article-section">
+        <label htmlFor="mainImage" className="article-input-label">Main Image</label>
           <input
             className="article-input-file"
             type="file"
             accept="image/*"
             name="mainImage" // שם השדה מותאם לנתיב בשרת
-            onChange={(e) => {
-              if (e.target.files?.length) {
-                setMainImage(e.target.files[0]);
-              }
-            }}
+            onChange={handleMainImageChange}
           />
+          {mainImagePreview && <img src={mainImagePreview} alt="Main Image Preview" className="image-preview" />}
         </section>
 
         {/* שדה עבור התמונות הנוספות */}
         <section className="article-section">
+        <label htmlFor="images" className="article-input-label">Additional Images</label>
           <input
             className="article-input-file"
             type="file"
             accept="image/*"
             name="images" // שם השדה מותאם לנתיב בשרת
             multiple
-            onChange={(e) => {
-              const files = Array.from(e.target.files || []);
-              setimages(files);
-            }}
+            onChange={handleImagesChange}
           />
+          <div className="image-previews">
+            {imagePreviews.map((imagePreview, index) => (
+              <img key={index} src={imagePreview} alt={`Preview ${index}`} className="image-preview" />
+            ))}
+          </div>
         </section>
 
         <section className="article-section">
