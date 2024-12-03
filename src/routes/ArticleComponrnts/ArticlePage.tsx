@@ -50,7 +50,7 @@ const ArticlePage = () => {
                     key={index}
                     title={page.title}
                     text={page.text}
-                    image={article.images?.[index + 1]}
+                    images={article.images?.[index + 1]}
                     isLeftAligned={index % 2 !== 0} // לסירוגין: פעם אחת ימין, פעם אחת שמאל
                 />
             ))}
@@ -60,17 +60,27 @@ const ArticlePage = () => {
     );
 };
 
-const Section = ({ title, text, image, isLeftAligned }) => (
+const Section = ({ title, text, images, isLeftAligned }) => (
     <section className={`section ${isLeftAligned ? 'left-align' : 'right-align'}`}>
         <div className="text-image-container">
             <div className="article-text-content">
                 <h2 className="section-title-article">{title}</h2>
                 <p className="section-description-article">{text}</p>
             </div>
-            {image && <img src={image.url} alt={image.alt} className="section-image-article" />}
+
+            {/* הצגת כל התמונות */}
+            {images?.map((image, index) => (
+                <img 
+                    key={index}
+                    src={image.url} 
+                    alt={image.alt || `Image ${index + 1}`} 
+                    className="section-image-article" 
+                />
+            ))}
         </div>
     </section>
 );
+
 
 
 export default ArticlePage;
