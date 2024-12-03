@@ -2,7 +2,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import dialogs from "../../ui/dialogs";
-import { ArticleInput } from "../../@Types/productType";
+import { ArticleInput, ArticleLongText } from "../../@Types/productType";
 import { getArticleById, updateArticle } from "../../services/article-service";
 
 const EditArticle = () => {
@@ -68,26 +68,27 @@ const EditArticle = () => {
             formData.append("miniText", data.miniText);
             formData.append("alt", data.alt);
 
+            // Handle longText
             data.longText.forEach((page, index) => {
-                formData.append(`longText[${index}][title]`, page.title);
+                formData.append(`longText[${index}][title]`, page.title || "");
                 formData.append(`longText[${index}][text]`, page.text);
             });
 
-            // טיפול בתמונה ראשית
+            // Handle mainImage
             if (mainImage) {
                 formData.append("mainImage", mainImage);
             } else if (mainImageName) {
                 formData.append("mainImage", mainImageName);
             }
 
-            // טיפול בתמונות נוספות
+            // Handle additional images
             if (images.length) {
                 images.forEach((image) => {
-                    formData.append("images", image); // הוספת תמונות חדשות
+                    formData.append("images", image); // Add new images
                 });
             } else if (imageUrls.length) {
                 imageUrls.forEach((url) => {
-                    formData.append("images", url); // הוספת תמונות קיימות לפי ה-URL
+                    formData.append("images", url); // Add existing images by URL
                 });
             } else {
                 dialogs.error("Error", "At least one image is required");
