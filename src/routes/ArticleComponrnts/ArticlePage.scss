@@ -1,106 +1,97 @@
-
-// SCSS
+/* Main Article Container */
 .article-container {
-    padding: 2rem 4rem;
-    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
     margin: 0 auto;
-    text-align: center; // מיישר את כל הטקסטים למרכז
+    max-width: 1200px;
 }
 
+/* Full Width Image */
 .full-width-image-container {
     width: 100%;
-    height: 80vh; // הגבלת גובה התמונה הראשית ל-80% מגובה המסך
-    overflow: hidden;
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
+
+    .full-width-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+    }
 }
 
-.full-width-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+/* Article Header */
+.article-header {
+    text-align: center;
+    margin-bottom: 40px;
+
+    .article-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .article-miniText {
+        font-size: 1.2rem;
+        color: #666;
+    }
 }
 
+/* Section Styles */
 .section {
-    margin-bottom: 2rem;
-}
-
-.section-title-article {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-.text-image-container {
     display: flex;
-    align-items: center;
+    flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 2rem;
-}
+    margin-bottom: 40px;
 
-/* .section:nth-of-type(odd) .text-image-container {
-    flex-direction: row; // תמונה בצד ימין, טקסט בצד שמאל
-}
-
-.section:nth-of-type(even) .text-image-container {
-    flex-direction: row-reverse; // תמונה בצד שמאל, טקסט בצד ימין
-} */
-
-.section-image-article {
-    width: 50%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-
-    &:hover {
-        transform: scale(1.05);
-    }
-}
-
-
-.back-to-articles {
-    display: inline-block;
-    margin-top: 3rem;
-    padding: 1rem 2rem;
-    background-color: #d4a5e6; // צבע סגול לילך לכפתור
-    color: #fff;
-    text-decoration: none;
-    border-radius: 10px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.back-to-articles:hover {
-    background-color: #b58dc4;
-    transform: translateY(-2px);
-}
-
-/* התאמה למובייל */
-@media (max-width: 768px) {
-    .article-container {
-        padding: 1rem 2rem;
+    &.left-align {
+        flex-direction: row-reverse;
     }
 
-    .section-title-article {
-        font-size: 1.5rem;
-    }
-
-    .section-description-article {
-        font-size: 0.9rem;
+    &.right-align {
+        flex-direction: row;
     }
 
     .text-image-container {
-        flex-direction: column;
-        text-align: center;
-    }
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
 
-    .section-image-article {
-        width: 100%;
-        max-width: 300px;
-        margin-bottom: 1rem;
+        .article-text-content {
+            width: 50%;
+        }
+
+        .section-title-article {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .section-description-article {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .section-image-article {
+            width: 50%;
+            height: auto;
+            object-fit: cover;
+        }
+    }
+}
+
+/* Back to Articles Link */
+.back-to-articles {
+    display: block;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 1.2rem;
+    color: #007BFF;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
     }
 }
