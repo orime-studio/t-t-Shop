@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Article } from "../../@Types/productType";
 import { getLatestArticles } from "../../services/article-service";
 import './LatestArticles.scss';
+import './ArticleList.scss';
 
 const LatestArticles = () => {
   const [lastArticles, setLastArticles] = useState<Article[]>([]);
@@ -20,10 +21,12 @@ const LatestArticles = () => {
   }, []);
 
   return (
-    <div className="latest-articles">
+    <div className="latest-articles article-list">
+      <h2>Our Latest Articles</h2>
+      <div className=" article-list-grid">
       {lastArticles.length > 0 ? (
         lastArticles.map(article => (
-          <Link to={`/articles/${article._id}`} className="article-link" key={article._id}>
+          <Link to={`/article/${article._id}`} className="article-link article-item" key={article._id}>
             <div className="article-card">
               {article.mainImage?.url && (
                 <div className="article-image-wrapper">
@@ -45,6 +48,7 @@ const LatestArticles = () => {
       ) : (
         <p>No latest articles available at the moment.</p>
       )}
+    </div>
     </div>
   );
 };

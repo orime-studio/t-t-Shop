@@ -1,69 +1,87 @@
-.latest-articles {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px;
-    
-    .article-link {
+/* .latest-articles {
+  padding: 2rem;
+  width: 100%;
+   max-width: 1200px;
+   margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .article-link {
       text-decoration: none;
       color: inherit;
-  
-      .article-card {
-        display: flex;
-        flex-direction: row;
-        gap: 15px;
-        background-color: #fff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        overflow: hidden;
-        transition: transform 0.3s ease-in-out;
-  
-        &:hover {
-          transform: scale(1.03);
-        }
-  
-        .article-image-wrapper {
-          width: 200px;
-          height: 150px;
-          overflow: hidden;
-          border-radius: 8px;
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-  
-        .article-details {
-          display: flex;
-          flex-direction: column;
-          padding: 15px;
-          justify-content: space-between;
-          
-          .article-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-          }
-  
-          .article-mini-text {
-            font-size: 1rem;
-            color: #555;
-            margin-bottom: 10px;
-          }
-  
-          .article-source {
-            font-size: 0.9rem;
-            color: #888;
-          }
-        }
-      }
-    }
-  
-    p {
-      font-size: 1rem;
-      color: #555;
-      text-align: center;
-    }
   }
-  
+}
+
+.latest-articles-grid {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: center;
+}
+
+.article-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: calc(33% - 1.5rem);
+  min-width: 300px;
+
+  &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  }
+
+  .article-image-wrapper {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      margin-right: 20px!important;
+
+      .article-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          margin-right: 20px;
+      }
+  }
+
+  .article-details {
+      padding: 1rem;
+
+      .article-title {
+          font-size: 1.3rem;
+          color: #2d3748;
+          margin-bottom: 0.5rem;
+      }
+
+      .article-mini-text {
+          color: #4a5568;
+          margin-bottom: 0.5rem;
+          flex-grow: 1;
+      }
+
+      .article-source {
+          color: #718096;
+          font-size: 0.9rem;
+      }
+  }
+}
+
+@media (max-width: 768px) {
+  .article-card {
+      width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .article-card {
+      width: calc(50% - 1.5rem);
+  }
+}
+ */
