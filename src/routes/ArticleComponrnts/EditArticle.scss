@@ -151,6 +151,19 @@
           background-color: #2980b9;
         }
       }
+      .image-preview {
+        max-width: 100px;
+        max-height: 100px;
+        margin: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .image-previews {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
     }
   }
   

@@ -20,6 +20,9 @@ const EditArticle = () => {
     const [imageUrls, setImageUrls] = useState<string[]>([]);
     const [mainImage, setMainImage] = useState<File | null>(null);
     const [mainImageName, setMainImageName] = useState<string | null>(null);
+    const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
+    const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+
 
     useEffect(() => {
         if (!id) {
@@ -141,14 +144,20 @@ const EditArticle = () => {
                             if (file) {
                                 setMainImage(file);
                                 setMainImageName(file.name);
+                                setMainImagePreview(URL.createObjectURL(file)); // יצירת URL זמני
                             }
                         }}
                         className="file-input"
-                        name="mainImage"  // תוודא שהשם תואם למה שהשרת מצפה
+                        name="mainImage"
                     />
-
+                    {mainImagePreview && (
+                        <div className="image-preview">
+                            <img src={mainImagePreview} alt="Main Image Preview" />
+                        </div>
+                    )}
                     {mainImageName && <p>{mainImageName}</p>}
                 </section>
+
                 <section>
                     <label htmlFor="image-upload" className="file-upload-label">Additional Images</label>
                     <input
@@ -164,9 +173,10 @@ const EditArticle = () => {
                             }
                             setImages(validFiles);
                             setImageNames(validFiles.map((file) => file.name));
+                            setImagePreviews(validFiles.map((file) => URL.createObjectURL(file))); // יצירת URLs זמניים
                         }}
                         className="file-input"
-                        name="images"  // תוודא שהשם תואם למה שהשרת מצפה
+                        name="images"
                     />
 
                     <div className="file-names-list">
@@ -174,7 +184,14 @@ const EditArticle = () => {
                             <p key={index} className="file-name">{name}</p>
                         ))}
                     </div>
+
+                    <div className="image-previews">
+                        {imagePreviews.map((preview, index) => (
+                            <img key={index} src={preview} alt={`Preview ${index + 1}`} className="image-preview" />
+                        ))}
+                    </div>
                 </section>
+
                 <section className="input-section">
                     <input className="input-field" placeholder="Image Description (alt)" {...register("alt", { required: "Image description is required" })} />
                     {errors.alt && <p className="error-message">{errors.alt.message}</p>}
