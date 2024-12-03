@@ -40,8 +40,17 @@ const EditArticle = () => {
                 setValue('miniText', article.miniText);
                 setValue('alt', article.alt || article.title);
                 setValue('longText', article.longText || []);
-                setImageUrls(article.images.map((image: { url: string }) => image.url));
-                setImageNames(article.images.map((image: { url: string }) => image.url.split('/').pop() || ""));
+
+                // שמירת URLs של תמונות קיימות
+                const existingImageUrls = article.images.map((image: { url: string }) => image.url);
+                setImageUrls(existingImageUrls);
+
+                // יצירת תצוגות מקדימות לתמונות
+                setImagePreviews(existingImageUrls);
+
+                // שמירת שמות התמונות
+                setImageNames(existingImageUrls.map((url) => url.split('/').pop() || ""));
+
                 if (article.mainImage) {
                     setMainImageName(article.mainImage.url.split('/').pop() || "");
                 }
@@ -51,6 +60,7 @@ const EditArticle = () => {
                 setError(err);
             });
     }, [id, setValue]);
+
 
     const onSubmit = async (data: ArticleInput) => {
         console.log("Form data before submission:", data);
@@ -179,18 +189,13 @@ const EditArticle = () => {
                         name="images"
                     />
 
-                    <div className="file-names-list">
-                        {imageNames.map((name, index) => (
-                            <p key={index} className="file-name">{name}</p>
-                        ))}
-                    </div>
-
                     <div className="image-previews">
                         {imagePreviews.map((preview, index) => (
                             <img key={index} src={preview} alt={`Preview ${index + 1}`} className="image-preview" />
                         ))}
                     </div>
                 </section>
+
 
                 <section className="input-section">
                     <input className="input-field" placeholder="Image Description (alt)" {...register("alt", { required: "Image description is required" })} />
