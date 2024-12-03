@@ -97,13 +97,13 @@ const CreateArticle = () => {
             className="article-input-file"
             type="file"
             accept="image/*"
+            name="mainImage" // שם השדה מותאם לנתיב בשרת
             onChange={(e) => {
               if (e.target.files?.length) {
                 setMainImage(e.target.files[0]);
               }
             }}
           />
-          {errors.mainImage && <p className="errorMessage">{errors.mainImage.message}</p>}
         </section>
 
         {/* שדה עבור התמונות הנוספות */}
@@ -112,6 +112,7 @@ const CreateArticle = () => {
             className="article-input-file"
             type="file"
             accept="image/*"
+            name="additionalImages" // שם השדה מותאם לנתיב בשרת
             multiple
             onChange={(e) => {
               const files = Array.from(e.target.files || []);
