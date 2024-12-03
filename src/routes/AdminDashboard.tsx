@@ -1,5 +1,5 @@
 import { Tabs } from "flowbite-react";
-import { FiBox, FiUsers, FiClipboard, FiTrendingUp, FiFileText, FiMessageCircle } from "react-icons/fi";
+import { FiBox, FiUsers, FiClipboard, FiTrendingUp, FiFileText, FiMessageCircle, FiImage } from "react-icons/fi";
 import AdminProducts from "./AdminProducts";
 import Users from "./Users";
 import AdminOrders from "./AdminOrders";
@@ -7,6 +7,7 @@ import SalesChart from "./SalesByDate";
 import './AdminDashboard.scss';
 import AdminMessages from "./AdminMessage";
 import AdminArticles from "./ArticleComponrnts/AdminArticle";
+import CarouselManager from "../components/CarouselAdmin";
 
 const AdminDashboard = () => {
     return (
@@ -28,6 +29,9 @@ const AdminDashboard = () => {
             </Tabs.Item>
             <Tabs.Item title="Leads" icon={FiMessageCircle}>
                 <AdminMessages />
+            </Tabs.Item>
+            <Tabs.Item title="Carousel" icon={FiImage}>
+                <CarouselManager />
             </Tabs.Item>
         </Tabs>
     );

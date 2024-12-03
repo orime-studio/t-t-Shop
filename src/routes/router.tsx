@@ -32,6 +32,7 @@ import CreateArticle from "./ArticleComponrnts/CreateArticle";
 import ArticlePage from "./ArticleComponrnts/ArticlePage";
 import ArticleList from "./ArticleComponrnts/ArticleList";
 import EditArticle from "./ArticleComponrnts/EditArticle";
+import CarouselNew from "../components/CarouselaNew";
 
 export const router = createBrowserRouter([
     {
@@ -39,7 +40,7 @@ export const router = createBrowserRouter([
         element: <Root />,
         errorElement: <Error />,
         children: [
-            { index: true, element: <><CarouselComponent /><Products /></> },
+            { index: true, element: <><CarouselComponent /><Products /><CarouselNew /> </> },
             { path: "/register", element: <Register /> },
             { path: "/login", element: <Login /> },
             { path: "/products/:id", element: <Product /> },
