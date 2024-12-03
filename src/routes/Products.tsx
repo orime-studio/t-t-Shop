@@ -87,6 +87,7 @@ import { useSearch } from '../hooks/useSearch';
 import { getAllProducts } from '../services/product-service';
 import './Products.scss';
 import Filter from '../components/FilterComponent';
+import LatestArticles from './ArticleComponrnts/LatestArticle';
 
 const Products: FC = () => {
     const [products, setProducts] = useState<IProduct[]>([]);
@@ -145,6 +146,7 @@ const Products: FC = () => {
                     ))
                 )}
             </div>
+            <LatestArticles />
         </div>
     );
 };
