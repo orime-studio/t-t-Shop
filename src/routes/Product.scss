@@ -158,11 +158,9 @@
     transition: background-color 0.3s, color 0.3s;
     text-align: center;
     display: flex;
-    /* הוספת תכונה זו */
-    justify-content: center;
-    /* מרכז את התוכן אופקית */
-    align-items: center;
-    /* מרכז את התוכן אנכית */
+    justify-content: center; /* מרכז את התוכן אופקית */
+    align-items: center;     /* מרכז את התוכן אנכית */
+    width: 50px; 
 }
 
 .size-button.selected {
