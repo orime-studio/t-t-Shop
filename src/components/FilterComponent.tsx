@@ -77,7 +77,7 @@ const Filter = () => {
                     {/* פילטר מידות */}
                     <div className="filter-section">
                         <h3>סנן לפי מידה</h3>
-                        <div className="size-buttons-container">
+                        <div className="size-buttons-filter-container">
                             {availableSizes.map((size) => (
                                 <button
                                     key={size}
@@ -88,7 +88,7 @@ const Filter = () => {
                                             setSelectedSizes([...selectedSizes, size]);
                                         }
                                     }}
-                                    className={`size-button ${selectedSizes.includes(size) ? 'selected' : ''}`}
+                                    className={`size-filter-button ${selectedSizes.includes(size) ? 'selected' : ''}`}
                                 >
                                     {size}
                                 </button>

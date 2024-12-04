@@ -103,6 +103,7 @@
     flex-direction: row;
     gap: 10px;
     margin-bottom: 20px;
+    align-items: flex-end;
 }
 
 .consult-expert-button,
@@ -123,7 +124,7 @@
     background-color: #0a0b0d;
     color: white;
     margin-top: 168px;
-    width: 60%;
+    width: 80%;
 }
 
 .consult-expert-button:hover {
@@ -142,7 +143,7 @@
     color: white;
 }
 
-.size-buttons-container {
+.size-buttons-product-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
@@ -171,6 +172,10 @@
 
 .size-button:hover {
     background-color: #cd9f93;
+}
+.buyNow-container{
+    display: flex;
+    flex-grow: 1;
 }
 
 @media (min-width: 768px) {

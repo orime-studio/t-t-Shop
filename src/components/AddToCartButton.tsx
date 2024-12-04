@@ -47,7 +47,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
                     ${selectedVariant?.price.toFixed(2)}
                 </span>
             </div>
-            <div className="size-buttons-container">
+            <div className="size-buttons-product-container">
                 {variants.map(variant => (
                     <button
                         key={variant._id}

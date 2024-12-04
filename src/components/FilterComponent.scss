@@ -88,13 +88,13 @@
   }
   
   /* סגנון לכפתורי המידות */
-  .size-buttons-container {
+  .size-buttons-filter-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* שני כפתורים בשורה */
     gap: 0.3rem;
   }
   
-  .size-button {
+  .size-filter-button {
     padding: 0.2rem 0.5rem; /* פדינג קטן יותר */
     font-size: 0.8rem; /* גודל פונט קטן יותר */
     border: 1px solid #bdbdbd;
@@ -126,7 +126,7 @@
       width: 100%;
     }
   
-    .size-buttons-container {
+    .size-buttons--filter-container {
       grid-template-columns: repeat(1, 1fr); /* כפתור אחד בשורה במסכים קטנים */
     }
   }

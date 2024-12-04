@@ -6,12 +6,14 @@ import './Product.scss';
 import AddToCartButton from '../components/AddToCartButton';
 import { Accordion } from 'flowbite-react';
 import cart from '../services/cart-service';
+import { format } from 'date-fns';
 
 const Product = () => {
     const { id } = useParams();
     const [product, setProduct] = useState<IProduct | null>(null);
     const [selectedVariant, setSelectedVariant] = useState<string>('');
     const navigate = useNavigate();
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         getProductById(id || "")
@@ -19,8 +21,18 @@ const Product = () => {
                 setProduct(res.data);
                 setSelectedVariant(res.data.variants[0]._id);
             })
-            .catch(err => console.log(err));
+            .catch(() => setError("Failed to load product details. Please try again."));
     }, [id]);
+
+    if (error) {
+        return <div>{error}</div>;
+    }
+    const getEstimatedArrivalDate = (): string => {
+        const deliveryDate = new Date();
+        deliveryDate.setDate(deliveryDate.getDate() + 7);
+        return format(deliveryDate, 'PPP');
+    };
+
 
     if (!product) {
         return <div>Loading...</div>;
@@ -32,7 +44,7 @@ const Product = () => {
             return;
         }
         try {
-            await cart.addProductToCart(product._id, selectedVariant, product.title,  1, product.variants.find(v => v._id === selectedVariant)?.size || '', product.variants.find(v => v._id === selectedVariant)?.price || 0, product.image);
+            await cart.addProductToCart(product._id, selectedVariant, product.title, 1, product.variants.find(v => v._id === selectedVariant)?.size || '', product.variants.find(v => v._id === selectedVariant)?.price || 0, product.image);
             navigate('/cart');
         } catch (error) {
             console.error('Failed to add product to cart.', error);
@@ -60,7 +72,9 @@ const Product = () => {
                         title={product.title}
                         image={product.image}
                     />
-                    <button className="consult-expert-button" onClick={handleAddToCartAndRedirect}>Buy Now</button>
+                  {/*   <div className="buyNow-container"> */}
+                        <button className="consult-expert-button" onClick={handleAddToCartAndRedirect}>Buy Now</button>
+                  {/*   </div> */}
                 </div>
                 <Accordion>
                     <Accordion.Panel>
@@ -72,10 +86,16 @@ const Product = () => {
                     <Accordion.Panel>
                         <Accordion.Title>Shipping Info</Accordion.Title>
                         <Accordion.Content>
-                            <p>Ships by: <strong>Wednesday, July 24</strong></p>
-                            <p className='dark:text-white'>Free Fast Shipping</p>
-                            <p className='dark:text-white'>Free Overnight Shipping, Hassle-Free Returns</p>
+                            <p>
+                                Estimated Arrival:
+                                <strong>
+                                    {product.variants.find(v => v._id === selectedVariant)?.quantity > 0 ? getEstimatedArrivalDate() : "Currently unavailable"}
+                                </strong>
+                            </p>
+                            <p>Free Fast Shipping</p>
+                            <p>Free Overnight Shipping, Hassle-Free Returns</p>
                         </Accordion.Content>
+
                     </Accordion.Panel>
                 </Accordion>
             </div>
