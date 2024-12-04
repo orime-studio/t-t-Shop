@@ -1,7 +1,4 @@
-.add-to-cart-container{
-    margin-left: 10px;
-    width: 40%;
-}.add-to-cart-button {
+.add-to-cart-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,8 +23,4 @@
         margin-right: 8px;
     }
 }
-@media (max-width: 767px){
-    .add-to-cart-container{
-        width: 100%;
-    }
-}
+
