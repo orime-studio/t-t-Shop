@@ -1,27 +1,30 @@
 import { FC, useState } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import './AddToCartButton.scss';
-import { AddToCartButtonProps, IVariant } from '../@Types/productType';
+import { AddToCartButtonProps, IVariant, IImage } from '../@Types/productType';
 import useCart from '../hooks/useCart';
 import dialogs from '../ui/dialogs';
 import { useAuth } from '../hooks/useAuth';
 
-const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title, image }) => {
+const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title, images, basePrice, salePrice }) => {
     const [selectedVariant, setSelectedVariant] = useState<IVariant | null>(variants[0] || null);
     const { addToCart } = useCart();
     const { isLoggedIn } = useAuth();
 
+    const computeFinalPrice = (variant: IVariant): number => {
+      return basePrice + (salePrice || 0) + variant.color.additionalCost + variant.size.additionalCost;
+    };
+
     const handleAddToCart = async () => {
         if (selectedVariant) {
-            console.log("Adding product to cart:", selectedVariant);
+            const finalPrice = computeFinalPrice(selectedVariant);
+            const firstImage: IImage = images[0] || { url: '', alt: '' };
             try {
-                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price,image);
-                console.log("yyyyy:",productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price,image );
-
+                await addToCart(productId, selectedVariant._id || "", title, 1, selectedVariant.size.value, finalPrice, firstImage);
                 dialogs.success(
                     "Product Added",
                     `<div style="display: flex; align-items: center;">
-                        <img src="${image.url}" alt="${title}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" />
+                        <img src="${firstImage.url}" alt="${title}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" />
                         <div>
                             <p>${title} has been added to your cart.</p>
                         </div>
@@ -38,14 +41,18 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
 
     return (
         <div className="add-to-cart-container">
-            <p> {selectedVariant?.quantity > 0 ? 'In Stock' : 'Out of Stock'}</p>
+            <p>{selectedVariant && selectedVariant.quantity > 0 ? 'In Stock' : 'Out of Stock'}</p>
             <div className="price-container" style={{ marginBottom: '20px', marginTop: '15px' }}>
-                <span className="original-price" style={{ marginRight: '10px' }}>
-                    ${(selectedVariant?.price * 1.2).toFixed(2)}
-                </span>
-                <span className="discounted-price">
-                    ${selectedVariant?.price.toFixed(2)}
-                </span>
+                {selectedVariant && (
+                  <>
+                    <span className="original-price" style={{ marginRight: '10px' }}>
+                        ${(computeFinalPrice(selectedVariant) * 1.2).toFixed(2)}
+                    </span>
+                    <span className="discounted-price">
+                        ${computeFinalPrice(selectedVariant).toFixed(2)}
+                    </span>
+                  </>
+                )}
             </div>
             <div className="size-buttons-product-container">
                 {variants.map(variant => (
@@ -54,7 +61,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
                         className={`size-button ${selectedVariant && selectedVariant._id === variant._id ? 'selected' : ''}`}
                         onClick={() => setSelectedVariant(variant)}
                     >
-                        {variant.size}
+                        {variant.size.value}
                     </button>
                 ))}
             </div>

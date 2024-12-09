@@ -64,7 +64,7 @@ const AdminProducts = () => {
                     {filteredProducts.map((product) => (
                         <Table.Row key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center">
-                                <img src={product.image.url} alt={product.alt} className="h-12 w-12 object-cover rounded-full mr-4" />
+                                <img src={product.images[0].url} alt={product.alt} className="h-12 w-12 object-cover rounded-full mr-4" />
                                 <div className="flex flex-col">
                                     <span>{product.title}</span>
                                 </div>
@@ -73,8 +73,8 @@ const AdminProducts = () => {
                                 <div className="flex flex-wrap gap-2">
                                     {product.variants.map((variant, index) => (
                                         <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded">
-                                            <p className="text-sm">Size: {variant.size}</p>
-                                            <p className="text-sm">Price: ${variant.price}</p>
+                                            <p className="text-sm">Size: {variant.size.value}</p>
+                                            <p className="text-sm">Price: ${variant.size.additionalCost}</p>
                                             <p className="text-sm">Quantity: {variant.quantity}</p>
                                         </div>
                                     ))}
@@ -103,7 +103,7 @@ const AdminProducts = () => {
                 {filteredProducts.map((product) => (
                     <div key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800 p-4 rounded-lg shadow-md">
                         <div className="flex items-center mb-4">
-                            <img src={product.image.url} alt={product.alt} className="h-12 w-12 object-cover rounded-full mr-4" />
+                            <img src={product.images[0].url} alt={product.alt} className="h-12 w-12 object-cover rounded-full mr-4" />
                             <div>
                                 <p className="font-medium text-gray-900 dark:text-white">{product.title}</p>
                             </div>
@@ -111,8 +111,8 @@ const AdminProducts = () => {
                         <div className="mb-4">
                             {product.variants.map((variant, index) => (
                                 <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
-                                    <p className="text-sm">Size: {variant.size}</p>
-                                    <p className="text-sm">Price: ${variant.price}</p>
+                                    <p className="text-sm">Size: {variant.size.value}</p>
+                                    <p className="text-sm">Price: ${variant.size.additionalCost}</p>
                                     <p className="text-sm">Quantity: {variant.quantity}</p>
                                 </div>
                             ))}
