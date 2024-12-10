@@ -52,7 +52,7 @@ const AdminProducts = () => {
             {error && <div className="text-red-500 text-center mb-4">{error.message}</div>}
             <Table hoverable className="hidden md:table">
                 <Table.Head>
-                    <Table.HeadCell>Image $ Title</Table.HeadCell>
+                    <Table.HeadCell>Image & Title</Table.HeadCell>
                     <Table.HeadCell>Variant</Table.HeadCell>
                     <Table.HeadCell>Total Quantity</Table.HeadCell>
                     <Table.HeadCell>Edit</Table.HeadCell>
@@ -63,24 +63,16 @@ const AdminProducts = () => {
                 <Table.Body className="divide-y">
                     {filteredProducts.map((product) => (
                         <Table.Row key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center">
+                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center gap-3">
                                 <div className="flex space-x-2">
-                                    {product.images.map((image, index) => (
-                                        <img
-                                            key={index}
-                                            src={image.url}
-                                            alt={image.alt || `Image ${index + 1}`}
-                                            className="h-12 w-12 object-cover rounded-full"
-                                        />
-                                    ))}
+                             <img src={product.mainImage.url} alt={product.mainImage.alt} className="h-12 w-12 object-cover rounded-full" />
                                 </div>
-
-                                <div className="flex flex-col">
+                                <div className="flex flex-col gap-2">
                                     <span>{product.title}</span>
                                 </div>
                             </Table.Cell>
                             <Table.Cell className="whitespace-nowrap">
-                                <div className="flex flex-wrap gap-2">
+                                <div className="flex flex-wrap">
                                     {product.variants.map((variant, index) => (
                                         <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded">
                                             <p className="text-sm">Size: {variant.size}</p>
@@ -112,7 +104,7 @@ const AdminProducts = () => {
             <div className="grid md:hidden gap-4">
                 {filteredProducts.map((product) => (
                     <div key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800 p-4 rounded-lg shadow-md">
-                        <div className="flex items-center mb-4">
+                        <div className="flex items-center mb-4 gap-3">
                             <div className="flex space-x-2">
                                 {product.images.map((image, index) => (
                                     <img
