@@ -64,7 +64,17 @@ const AdminProducts = () => {
                     {filteredProducts.map((product) => (
                         <Table.Row key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center">
-                                <img src={product.image.url} alt={product.alt} className="h-12 w-12 object-cover rounded-full mr-4" />
+                                <div className="flex space-x-2">
+                                    {product.images.map((image, index) => (
+                                        <img
+                                            key={index}
+                                            src={image.url}
+                                            alt={image.alt || `Image ${index + 1}`}
+                                            className="h-12 w-12 object-cover rounded-full"
+                                        />
+                                    ))}
+                                </div>
+
                                 <div className="flex flex-col">
                                     <span>{product.title}</span>
                                 </div>
@@ -103,7 +113,17 @@ const AdminProducts = () => {
                 {filteredProducts.map((product) => (
                     <div key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800 p-4 rounded-lg shadow-md">
                         <div className="flex items-center mb-4">
-                            <img src={product.image.url} alt={product.alt} className="h-12 w-12 object-cover rounded-full mr-4" />
+                            <div className="flex space-x-2">
+                                {product.images.map((image, index) => (
+                                    <img
+                                        key={index}
+                                        src={image.url}
+                                        alt={image.alt || `Image ${index + 1}`}
+                                        className="h-12 w-12 object-cover rounded-full"
+                                    />
+                                ))}
+                            </div>
+
                             <div>
                                 <p className="font-medium text-gray-900 dark:text-white">{product.title}</p>
                             </div>

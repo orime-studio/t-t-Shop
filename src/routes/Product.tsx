@@ -44,7 +44,7 @@ const Product = () => {
             return;
         }
         try {
-            await cart.addProductToCart(product._id, selectedVariant, product.title, 1, product.variants.find(v => v._id === selectedVariant)?.size || '', product.variants.find(v => v._id === selectedVariant)?.price || 0, product.image);
+            await cart.addProductToCart(product._id, selectedVariant, product.title, 1, product.variants.find(v => v._id === selectedVariant)?.size || '', product.variants.find(v => v._id === selectedVariant)?.price || 0, product.images[0]);
             navigate('/cart');
         } catch (error) {
             console.error('Failed to add product to cart.', error);
@@ -54,7 +54,7 @@ const Product = () => {
     return (
         <div className="product-page">
             <div className="product-image-container">
-                <img className="product-image" src={product.image.url} alt={product.alt} />
+                <img className="product-image" src={product.images[0].url} alt={product.alt} />
                 <div className="additional-images">
                     {/* <img src={product.image.url} alt={product.alt} className="additional-image" />
                     <img src={product.image.url} alt={product.alt} className="additional-image" />
@@ -70,7 +70,7 @@ const Product = () => {
                         productId={product._id}
                         variants={product.variants}
                         title={product.title}
-                        image={product.image}
+                        image={product.images[0]}
                     />
                   {/*   <div className="buyNow-container"> */}
                         <button className="consult-expert-button" onClick={handleAddToCartAndRedirect}>Buy Now</button>

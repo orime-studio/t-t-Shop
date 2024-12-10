@@ -129,7 +129,7 @@ const Products: FC = () => {
                     products.map(product => (
                         <Card key={product._id} className="product-card">
                             <Link to={`/products/${product._id}`} className="product-link">
-                                <img src={product.image.url} alt={product.alt} className="w-full h-48 object-cover rounded-t-lg" />
+                                <img src={product.images[0].url} alt={product.alt} className="w-full h-48 object-cover rounded-t-lg" />
                                 <div className="product-info">
                                     <h5 className="text-xl font-bold">{product.title}</h5>
                                     <h6 className="text-md font-semibold">{product.subtitle}</h6>
@@ -140,7 +140,7 @@ const Products: FC = () => {
                                 productId={product._id}
                                 variants={product.variants}
                                 title={product.title}
-                                image={product.image}
+                                image={product.images[0]}
                             />
                         </Card>
                     ))

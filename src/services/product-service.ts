@@ -35,14 +35,20 @@ export const getProductById = (id: string) => axios.get(`${baseUrl}/${id}`);
 
 //create new product
 
-export const createNewProduct = (data: FormData) => {
+export const createNewProduct = async (data: FormData) => {
     const url = `${baseUrl}/`;
-    return axios.post(url, data, {
-        headers: {
-            "x-auth-token": localStorage.getItem("token"),
-            "Content-Type": "multipart/form-data",
-        },
-    });
+    try {
+        const response = await axios.post(url, data, {
+            headers: {
+                "x-auth-token": localStorage.getItem("token"),
+                "Content-Type": "multipart/form-data",
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error creating product:", error.response || error.message);
+        throw error;
+    }
 };
 
 //delete product

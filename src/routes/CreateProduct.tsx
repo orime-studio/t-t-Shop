@@ -15,8 +15,15 @@ const CreateProduct = () => {
         control,
         name: "variants"
     });
-    const [image, setImage] = useState<File | null>(null);
-    const [imageName, setImageName] = useState<string>("");
+
+    const [images, setImages] = useState<File[]>([]);
+    const [imageNames, setImageNames] = useState<string[]>([]);
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(e.target.files || []);
+        setImages(files);
+        setImageNames(files.map((file) => file.name));
+    };
 
     const onSubmit = async (data: IProductInput) => {
         if (!token) {
@@ -24,8 +31,8 @@ const CreateProduct = () => {
             return;
         }
 
-        if (!image) {
-            dialogs.error("Error", "Please select an image.");
+        if (!images.length) {
+            dialogs.error("Error", "Please select at least one image.");
             return;
         }
 
@@ -46,9 +53,11 @@ const CreateProduct = () => {
         });
 
         formData.append("alt", data.alt);
-        if (image) {
-            formData.append("image", image);
-        }
+
+        // הוספת כל התמונות ל-FormData
+        images.forEach((image, index) => {
+            formData.append(`images[${index}]`, image);
+        });
 
         try {
             console.log("Form Data:", Object.fromEntries(formData.entries())); // לוג לפני שליחה
@@ -85,13 +94,17 @@ const CreateProduct = () => {
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => {
-                            const file = e.target.files?.[0] || null;
-                            setImage(file);
-                            setImageName(file ? file.name : "");
-                        }}
+                        name="images"
+                        multiple // תמיכה במספר תמונות
+                        onChange={handleFileChange}
                     />
-                    {imageName && <p className="file-name">{imageName}</p>}
+                    {imageNames.length > 0 && (
+                        <ul className="file-names">
+                            {imageNames.map((name, index) => (
+                                <li key={index}>{name}</li>
+                            ))}
+                        </ul>
+                    )}
                 </section>
                 <section>
                     <input placeholder="Image Description" {...register("alt", { required: "Image description is required" })} />
@@ -110,7 +123,7 @@ const CreateProduct = () => {
                     ))}
                     <button type="button" className="add-variant-button" onClick={() => append({ _id: "", size: "", price: null, quantity: null })}>Add Variant</button>
                 </section>
-                <button type="submit" className="submit-button bg-slate-600 text-white dark:bg-slate-900 ">Create Product</button>
+                <button type="submit" className="submit-button bg-slate-600 text-white dark:bg-slate-900">Create Product</button>
             </form>
         </div>
     );
