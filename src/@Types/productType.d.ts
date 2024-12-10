@@ -1,19 +1,12 @@
 export type IImage = {
     url?: string;
-    alt?: string;
 };
 
 export type IVariant = {
     _id?: string;
-    color: {
-        value: string;
-        additionalCost: number;
-    };
-    size: {
-        value: string;
-        additionalCost: number;
-    };
+    size: string;
     quantity: number;
+    price: number;
 };
 
 //types for product
@@ -21,13 +14,11 @@ export type IProductInput = {
     title: string;
     subtitle: string;
     description: string;
-    images: IImage[];
+    image: IImage;
     alt: string;
+    sizes: string[];
+    barcode: number;
     variants: IVariant[];
-    categories: string | string[];
-    basePrice: number;
-    salePrice?: number;
-    shippingTime?: number;
 };
 
 //types for product with more properties
@@ -43,9 +34,7 @@ export interface AddToCartButtonProps {
     productId: string;
     variants: IVariant[];
     title: string;
-    images: IImage[]; // במקום image יחיד, יש לנו array
-    basePrice: number;
-    salePrice?: number;
+    image: IImage;
 }
 
 export interface ICartItem {
@@ -65,6 +54,8 @@ export interface ICart {
     isGuest?: boolean; // הוספת שדה חדש לזיהוי האם מדובר במשתמש אורח
 }
 
+import { Dispatch, SetStateAction } from 'react';
+import { ICartWithTotals, ICartItem, IImage } from '../@Types/productType';
 
 export interface CartContextProps {
     cart: ICartWithTotals | null;
@@ -83,7 +74,7 @@ export interface CartContextProps {
 export interface ICartWithTotals extends ICart {
     totalQuantity: number;
     totalPrice: number;
-}
+} 
 
 
 
@@ -129,7 +120,7 @@ export type IParashaComponent = {
     image?: IImage;
     alt?: string;
 
-
+    
 };
 
 export type IParashaInput = {
@@ -155,7 +146,7 @@ export type ArticleInput = {
     source: string;          // Author name
     title: string;           // Article title
     miniText: string;        // Short description of the article
-    alt: string;
+    alt: string;      
     mainImage?: IImages;        // Image description (alt)
     images: IImages[];        // Array of images for the article
     longText: ArticleLongText[];    // List of article pages

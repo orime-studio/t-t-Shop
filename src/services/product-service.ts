@@ -7,13 +7,7 @@ export const baseUrl = "https://node-tandt-shop.onrender.com/api/v1/products";
  */
 
 // product-service.ts
-
-
-export const getAllProducts = () => axios.get(baseUrl);
-
-
-
-/* export const getAllProducts = (filters?: {
+export const getAllProducts = (filters?: {
     minPrice?: number;
     maxPrice?: number;
     sizes?: string[];
@@ -32,7 +26,7 @@ export const getAllProducts = () => axios.get(baseUrl);
 
     const url = `${baseUrl}?${queryParams.toString()}`;
     return axios.get(url);
-}; */
+};
   
 
 
