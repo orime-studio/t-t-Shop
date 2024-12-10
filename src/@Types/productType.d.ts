@@ -15,6 +15,7 @@ export type IProductInput = {
     title: string;
     subtitle: string;
     description: string;
+    mainImage?: IImage;
     images: IImage[];
     alt: string;
     sizes: string[];
@@ -75,7 +76,7 @@ export interface CartContextProps {
 export interface ICartWithTotals extends ICart {
     totalQuantity: number;
     totalPrice: number;
-} 
+}
 
 
 
@@ -121,7 +122,7 @@ export type IParashaComponent = {
     image?: IImage;
     alt?: string;
 
-    
+
 };
 
 export type IParashaInput = {
@@ -147,7 +148,7 @@ export type ArticleInput = {
     source: string;          // Author name
     title: string;           // Article title
     miniText: string;        // Short description of the article
-    alt: string;      
+    alt: string;
     mainImage?: IImages;        // Image description (alt)
     images: IImages[];        // Array of images for the article
     longText: ArticleLongText[];    // List of article pages

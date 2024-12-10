@@ -54,11 +54,11 @@ const Product = () => {
     return (
         <div className="product-page">
             <div className="product-image-container">
-                <img className="product-image" src={product.images[0].url} alt={product.alt} />
+                <img className="product-image" src={product.mainImage.url} alt={product.alt} />
                 <div className="additional-images">
-                    {/* <img src={product.image.url} alt={product.alt} className="additional-image" />
-                    <img src={product.image.url} alt={product.alt} className="additional-image" />
-                    <img src={product.image.url} alt={product.alt} className="additional-image" /> */}
+                    {product.images?.map((image, index) => (
+                        <img key={index} src={image.url} alt={product.alt} className="additional-image" />
+                    ))}
                 </div>
             </div>
             <div className="product-details">

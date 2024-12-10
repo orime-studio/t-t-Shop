@@ -5,15 +5,13 @@ import dialogs from "../../ui/dialogs";
 import { Article } from "../../@Types/productType";
 import { createNewArticle } from "../../services/article-service";
 import './CreateArticle.scss';
+import { useAuth } from "../../hooks/useAuth";
 
 const CreateArticle = () => {
+  const { token } = useAuth();
   const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    control,
-  } = useForm<Article>();
+  const {register,handleSubmit,formState: { errors },
+    control,} = useForm<Article>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "longText",
@@ -24,6 +22,11 @@ const CreateArticle = () => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   const onSubmit = async (data: Article) => {
+
+    if (!token) {
+      dialogs.error("Error", "No authentication token found.");
+      return;
+  }
     if (!mainImage) {
       dialogs.error("Error", "Please select a main image.");
       return;
