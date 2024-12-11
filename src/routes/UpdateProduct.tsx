@@ -15,38 +15,63 @@ const EditProduct = () => {
     });
     const [error, setError] = useState<Error | null>(null);
     const navigate = useNavigate();
-    const [image, setImage] = useState<File | null>(null);
-    const [imageName, setImageName] = useState<string>("");
-    const [imageUrl, setImageUrl] = useState<string>("");
+
+    const [images, setImages] = useState<File[]>([]);
+    const [imageUrls, setImageUrls] = useState<string[]>([]);
+    const [mainImage, setMainImage] = useState<File | null>(null);
+    const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
+    const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
     useEffect(() => {
+
+        if (!id) {
+            dialogs.error("Error", "Invalid article ID");
+            return;
+        }
+
         if (id) {
             getProductById(id)
                 .then(res => {
                     const product = res.data;
+
+                    if (product.mainImage && product.mainImage.url) {
+                        setMainImagePreview(product.mainImage.url); // שימוש ב-URL של תמונת mainImage
+                    }
+
                     setValue('title', product.title);
                     setValue('subtitle', product.subtitle);
                     setValue('description', product.description);
                     setValue('alt', product.alt);
-                    setImageUrl(product.image.url);
+                    setValue('variants', product.variants || []);
 
-                    // הוספת מערך ה- variants
-                    setValue('variants', product.variants);
-
-                    // אם יש תמונה ישנה
-                    setImageName(product.image.url.split('/').pop() || "");
+                    const existingImageUrls = product.images.map((image: { url: string }) => image.url);
+                setImageUrls(existingImageUrls);
+    
+                // יצירת תצוגות מקדימות לתמונות
+                setImagePreviews(existingImageUrls);
                 })
                 .catch(err => setError(err));
         }
     }, [id, setValue]);
 
     const onSubmit = async (data: IProductInput) => {
-        try {
-            if (id) {
+        console.log("Form data before submission:", data);
+
+            if (!id) {
+                dialogs.error("Error", "Invalid article ID");
+                return;
+            }
+            if (!data.title || !data.subtitle || !data.description || !data.alt || !data.variants) {
+                dialogs.error("Error", "All fields are required");
+                return;
+            }
+            try {
+
                 const formData = new FormData();
                 formData.append("title", data.title);
                 formData.append("subtitle", data.subtitle);
                 formData.append("description", data.description);
+                formData.append("alt", data.alt);
 
                 // הוספת variants
                 data.variants.forEach((variant, index) => {
@@ -55,24 +80,41 @@ const EditProduct = () => {
                     formData.append(`variants[${index}][quantity]`, variant.quantity.toString());
                 });
 
-                formData.append("alt", data.alt);
-                if (image) {
-                    formData.append("image", image);
+                if (mainImage) {
+                    formData.append("mainImage", mainImage);
+                } else if (mainImagePreview) {
+                    formData.append("mainImageUrl", mainImagePreview); // שליחת ה-URL של התמונה הקיימת
+                }
+                if (images.length) {
+                    images.forEach((image) => {
+                        formData.append("images", image); // Add new images
+                    });
+                } else if (imageUrls.length) {
+                    imageUrls.forEach((url) => {
+                        formData.append("images", url); // Add existing images by URL
+                    });
                 } else {
-                    formData.append("imageUrl", imageUrl); // שימוש בתמונה הקיימת אם לא נבחרה תמונה חדשה
+                    dialogs.error("Error", "At least one image is required");
+                    return;
                 }
 
-                await updateProduct(id, formData);
-                dialogs.success("Success", "Product updated successfully").then(() => {
-                    navigate("/admin/dashboard");
-                });
-            }
-        } catch (error: any) {
-            dialogs.error("Error", error.response?.data?.message || "Failed to update product");
-            console.log(error);
-        }
-    };
+                console.log("FormData before sending:", [...formData.entries()]);
 
+                const response = await updateProduct(id, formData);
+
+                if (response.status === 200) {
+                    dialogs.success("Success", "Article updated successfully").then(() => {
+                        navigate("/admin/dashboard");
+                    });
+                } else {
+                    throw new Error(response.data.message || "Unexpected error");
+                }
+            } catch (error: any) {
+                console.error("Error updating product:", error);
+                dialogs.error("Error", error.response?.data?.message || "Failed to update the product");
+            }
+        }
+    
     if (error) return <div>Error: {error.message}</div>;
 
     return (
@@ -92,18 +134,62 @@ const EditProduct = () => {
                     {errors.description && <p className="text-red-500">{errors.description.message}</p>}
                 </section>
                 <section>
+                    <label htmlFor="main-image-upload" className="file-upload-label">Main Image</label>
                     <input
+                        id="main-image-upload"
                         type="file"
                         accept="image/*"
-                        className="custom-file-upload"
                         onChange={(e) => {
-                            const file = e.target.files?.[0] || null;
-                            setImage(file);
-                            setImageName(file ? file.name : "");
+                            const file = e.target.files ? e.target.files[0] : null;
+                            if (file) {
+                                if (!file.type.startsWith("image/")) {
+                                    dialogs.error("Error", "Only image files are allowed");
+                                    return;
+                                }
+
+                                setMainImage(file); // שמירת התמונה הראשית
+                                setMainImagePreview(URL.createObjectURL(file)); // יצירת URL זמני לתצוגה מקדימה
+                            }
                         }}
+                        className="file-input"
+                        name="mainImage"
                     />
-                    {imageName && <p className="file-name">{imageName}</p>}
+
+                    {/* תצוגת מקדימה של תמונת Main */}
+                    {mainImagePreview && (
+                        <div className="image-preview">
+                            <img src={mainImagePreview} alt="Main Image Preview" />
+                        </div>
+                    )}
                 </section>
+
+                <section>
+                    <label htmlFor="image-upload" className="file-upload-label">Additional Images</label>
+                    <input
+                        id="image-upload"
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={(e) => {
+                            const files = Array.from(e.target.files || []);
+                            const validFiles = files.filter((file) => file.type.startsWith("image/"));
+                            if (validFiles.length !== files.length) {
+                                dialogs.error("Error", "Only image files are allowed");
+                            }
+                            setImages(validFiles);
+                            setImagePreviews(validFiles.map((file) => URL.createObjectURL(file))); // יצירת URLs זמניים
+                        }}
+                        className="file-input"
+                        name="images"
+                    />
+
+                    <div className="image-previews">
+                        {imagePreviews.map((preview, index) => (
+                            <img key={index} src={preview} alt={`Preview ${index + 1}`} className="image-preview" />
+                        ))}
+                    </div>
+                </section>
+
                 <section>
                     <input placeholder="Image Description" {...register("alt", { required: "Image description is required" })} />
                     {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}

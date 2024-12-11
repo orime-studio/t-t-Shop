@@ -1,9 +1,9 @@
+import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import dialogs from "../../ui/dialogs";
-import { ArticleInput, ArticleLongText } from "../../@Types/productType";
+import { ArticleInput } from "../../@Types/productType";
 import { getArticleById, updateArticle } from "../../services/article-service";
+import dialogs from "../../ui/dialogs";
 import './EditArticle.scss';
 
 const EditArticle = () => {
@@ -15,11 +15,10 @@ const EditArticle = () => {
     });
     const [error, setError] = useState<Error | null>(null);
     const navigate = useNavigate();
+
     const [images, setImages] = useState<File[]>([]);
-    const [imageNames, setImageNames] = useState<string[]>([]);
     const [imageUrls, setImageUrls] = useState<string[]>([]);
     const [mainImage, setMainImage] = useState<File | null>(null);
-    const [mainImageName, setMainImageName] = useState<string | null>(null);
     const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
@@ -30,11 +29,9 @@ const EditArticle = () => {
             return;
         }
     
-        console.log("Fetching article with ID:", id);
         getArticleById(id)
             .then(res => {
                 const article = res.data;
-                console.log("Article data fetched:", article);
     
                 // הגדרת תמונת ה-mainImage
                 if (article.mainImage && article.mainImage.url) {
@@ -91,10 +88,10 @@ const EditArticle = () => {
             // Handle mainImage
             if (mainImage) {
                 formData.append("mainImage", mainImage);
-            } else if (mainImageName) {
-                formData.append("mainImage", mainImageName);
+            } else if (mainImagePreview) {
+                formData.append("mainImageUrl", mainImagePreview); // שליחת ה-URL של התמונה הקיימת
             }
-
+            
             // Handle additional images
             if (images.length) {
                 images.forEach((image) => {
@@ -188,7 +185,6 @@ const EditArticle = () => {
                                 dialogs.error("Error", "Only image files are allowed");
                             }
                             setImages(validFiles);
-                            setImageNames(validFiles.map((file) => file.name));
                             setImagePreviews(validFiles.map((file) => URL.createObjectURL(file))); // יצירת URLs זמניים
                         }}
                         className="file-input"

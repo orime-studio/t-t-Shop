@@ -61,6 +61,7 @@ export const deleteProductById = (id: string) => {
     });
 };
 
+//update product
 export const updateProduct = (id: string, data: FormData) => {
     const url = `${baseUrl}/${id}`;
     return axios.put(url, data, {
