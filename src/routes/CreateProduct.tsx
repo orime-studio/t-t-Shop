@@ -21,7 +21,6 @@ const CreateProduct = () => {
     const [images, setImages] = useState<File[]>([]);
     const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-    const [imageNames, setImageNames] = useState<string[]>([]);
     const handleMainImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files?.length) {
             const file = e.target.files[0];
@@ -59,7 +58,7 @@ const CreateProduct = () => {
 
         formData.append("mainImage", mainImage);
 
-        images.forEach((image) => {
+        images.map((image) => {
             formData.append("images", image);
         });
 
@@ -70,6 +69,14 @@ const CreateProduct = () => {
         });
 
         formData.append("alt", data.alt);
+
+        formData.append("mainCategory", data.mainCategory);
+
+        const tagsArray = Array.isArray(data.tags) ? data.tags : data.tags ? [data.tags] : [];
+
+        tagsArray.map((tag, index) => {
+            formData.append(`tags[${index}]`, tag);
+        })
 
         // הוספת כל התמונות ל-FormData
 
@@ -138,6 +145,21 @@ const CreateProduct = () => {
                 <section>
                     <input placeholder="Image Description" {...register("alt", { required: "Image description is required" })} />
                     {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
+                </section>
+                <section>
+                    <input
+                        placeholder="Main Category"
+                        {...register("mainCategory", { required: "Main category is required" })}
+                    />
+                    {errors.mainCategory && <p className="text-red-500">{errors.mainCategory.message}</p>}
+                </section>
+
+                <section>
+                    <input
+                        placeholder="Tags (comma separated)"
+                        {...register("tags", { required: "Tags are required" })}
+                    />
+                    {errors.tags && <p className="text-red-500">{errors.tags.message}</p>}
                 </section>
 
                 <section>

@@ -12,25 +12,28 @@ export type IVariant = {
 
 //types for product
 export type IProductInput = {
+    // שדות קיימים
     title: string;
     subtitle: string;
     description: string;
-    mainImage?: IImage;
-    images: IImage[];
+    mainImage?: IImage;      
+    images: IImage[];    
     alt: string;
-    sizes: string[];
-    barcode: number;
     variants: IVariant[];
-};
-
-//types for product with more properties
-export type IProduct = IProductInput & {
+  
+    // קטגוריה ראשית ותגים
+    mainCategory: string; // קטגוריה ראשית (לדוגמה: "בגדים")
+    tags: string[]; // תגים נוספים (לדוגמה: ["חולצות", "טי-שירט"])
+  };
+  
+  export type IProduct = IProductInput & {
     _id: string;
+    barcode: number;
     createdAt: Date;
     shoppingCart: string[];
     sold: number;
     userId: string;
-};
+  };
 
 export interface AddToCartButtonProps {
     productId: string;
