@@ -5,7 +5,7 @@ import axios from "axios";
 // Base URL for the article API
 const articleBaseUrl = "https://node-tandt-shop.onrender.com/api/v1/article";
 
-// Function to get all articles or the latest article
+// Get all articles
 export const getAllArticles = async () => {
   try {
     const response = await axios.get(articleBaseUrl);
@@ -16,6 +16,7 @@ export const getAllArticles = async () => {
   }
 };
 
+// Get the latest articles
 export const getLatestArticles = async () => {
   try {
     const response = await axios.get(articleBaseUrl, {
