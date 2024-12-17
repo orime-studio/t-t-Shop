@@ -77,7 +77,10 @@ const EditProduct = () => {
                 data.variants.forEach((variant, index) => {
                     formData.append(`variants[${index}][size]`, variant.size);
                     formData.append(`variants[${index}][price]`, variant.price.toString());
-                    formData.append(`variants[${index}][quantity]`, variant.quantity.toString());
+                    variant.colors.forEach((color, colorIndex) => {
+                        formData.append(`variants[${index}][colors][${colorIndex}][name]`, color.name);
+                        formData.append(`variants[${index}][colors][${colorIndex}][quantity]`, color.quantity.toString());
+                    });
                 });
 
                 if (mainImage) {
@@ -201,11 +204,11 @@ const EditProduct = () => {
                         <div key={variant.id} className="variant">
                             <input placeholder="Size" {...register(`variants.${index}.size` as const, { required: "Size is required" })} />
                             <input placeholder="Price" type="number" step="0.01" {...register(`variants.${index}.price` as const, { required: "Price is required" })} />
-                            <input placeholder="Quantity" type="number" {...register(`variants.${index}.quantity` as const, { required: "Quantity is required" })} />
+                            
                             <button type="button" className="removeButton" onClick={() => remove(index)}>Remove</button>
                         </div>
                     ))}
-                    <button type="button" className="add-variant-button" onClick={() => append({ size: "", price: 0, quantity: 0 })}>Add Variant</button>
+                    <button type="button" className="add-variant-button" onClick={() => append({ size: "", price: 0, colors: [], })}>Add Variant</button>
                 </section>
 
                 <button type="submit" className=" bg-slate-600 text-white dark:bg-slate-900">Save</button>
