@@ -88,9 +88,9 @@ const Product = () => {
                         title={product.title}
                         image={product.images[0]}
                     />
-                  {/*   <div className="buyNow-container"> */}
-                        <button className="consult-expert-button" onClick={handleAddToCartAndRedirect}>Buy Now</button>
-                  {/*   </div> */}
+                    {/*   <div className="buyNow-container"> */}
+                    <button className="consult-expert-button" onClick={handleAddToCartAndRedirect}>Buy Now</button>
+                    {/*   </div> */}
                 </div>
                 <Accordion>
                     <Accordion.Panel>
@@ -105,14 +105,17 @@ const Product = () => {
                             <p>
                                 Estimated Arrival:
                                 <strong>
-                                    {product.variants.find(v => v._id === selectedVariant)?.quantity > 0 ? getEstimatedArrivalDate() : "Currently unavailable"}
+                                    {product.variants.find(v => v._id === selectedVariant)
+                                        ?.colors.reduce((total, color) => total + color.quantity, 0) > 0
+                                        ? getEstimatedArrivalDate()
+                                        : "Currently unavailable"}
                                 </strong>
                             </p>
                             <p>Free Fast Shipping</p>
                             <p>Free Overnight Shipping, Hassle-Free Returns</p>
                         </Accordion.Content>
-
                     </Accordion.Panel>
+
                 </Accordion>
             </div>
         </div>
