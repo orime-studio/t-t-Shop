@@ -11,12 +11,15 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
     const { addToCart } = useCart();
     const { isLoggedIn } = useAuth();
 
+    // חישוב הכמות הכוללת מכל הצבעים
+    const totalQuantity = selectedVariant?.colors.reduce((sum, color) => sum + color.quantity, 0) || 0;
+
     const handleAddToCart = async () => {
         if (selectedVariant) {
             console.log("Adding product to cart:", selectedVariant);
             try {
-                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price,image);
-                console.log("yyyyy:",productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price,image );
+                // הוספת המוצר לעגלה
+                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price, image);
 
                 dialogs.success(
                     "Product Added",
@@ -38,7 +41,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
 
     return (
         <div className="add-to-cart-container">
-            <p> {selectedVariant?.quantity > 0 ? 'In Stock' : 'Out of Stock'}</p>
+            <p>{totalQuantity > 0 ? 'In Stock' : 'Out of Stock'}</p>
             <div className="price-container" style={{ marginBottom: '20px', marginTop: '15px' }}>
                 <span className="original-price" style={{ marginRight: '10px' }}>
                     ${(selectedVariant?.price * 1.2).toFixed(2)}
@@ -58,7 +61,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
                     </button>
                 ))}
             </div>
-            <button className="add-to-cart-button" onClick={handleAddToCart} disabled={!selectedVariant}>
+            <button className="add-to-cart-button" onClick={handleAddToCart} disabled={!selectedVariant || totalQuantity === 0}>
                 <FiShoppingCart />
                 Add to Cart
             </button>

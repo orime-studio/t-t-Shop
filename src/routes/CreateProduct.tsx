@@ -1,4 +1,4 @@
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import "./CreateProduct.scss";
 import dialogs from "../ui/dialogs";
@@ -10,8 +10,8 @@ import { createNewProduct } from "../services/product-service";
 const CreateProduct = () => {
     const { token } = useAuth();
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors }, control } = useForm<IProductInput>();
-    const { fields, append, remove } = useFieldArray({
+    const { register, handleSubmit, formState: { errors }, control, setValue, getValues } = useForm<IProductInput>();
+    const { fields: variantFields, append: appendVariant, remove: removeVariant } = useFieldArray({
         control,
         name: "variants"
     });
@@ -33,6 +33,16 @@ const CreateProduct = () => {
         const files = Array.from(e.target.files || []);
         setImages(files);
         setImagePreviews(files.map(file => URL.createObjectURL(file)));
+    };
+
+    const handleAddColor = (index: number) => {
+        const newColor = { name: "", quantity: 0 }; // Create new color object
+
+        const currentColors = getValues(`variants.${index}.colors`);
+        const updatedColors = [...currentColors, newColor];
+
+        // Update colors array in react-hook-form
+        setValue(`variants.${index}.colors`, updatedColors);
     };
 
     const onSubmit = async (data: IProductInput) => {
@@ -62,12 +72,11 @@ const CreateProduct = () => {
         data.variants.forEach((variant, index) => {
             formData.append(`variants[${index}][size]`, variant.size);
             formData.append(`variants[${index}][price]`, variant.price.toString());
-            
 
-            // הוספת הצבעים
+            // Adding colors
             const colorsArray = Array.isArray(variant.colors)
-                ? variant.colors.map(color => String(color)) // Convert each color to a string
-                : [String(variant.colors)]; // Handle single value case
+                ? variant.colors.map(color => String(color)) 
+                : [String(variant.colors)];
             
             colorsArray.forEach((color, colorIndex) => {
                 formData.append(`variants[${index}][colors][${colorIndex}]`, color);
@@ -83,14 +92,14 @@ const CreateProduct = () => {
         });
 
         try {
-            console.log("Form Data:", Object.fromEntries(formData.entries())); // לוג לפני שליחה
+            console.log("Form Data:", Object.fromEntries(formData.entries()));
             await createNewProduct(formData);
             dialogs.success("Success", "Product Created Successfully")
                 .then(() => {
                     navigate("/");
                 });
         } catch (error: any) {
-            console.error("Form Data Error:", Object.fromEntries(formData.entries())); // לוג בשגיאה
+            console.error("Form Data Error:", Object.fromEntries(formData.entries()));
             dialogs.error("Error", error.response?.data?.message || "Failed to create product");
             console.error(error);
         }
@@ -139,16 +148,65 @@ const CreateProduct = () => {
                     {errors.tags && <p className="text-red-500">{errors.tags.message}</p>}
                 </section>
                 <section>
-                    <h3>Variants</h3>
-                    {fields.map((variant, index) => (
-                        <div key={variant.id}>
-                            <input placeholder="Size" {...register(`variants.${index}.size`, { required: "Size is required" })} />
-                            <input placeholder="Price" type="number" step="0.01" {...register(`variants.${index}.price`, { required: "Price is required" })} />
-                            <input placeholder="Colors (comma separated)" {...register(`variants.${index}.colors`, { required: "Colors are required" })} />
-                            <button type="button" onClick={() => remove(index)}>Remove</button>
+                    <h3 className="text-xl font-bold text-gray-800">Variants</h3>
+                    {variantFields.map((variant, index) => (
+                        <div key={variant.id} className="p-4 mb-4 space-y-4 bg-white rounded shadow">
+                            <div className="flex space-x-4">
+                                <input
+                                    type="text"
+                                    {...register(`variants.${index}.size`, { required: "Size is required" })}
+                                    className="w-1/2 px-4 py-2 border rounded"
+                                    placeholder="Enter size (e.g., S, M, L)"
+                                />
+                                <input
+                                    type="number"
+                                    {...register(`variants.${index}.price`, { required: "Price is required" })}
+                                    className="w-1/2 px-4 py-2 border rounded"
+                                    placeholder="Enter price"
+                                />
+                            </div>
+                            <div>
+                                <h4 className="font-bold">Colors</h4>
+                                {variant.colors?.map((color, colorIndex) => (
+                                    <div key={colorIndex} className="flex items-center space-x-4">
+                                        <input
+                                            type="text"
+                                            {...register(`variants.${index}.colors.${colorIndex}.name`)}
+                                            className="w-1/2 px-4 py-2 border rounded"
+                                            placeholder="Color Name"
+                                        />
+                                        <input
+                                            type="number"
+                                            {...register(`variants.${index}.colors.${colorIndex}.quantity`)}
+                                            className="w-1/4 px-4 py-2 border rounded"
+                                            placeholder="Quantity"
+                                        />
+                                    </div>
+                                ))}
+                                <button
+                                    type="button"
+                                    onClick={() => handleAddColor(index)}
+                                    className="px-4 py-2 text-white bg-blue-500 rounded mt-2"
+                                >
+                                    Add Color
+                                </button>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => removeVariant(index)}
+                                className="px-4 py-2 text-white bg-red-500 rounded"
+                            >
+                                Remove Variant
+                            </button>
                         </div>
                     ))}
-                    <button className="add-variant-button" type="button" onClick={() => append({ _id: "", size: "", price: 0, colors: [] })}>Add Variant</button>
+                    <button
+                        type="button"
+                        onClick={() => appendVariant({ size: "", price: 0, colors: [] })}
+                        className="px-4 py-2 text-white bg-green-500 rounded"
+                    >
+                        Add Variant
+                    </button>
                 </section>
                 <button type="submit">Create Product</button>
             </form>

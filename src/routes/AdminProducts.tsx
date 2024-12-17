@@ -53,7 +53,7 @@ const AdminProducts = () => {
             <Table hoverable className="hidden md:table">
                 <Table.Head>
                     <Table.HeadCell>Image & Title</Table.HeadCell>
-                    <Table.HeadCell>Variant</Table.HeadCell>
+                    <Table.HeadCell>Variants</Table.HeadCell>
                     <Table.HeadCell>Total Quantity</Table.HeadCell>
                     <Table.HeadCell>Edit</Table.HeadCell>
                     <Table.HeadCell>
@@ -65,28 +65,34 @@ const AdminProducts = () => {
                         <Table.Row key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                             <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center gap-3">
                                 <div className="flex space-x-2">
-                             <img src={product.mainImage.url} alt={product.mainImage.alt} className="h-12 w-12 object-cover rounded-full" />
+                                    <img src={product.mainImage.url} alt={product.mainImage.alt} className="h-12 w-12 object-cover rounded-full" />
                                 </div>
                                 <div className="flex flex-col gap-2">
                                     <span>{product.title}</span>
                                 </div>
                             </Table.Cell>
                             <Table.Cell className="whitespace-nowrap">
-                                <div className="flex flex-wrap">
+                                <div className="flex flex-wrap gap-2">
                                     {product.variants.map((variant, index) => (
-                                        <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded">
+                                        <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
                                             <p className="text-sm">Size: {variant.size}</p>
                                             <p className="text-sm">Price: ${variant.price}</p>
-                                            <p className="text-sm">Quantity: {variant.quantity}</p>
+                                            {variant.colors.map((color, colorIndex) => (
+                                                <p key={colorIndex} className="text-sm">
+                                                    Color: {color.name}, Quantity: {color.quantity}
+                                                </p>
+                                            ))}
                                         </div>
                                     ))}
                                 </div>
                             </Table.Cell>
                             <Table.Cell>
-                                {product.variants.reduce((total, variant) => total + variant.quantity, 0)}
+                                {/* חישוב הכמות הכוללת של כל הצבעים בכל הווריאנטים */}
+                                {product.variants.reduce((total, variant) => 
+                                    total + variant.colors.reduce((colorTotal, color) => colorTotal + color.quantity, 0), 0)}
                             </Table.Cell>
                             <Table.Cell>
-                                <div className="table-actions">
+                                <div className="table-actions flex gap-3">
                                     <Link to={`/admin/products/${product._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                                         Edit
                                     </Link>
@@ -105,17 +111,7 @@ const AdminProducts = () => {
                 {filteredProducts.map((product) => (
                     <div key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800 p-4 rounded-lg shadow-md">
                         <div className="flex items-center mb-4 gap-3">
-                            <div className="flex space-x-2">
-                                {product.images?.map((image, index) => (
-                                    <img
-                                        key={index}
-                                        src={image?.url}
-                                        alt={image?.alt || `Image ${index + 1}`}
-                                        className="h-12 w-12 object-cover rounded-full"
-                                    />
-                                ))}
-                            </div>
-
+                            <img src={product.mainImage.url} alt={product.mainImage.alt} className="h-12 w-12 object-cover rounded-full" />
                             <div>
                                 <p className="font-medium text-gray-900 dark:text-white">{product.title}</p>
                             </div>
@@ -125,7 +121,11 @@ const AdminProducts = () => {
                                 <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
                                     <p className="text-sm">Size: {variant.size}</p>
                                     <p className="text-sm">Price: ${variant.price}</p>
-                                    <p className="text-sm">Quantity: {variant.quantity}</p>
+                                    {variant.colors.map((color, colorIndex) => (
+                                        <p key={colorIndex} className="text-sm">
+                                            Color: {color.name}, Quantity: {color.quantity}
+                                        </p>
+                                    ))}
                                 </div>
                             ))}
                         </div>
