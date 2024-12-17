@@ -76,6 +76,8 @@ export const product = {
     getAllProducts,
     getProductById,
     createNewProduct,
+    deleteProductById,
+    updateProduct,
 };
 
 export default product;
