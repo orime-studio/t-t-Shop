@@ -102,7 +102,7 @@ const CreateProduct = () => {
   };
 
   return (
-    <div className="create-card-container bg-[#ffffff] text-gray-800 dark:bg-slate-600">
+    <div className="create-product-container bg-[#ffffff] text-gray-800 dark:bg-slate-600">
       <h2 className="dark:text-white">Create New Product</h2>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
         {/* Title Section */}
@@ -162,6 +162,7 @@ const CreateProduct = () => {
               </div>
 
               {/* Colors */}
+              {/* Colors */}
               <div>
                 <h4 className="font-bold">Colors</h4>
                 {colorFields.map((color, colorIndex) => (
@@ -178,6 +179,14 @@ const CreateProduct = () => {
                       className="w-1/4 px-4 py-2 border rounded"
                       placeholder="Quantity"
                     />
+                    {/* Remove Color Button */}
+                    <button
+                      type="button"
+                      onClick={() => removeColor(colorIndex)}
+                      className="px-2 py-1 text-white bg-red-500 rounded"
+                    >
+                      Remove
+                    </button>
                   </div>
                 ))}
                 <button
@@ -188,6 +197,7 @@ const CreateProduct = () => {
                   Add Color
                 </button>
               </div>
+
 
               {/* Remove Variant Button */}
               <button
