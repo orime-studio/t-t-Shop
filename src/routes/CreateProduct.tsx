@@ -141,6 +141,24 @@ const CreateProduct = () => {
           </div>
         </section>
 
+        {/* Alt Section */}
+        <section>
+          <input placeholder="Alt" />
+          {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
+        </section>
+        
+        {/* Main Category Section */}
+        <section>
+          <input placeholder="Main Category" {...register("mainCategory", { required: "Main Category is required" })} />
+          {errors.mainCategory && <p className="text-red-500">{errors.mainCategory.message}</p>}
+        </section>
+        
+        {/* Tags Section */}  
+        <section>
+          <input placeholder="Tags"/>
+          {errors.tags && <p className="text-red-500">{errors.tags.message}</p>}
+        </section>
+
         {/* Variant and Colors Section */}
         <section>
           <h3 className="text-xl font-bold text-gray-800">Variants</h3>
