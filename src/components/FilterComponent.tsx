@@ -28,7 +28,7 @@ const Filter = () => {
 
                 // מציאת טווח המחירים
                 const prices = response.data.flatMap((product: IProduct) =>
-                    product.variants.map((variant) => variant.price)
+                    product.variants.map((variant) => variant.priceAddition)
                 );
                 const minPriceValue = Math.min(...prices);
                 const maxPriceValue = Math.max(...prices);
