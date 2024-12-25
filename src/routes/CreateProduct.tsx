@@ -12,7 +12,7 @@ const CreateProduct = () => {
   const navigate = useNavigate();
   const { control, handleSubmit, register, formState: { errors }, getValues, setValue } = useForm<IProductInput>({
     defaultValues: {
-      variants: [{ size: "", price: 0, colors: [{ name: "", quantity: 0 }] }] // Default structure with colors
+      variants: [{ size: "", priceAddition: 0, colors: [{ name: "", quantity: 0 }] }] // Default structure with colors
     }
   });
 
@@ -75,7 +75,7 @@ const CreateProduct = () => {
 
     data.variants.forEach((variant, index) => {
       formData.append(`variants[${index}][size]`, variant.size);
-      formData.append(`variants[${index}][price]`, variant.price.toString());
+      formData.append(`variants[${index}][price]`, variant.priceAddition.toString());
 
       // Adding colors
       variant.colors.forEach((color, colorIndex) => {
@@ -173,7 +173,7 @@ const CreateProduct = () => {
                 />
                 <input
                   type="number"
-                  {...register(`variants.${index}.price`, { required: "Price is required" })}
+                  {...register(`variants.${index}.priceAddition`, { required: "Price is required" })}
                   className="w-1/2 px-4 py-2 border rounded"
                   placeholder="Enter price"
                 />
@@ -231,7 +231,7 @@ const CreateProduct = () => {
           {/* Add Variant Button */}
           <button
             type="button"
-            onClick={() => appendVariant({ size: "", price: 0, colors: [{ name: "", quantity: 0 }] })}
+            onClick={() => appendVariant({ size: "", priceAddition: 0, colors: [{ name: "", quantity: 0 }] })}
             className="px-4 py-2 text-white bg-green-500 rounded"
           >
             Add Variant

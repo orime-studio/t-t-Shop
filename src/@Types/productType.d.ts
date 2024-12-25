@@ -12,13 +12,14 @@ export type IColor = {
     _id?: string;
     size: string; // גודל המוצר (לדוגמה: "S", "M", "L")
     colors: IColor[]; // מערך של צבעים, לכל צבע יש כמות משלו
-    price: number; // מחיר עבור הווריאנט הזה
-  };
+    priceAddition: number; // תוספת למחיר הבסיס עבור הווריאנט הזה
+};
   
   export type IProductInput = {
     title: string; // כותרת המוצר
     subtitle: string; // תת כותרת
     description: string; // תיאור המוצר
+    basePrice: number; // מחיר בסיסי למוצר
     mainImage?: IImage; // תמונה ראשית (אופציונלית)
     images: IImage[]; // מערך של תמונות נוספות
     alt: string; // טקסט חלופי לתמונה
@@ -26,7 +27,6 @@ export type IColor = {
     mainCategory: string; // קטגוריה ראשית
     tags: string[]; // תגים נוספים
   };
-  
   
   export type IProduct = IProductInput & {
     _id: string;
@@ -48,11 +48,12 @@ export interface ICartItem {
     productId: string;
     variantId: string;
     title: string;
-    price: number;
+    basePrice: number; // המחיר הבסיסי של המוצר
+    priceAddition: number; // תוספת המחיר עבור הווריאנט
     size: string;
     quantity: number;
-    image: IImage;
-}
+    mainImage: IImage;
+  }
 
 
 export interface ICart {
