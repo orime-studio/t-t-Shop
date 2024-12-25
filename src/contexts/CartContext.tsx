@@ -50,7 +50,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
                 if (itemIndex > -1) {
                     cart.items[itemIndex].quantity += quantity;
                 } else {
-                    cart.items.push({ productId, variantId, quantity, size, title: productTitle, price, image });
+                    cart.items.push({ productId, variantId, quantity, size, title: productTitle, basePrice: price, priceAddition: 0, mainImage: image });
                 }
 
                 // עדכון סה"כ כמות ומחיר
@@ -76,7 +76,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
             const cartItems: ICartItem[] = JSON.parse(guestCart).items;
             for (const item of cartItems) {
                 try {
-                    await addToCart(item.productId, item.variantId, item.title, item.quantity, item.size, item.price, item.image);
+                    await addToCart(item.productId, item.variantId, item.title, item.quantity, item.size, item.basePrice + item.priceAddition, item.mainImage);
                 } catch (error) {
                     console.error('Error merging item to user cart', error);
                 }
@@ -105,7 +105,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
 
                     if (itemIndex > -1) {
                         const itemQuantity = cart.items[itemIndex].quantity;
-                        const itemPrice = cart.items[itemIndex].price;
+                        const itemPrice = cart.items[itemIndex].basePrice + cart.items[itemIndex].priceAddition;
 
                         // עדכון סה"כ כמות ומחיר
                         cart.totalQuantity -= itemQuantity;
@@ -148,7 +148,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
 
                         // עדכון סה"כ כמות ומחיר
                         cart.totalQuantity += quantityDifference;
-                        cart.totalPrice += item.price * quantityDifference;
+                        cart.totalPrice += item.basePrice + item.priceAddition * quantityDifference;
 
                         // שמירה של העגלה המעודכנת ב-localStorage
                         localStorage.setItem('guestCart', JSON.stringify(cart));
