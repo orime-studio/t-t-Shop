@@ -50,7 +50,7 @@ const Product = () => {
             return;
         }
         try {
-            await cart.addProductToCart(product._id, selectedVariant, product.title, 1, product.variants.find(v => v._id === selectedVariant)?.size || '', product.variants.find(v => v._id === selectedVariant)?.price || 0, mainImage);
+            await cart.addProductToCart(product._id, selectedVariant, product.title, 1, product.variants.find(v => v._id === selectedVariant)?.size || '', product.variants.find(v => v._id === selectedVariant)?.price || 0, mainImage, product.variants.find(v => v._id === selectedVariant)?.colors[0].name || '');
             navigate('/cart');
         } catch (error) {
             console.error('Failed to add product to cart.', error);
