@@ -50,7 +50,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
                 if (itemIndex > -1) {
                     cart.items[itemIndex].quantity += quantity;
                 } else {
-                    cart.items.push({ productId, variantId, quantity, size, title: productTitle, price, image });
+                    cart.items.push({ productId, variantId, quantity, size, title: productTitle, price, mainImage: image });
                 }
 
                 // עדכון סה"כ כמות ומחיר
@@ -76,7 +76,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
             const cartItems: ICartItem[] = JSON.parse(guestCart).items;
             for (const item of cartItems) {
                 try {
-                    await addToCart(item.productId, item.variantId, item.title, item.quantity, item.size, item.price, item.image);
+                    await addToCart(item.productId, item.variantId, item.title, item.quantity, item.size, item.price, item.mainImage);
                 } catch (error) {
                     console.error('Error merging item to user cart', error);
                 }

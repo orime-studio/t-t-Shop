@@ -38,7 +38,7 @@ const Cart = () => {
         const result = await dialogs.confirm("Clear Cart", "Are you sure you want to clear the cart?");
         if (result.isConfirmed) {
             try {
-                await clearCart();
+                clearCart();
                 fetchCart(); // Refresh cart after clearing
                 dialogs.success("Cart Cleared", "Your cart has been cleared successfully.");
             } catch (error) {
@@ -55,7 +55,7 @@ const Cart = () => {
             return;
         }
         try {
-            await updateItemQuantity(variantId, newQuantity);
+             updateItemQuantity(variantId, newQuantity);
             fetchCart(); // עדכן את הסל כדי לשקף את השינויים
         } catch (error) {
             console.error('שגיאה בעדכון כמות המוצר:', error.response?.data || error.message);
