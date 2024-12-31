@@ -19,7 +19,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
             console.log("Adding product to cart:", selectedVariant);
             try {
                 // הוספת המוצר לעגלה
-                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.priceAddition, image);
+                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price, image);
 
                 dialogs.success(
                     "Product Added",
@@ -44,10 +44,10 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
             <p>{totalQuantity > 0 ? 'In Stock' : 'Out of Stock'}</p>
             <div className="price-container" style={{ marginBottom: '20px', marginTop: '15px' }}>
                 <span className="original-price" style={{ marginRight: '10px' }}>
-                    ${(selectedVariant?.priceAddition * 1.2).toFixed(2)}
+                    ${(selectedVariant?.price * 1.2).toFixed(2)}
                 </span>
                 <span className="discounted-price">
-                    ${selectedVariant?.priceAddition.toFixed(2)}
+                    ${selectedVariant?.price.toFixed(2)}
                 </span>
             </div>
             <div className="size-buttons-product-container">

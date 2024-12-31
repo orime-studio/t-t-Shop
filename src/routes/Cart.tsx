@@ -76,7 +76,7 @@ const Cart = () => {
                 quantity: item.quantity,
                 size: item.size,
                 title: item.title,
-                price: item.basePrice + item.priceAddition,
+                price: item.price,
             }));
 
             const response = await createOrder(orderProducts);
@@ -122,7 +122,7 @@ const Cart = () => {
                         .map((item: ICartItem) => (
                             <div className="cart-item flex flex-col p-4 border rounded-lg shadow-sm" key={item.productId + item.variantId}>
                                 <div className="flex items-center mb-4">
-                                    <img src={item.mainImage.url} alt={item.title} className="w-20 h-20 object-cover rounded-lg mr-4" />
+                                    <img src={item.image.url} className="w-20 h-20 object-cover rounded-lg mr-4" />
                                     <div>
                                         <Link to={`/products/${item.productId}`} className="item-title text-lg font-medium text-[#333] hover:underline">{item.title}</Link>
                                     </div>
@@ -130,7 +130,7 @@ const Cart = () => {
                                 <div className="variant flex justify-between items-center mb-4">
                                     <div>
                                         <p className="item-size text-sm text-gray-500">Size: {item.size}</p>
-                                        <p className="item-price text-sm text-gray-500">Price: ${item.basePrice.toFixed(2)+item.priceAddition}</p>
+                                        <p className="item-price text-sm text-gray-500">Price: ${item.price.toFixed(2)}</p>
                                     </div>
                                     <div className="flex items-center select-quantity">
                                         <label htmlFor={`quantity-${item.variantId}`} className="item-quantity text-sm text-gray-500 mr-2">Quantity:</label>

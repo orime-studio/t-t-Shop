@@ -76,7 +76,7 @@ const AdminProducts = () => {
                                     {product.variants.map((variant, index) => (
                                         <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
                                             <p className="text-sm">Size: {variant.size}</p>
-                                            <p className="text-sm">Price: ${variant.priceAddition}</p>
+                                            <p className="text-sm">Price: ${variant.price}</p>
                                             {variant.colors.map((color, colorIndex) => (
                                                 <p key={colorIndex} className="text-sm">
                                                     Color: {color.name}, Quantity: {color.quantity}
@@ -88,7 +88,7 @@ const AdminProducts = () => {
                             </Table.Cell>
                             <Table.Cell>
                                 {/* חישוב הכמות הכוללת של כל הצבעים בכל הווריאנטים */}
-                                {product.variants.reduce((total, variant) =>
+                                {product.variants.reduce((total, variant) => 
                                     total + variant.colors.reduce((colorTotal, color) => colorTotal + color.quantity, 0), 0)}
                             </Table.Cell>
                             <Table.Cell>
@@ -120,7 +120,7 @@ const AdminProducts = () => {
                             {product.variants.map((variant, index) => (
                                 <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
                                     <p className="text-sm">Size: {variant.size}</p>
-                                    <p className="text-sm">Price: ${variant.priceAddition}</p>
+                                    <p className="text-sm">Price: ${variant.price}</p>
                                     {variant.colors.map((color, colorIndex) => (
                                         <p key={colorIndex} className="text-sm">
                                             Color: {color.name}, Quantity: {color.quantity}
