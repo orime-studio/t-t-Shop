@@ -1,4 +1,4 @@
-import { createContext, FC, useEffect, useState } from 'react';
+import { createContext, FC, useEffect, useState, Dispatch, SetStateAction } from 'react';
 import { CartContextProps, ICartItem, ICartWithTotals, IImage } from '../@Types/productType';
 import { ContextProviderProps } from '../@Types/types';
 import { useAuth } from '../hooks/useAuth';
@@ -37,20 +37,20 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
     }, [token]);
 
     // פונקציה להוסיף מוצר לעגלה
-    const addToCart = async (productId: string, variantId: string, productTitle: string = '', quantity: number, size: string, price: number, image: IImage = { url: '' }) => {
+    const addToCart = async (productId: string, variantId: string, productTitle: string = '', quantity: number, size: string, price: number, image: IImage = { url: '' }, color: string = '') => {
         try {
-            console.log('Sending request to add to cart:', { productId, productTitle, variantId, quantity, size, price, image });
+            console.log('Sending request to add to cart:', { productId, productTitle, variantId, quantity, size, price, image, color });
 
             if (isGuest) {
                 // הוספה לעגלה בלוקל סטורג' עבור משתמש אורח
                 const guestCart = localStorage.getItem('guestCart');
                 let cart: ICartWithTotals = guestCart ? JSON.parse(guestCart) : { items: [], totalQuantity: 0, totalPrice: 0 };
-                const itemIndex = cart.items.findIndex(item => item.productId === productId && item.variantId === variantId && item.size === size);
+                const itemIndex = cart.items.findIndex(item => item.productId === productId && item.variantId === variantId && item.size === size && item.color === color);
 
                 if (itemIndex > -1) {
                     cart.items[itemIndex].quantity += quantity;
                 } else {
-                    cart.items.push({ productId, variantId, quantity, size, title: productTitle, price, mainImage: image });
+                    cart.items.push({ productId, variantId, quantity, size, title: productTitle, price, mainImage: image, color });
                 }
 
                 // עדכון סה"כ כמות ומחיר
@@ -61,7 +61,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
                 setCart(cart);
             } else {
                 // הוספה לעגלה בשרת עבור משתמש מחובר
-                await addProductToCart(productId, variantId, productTitle, quantity, size, price, image);
+                await addProductToCart(productId, variantId, productTitle, quantity, size, price, image, color);
                 fetchCart();
             }
         } catch (error) {
@@ -76,7 +76,7 @@ export const CartProvider: FC<ContextProviderProps> = ({ children }) => {
             const cartItems: ICartItem[] = JSON.parse(guestCart).items;
             for (const item of cartItems) {
                 try {
-                    await addToCart(item.productId, item.variantId, item.title, item.quantity, item.size, item.price, item.mainImage);
+                    await addToCart(item.productId, item.variantId, item.title, item.quantity, item.size, item.price, item.mainImage, item.color);
                 } catch (error) {
                     console.error('Error merging item to user cart', error);
                 }

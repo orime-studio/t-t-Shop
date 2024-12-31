@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import './AddToCartButton.scss';
 import { AddToCartButtonProps, IVariant } from '../@Types/productType';
@@ -8,18 +8,25 @@ import { useAuth } from '../hooks/useAuth';
 
 const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title, image }) => {
     const [selectedVariant, setSelectedVariant] = useState<IVariant | null>(variants[0] || null);
+    const [selectedColor, setSelectedColor] = useState<string | null>(selectedVariant?.colors[0]?.name || null);
     const { addToCart } = useCart();
     const { isLoggedIn } = useAuth();
 
     // חישוב הכמות הכוללת מכל הצבעים
     const totalQuantity = selectedVariant?.colors.reduce((sum, color) => sum + color.quantity, 0) || 0;
 
+    useEffect(() => {
+        if (selectedVariant && !selectedVariant.colors.some(color => color.name === selectedColor)) {
+            setSelectedColor(selectedVariant.colors[0]?.name || null);
+        }
+    }, [selectedVariant]);
+
     const handleAddToCart = async () => {
-        if (selectedVariant) {
+        if (selectedVariant && selectedColor) {
             console.log("Adding product to cart:", selectedVariant);
             try {
                 // הוספת המוצר לעגלה
-                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price, image);
+                await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price, image, selectedColor);
 
                 dialogs.success(
                     "Product Added",
@@ -35,7 +42,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
                 dialogs.error("Error", "Failed to add the product to your cart.");
             }
         } else {
-            console.error("No variant selected");
+            console.error("No variant or color selected");
         }
     };
 
@@ -61,6 +68,19 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
                     </button>
                 ))}
             </div>
+            {selectedVariant && (
+                <div className="color-buttons-product-container">
+                    {selectedVariant.colors.map(color => (
+                        <button
+                            key={color.name}
+                            className={`color-button ${selectedColor === color.name ? 'selected' : ''}`}
+                            onClick={() => setSelectedColor(color.name)}
+                        >
+                            {color.name}
+                        </button>
+                    ))}
+                </div>
+            )}
             <button className="add-to-cart-button" onClick={handleAddToCart} disabled={!selectedVariant || totalQuantity === 0}>
                 <FiShoppingCart />
                 Add to Cart

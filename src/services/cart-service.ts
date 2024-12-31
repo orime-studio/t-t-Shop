@@ -13,7 +13,7 @@ export const getCart = () => {
     });
 };
 
-export const addProductToCart = (productId: string, variantId: string, title: string, quantity: number, size: string, price: number, image: IImage) => {
+export const addProductToCart = (productId: string, variantId: string, title: string, quantity: number, size: string, price: number, image: IImage, color: string) => {
     return axios.post(`${cartUrl}/add`, {
         productId,
         variantId,
@@ -21,7 +21,8 @@ export const addProductToCart = (productId: string, variantId: string, title: st
         quantity,
         size,
         price,
-        image
+        image,
+        color,
     }, {
         headers: {
             "x-auth-token": localStorage.getItem("token"),

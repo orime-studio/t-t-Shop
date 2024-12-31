@@ -52,6 +52,7 @@ export interface ICartItem {
     size: string;
     quantity: number;
     mainImage: IImage;
+    color?: string;
   }
 
 
@@ -64,11 +65,12 @@ export interface ICart {
 import { Dispatch, SetStateAction } from 'react';
 import { ICartWithTotals, ICartItem, IImage } from '../@Types/productType';
 
+
 export interface CartContextProps {
     cart: ICartWithTotals | null;
     setCart: Dispatch<SetStateAction<ICartWithTotals | null>>;
     fetchCart: () => void;
-    addToCart: (productId: string, variantId: string, title: string, quantity: number, size: string, price: number, image?: IImage) => Promise<void>;
+    addToCart: (productId: string, variantId: string, title: string, quantity: number, size: string, price: number, image?: IImage, color?: string) => Promise<void>;
     mergeGuestCartToUserCart: () => void; // פונקציה למיזוג עגלת אורח
     removeFromCart: (variantId: string) => void; // פונקציה להסרת מוצר מהעגלה, מתבססת רק על variantId
     clearCart: () => void; // פונקציה לניקוי כל העגלה

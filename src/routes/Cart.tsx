@@ -12,7 +12,7 @@ import dialogs from '../ui/dialogs';
 import './Cart.scss';
 
 const Cart = () => {
-    const { cart, fetchCart,removeFromCart,updateItemQuantity, clearCart } = useCart();
+    const { cart, fetchCart, removeFromCart, updateItemQuantity, clearCart } = useCart();
     const { searchTerm } = useSearch();
     const { token } = useAuth();
     const navigate = useNavigate();
@@ -22,12 +22,11 @@ const Cart = () => {
         if (token) {
             fetchCart(); // Fetch cart items when token changes (e.g., on login)
         }
-
     }, [token]);
 
     const handleRemoveItem = async (variantId: string) => {
         try {
-            removeFromCart( variantId,);
+            removeFromCart(variantId);
             fetchCart(); // Refresh cart after removal
         } catch (error) {
             console.error('Failed to remove product from cart.', error);
@@ -55,19 +54,17 @@ const Cart = () => {
             return;
         }
         try {
-             updateItemQuantity(variantId, newQuantity);
+            updateItemQuantity(variantId, newQuantity);
             fetchCart(); // עדכן את הסל כדי לשקף את השינויים
         } catch (error) {
             console.error('שגיאה בעדכון כמות המוצר:', error.response?.data || error.message);
         }
     };
 
-
     const handleCheckout = async () => {
-
         try {
             if (!token) {
-              return navigate('/login');
+                return navigate('/login');
             }
 
             const orderProducts = cart.items.map((item: ICartItem) => ({
@@ -77,6 +74,7 @@ const Cart = () => {
                 size: item.size,
                 title: item.title,
                 price: item.price,
+                color: item.color, // הוספת הצבע להזמנה
             }));
 
             const response = await createOrder(orderProducts);
@@ -130,6 +128,7 @@ const Cart = () => {
                                 <div className="variant flex justify-between items-center mb-4">
                                     <div>
                                         <p className="item-size text-sm text-gray-500">Size: {item.size}</p>
+                                        <p className="item-color text-sm text-gray-500">Color: {item.color}</p> {/* הצגת הצבע */}
                                         <p className="item-price text-sm text-gray-500">Price: ${item.price.toFixed(2)}</p>
                                     </div>
                                     <div className="flex items-center select-quantity">
