@@ -51,8 +51,8 @@ export interface ICartItem {
     price: number;
     size: string;
     quantity: number;
-    image: IImage;
-}
+    mainImage: IImage;
+  }
 
 
 export interface ICart {

@@ -122,7 +122,7 @@ const Cart = () => {
                         .map((item: ICartItem) => (
                             <div className="cart-item flex flex-col p-4 border rounded-lg shadow-sm" key={item.productId + item.variantId}>
                                 <div className="flex items-center mb-4">
-                                    <img src={item.image.url} className="w-20 h-20 object-cover rounded-lg mr-4" />
+                                    <img src={item.mainImage.url} className="w-20 h-20 object-cover rounded-lg mr-4" />
                                     <div>
                                         <Link to={`/products/${item.productId}`} className="item-title text-lg font-medium text-[#333] hover:underline">{item.title}</Link>
                                     </div>
