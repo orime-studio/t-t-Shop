@@ -23,7 +23,7 @@
         border-radius: 5px;
         background-color: #f9f9f9;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s, transform 0.2s, border-color 0.3s;
 
         &.selected {
             background-color: #c37d69; 
@@ -31,8 +31,28 @@
         }
 
         &:hover {
-            background-color: #c37d69; /* צבע חום כהה */
+            background-color: #c37d69; /* Dark brown color */
             color: #fff;
+        }
+    }
+
+    .color-button {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        border-radius: 50%; /* Circular shape */
+        border: 1px solid #ccc; /* Initial border */
+        background-color: #f9f9f9;
+        transition: transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+
+        &.selected {
+            border-color: #888; /* Lighter border color */
+            transform: scale(1.05); /* Slightly smaller scale */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Optional: subtle shadow */
+        }
+
+        &:hover {
+            opacity: 0.8;
         }
     }
 
@@ -64,36 +84,3 @@
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

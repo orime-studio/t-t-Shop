@@ -46,9 +46,21 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
         }
     };
 
+    const getColorCode = (colorName: string) => {
+        const colors: { [key: string]: string } = {
+            'בז\'': '#d1b69b',   // Beige
+            'חום': '#9b694b',    // Brown
+            'שחור': '#16140f',   // Black
+            'לבן': '#FFFFFF',    // White
+            'אפור': '#CCCCCC',    // Gray
+            // הוסיפי עוד צבעים לפי הצורך
+        };
+        return colors[colorName.toLowerCase()] || '#CCCCCC'; // ברירת מחדל לאפור
+    };
+
     return (
         <div className="add-to-cart-container">
-            <p>{totalQuantity > 0 ? 'In Stock' : 'Out of Stock'}</p>
+            <p>{totalQuantity > 0 ? 'במלאי' : 'אזל מהמלאי'}</p>
             <div className="price-container" style={{ marginBottom: '20px', marginTop: '15px' }}>
                 <span className="original-price" style={{ marginRight: '10px' }}>
                     ${(selectedVariant?.price * 1.2).toFixed(2)}
@@ -75,15 +87,17 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
                             key={color.name}
                             className={`color-button ${selectedColor === color.name ? 'selected' : ''}`}
                             onClick={() => setSelectedColor(color.name)}
+                            style={{ backgroundColor: getColorCode(color.name) }}
+                            aria-label={color.name} // נגישות
                         >
-                            {color.name}
+                            {/* אין טקסט */}
                         </button>
                     ))}
                 </div>
             )}
             <button className="add-to-cart-button" onClick={handleAddToCart} disabled={!selectedVariant || totalQuantity === 0}>
                 <FiShoppingCart />
-                Add to Cart
+                הוסף לעגלה
             </button>
         </div>
     );
