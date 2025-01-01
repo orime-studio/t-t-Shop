@@ -41,7 +41,6 @@ const Products: FC = () => {
 
     return (
         <div className="product-list-wrapper">
-            <h1 className="product-list-title">המוצרים שלנו</h1>
             <Filter /> {/* קומפוננטת הפילטר */}
             <div className="product-list-container">
                 {products.length === 0 ? (
