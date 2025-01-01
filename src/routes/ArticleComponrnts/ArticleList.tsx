@@ -34,15 +34,15 @@ const ArticleList = () => {
 
   return (
     <div className="article-list">
-      <h1>All Articles</h1>
+      <h1 className="article-list-title">All Articles</h1>
       <div className="article-list-grid">
         {articles.length === 0 ? (
           <p>No articles available at the moment.</p>
         ) : (
           articles.map((article) => (
             <div key={article._id} className="article-item">
-              <h2>{article.title}</h2>
-              <p>{article.miniText}</p>
+              <h2 className="article-title">{article.title}</h2>
+              <p className="article-mini-text">{article.miniText}</p>
               {article.mainImage.url && (
                 <img
                   src={article.mainImage.url}
@@ -50,7 +50,7 @@ const ArticleList = () => {
                   className="article-image"
                 />
               )}
-              <Link to={`/article/${article._id}`}>Read More</Link>
+              <Link to={`/article/${article._id}`} className="article-link">Read More</Link>
             </div>
           ))
         )}
