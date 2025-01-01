@@ -8,13 +8,19 @@
 .full-width-image-container {
     width: 100%;
     margin-bottom: 30px;
+    display: flex;
+    justify-content: center; /* מרכז את התמונה */
 }
 
 .full-width-image {
-    width: 100%;
+    width: 20%;
     height: auto;
     object-fit: cover;
     border-radius: 8px;
+
+    @media (max-width: 768px) {
+        width: 100%; /* הגדלת התמונה */
+    }
 }
 
 .article-header {
@@ -49,7 +55,20 @@
         .article-text-content {
             flex: 1;
             padding: 20px;
-            text-align: left;
+            text-align: left; /* מיושר לשמאל */
+        }
+
+        .section-title-article {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .section-description-article {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.6;
         }
 
         .section-image-article {
@@ -60,7 +79,7 @@
             margin-top: 20px;
 
             @media (min-width: 768px) {
-                width: 50%;
+                width: 40%; /* הקטנת התמונה */
                 margin-top: 0;
                 margin-left: 20px;
             }

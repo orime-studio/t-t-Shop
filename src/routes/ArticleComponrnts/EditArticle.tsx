@@ -101,9 +101,6 @@ const EditArticle = () => {
                 imageUrls.forEach((url) => {
                     formData.append("images", url); // Add existing images by URL
                 });
-            } else {
-                dialogs.error("Error", "At least one image is required");
-                return;
             }
 
             console.log("FormData before sending:", [...formData.entries()]);
