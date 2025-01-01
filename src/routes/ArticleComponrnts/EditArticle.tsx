@@ -22,7 +22,6 @@ const EditArticle = () => {
     const [mainImagePreview, setMainImagePreview] = useState<string | null>(null);
     const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
-
     useEffect(() => {
         if (!id) {
             dialogs.error("Error", "Invalid article ID");
@@ -56,8 +55,21 @@ const EditArticle = () => {
                 setError(err);
             });
     }, [id, setValue]);
-    
 
+    const handleRemoveImage = (index: number) => {
+        const newImages = [...images];
+        newImages.splice(index, 1);
+        setImages(newImages);
+
+        const newImagePreviews = [...imagePreviews];
+        newImagePreviews.splice(index, 1);
+        setImagePreviews(newImagePreviews);
+    };
+
+    const handleRemoveMainImage = () => {
+        setMainImage(null);
+        setMainImagePreview(null);
+    };
 
     const onSubmit = async (data: ArticleInput) => {
         console.log("Form data before submission:", data);
@@ -163,10 +175,10 @@ const EditArticle = () => {
                     {mainImagePreview && (
                         <div className="image-preview">
                             <img src={mainImagePreview} alt="Main Image Preview" />
+                            <button type="button" className="remove-image-button" onClick={handleRemoveMainImage}>Remove</button>
                         </div>
                     )}
                 </section>
-
 
                 <section>
                     <label htmlFor="image-upload" className="file-upload-label">Additional Images</label>
@@ -190,11 +202,13 @@ const EditArticle = () => {
 
                     <div className="image-previews">
                         {imagePreviews.map((preview, index) => (
-                            <img key={index} src={preview} alt={`Preview ${index + 1}`} className="image-preview" />
+                            <div key={index} className="image-preview-container">
+                                <img src={preview} alt={`Preview ${index + 1}`} className="image-preview" />
+                                <button type="button" className="remove-image-button" onClick={() => handleRemoveImage(index)}>Remove</button>
+                            </div>
                         ))}
                     </div>
                 </section>
-
 
                 <section className="input-section">
                     <input className="input-field" placeholder="Image Description (alt)" {...register("alt", { required: "Image description is required" })} />
