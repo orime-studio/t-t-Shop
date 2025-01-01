@@ -48,10 +48,10 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
 
     const getColorCode = (colorName: string) => {
         const colors: { [key: string]: string } = {
-            'בז\'': '#d1b69b',   // Beige
-            'חום': '#9b694b',    // Brown
-            'שחור': '#16140f',   // Black
-            'לבן': '#FFFFFF',    // White
+            'בז\'': '#d1b69b',    // Beige
+            'חום': '#9b694b',     // Brown
+            'שחור': '#16140f',    // Black
+            'לבן': '#FFFFFF',     // White
             'אפור': '#CCCCCC',    // Gray
             // הוסיפי עוד צבעים לפי הצורך
         };
@@ -60,9 +60,9 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
 
     return (
         <div className="add-to-cart-container">
-            <p>{totalQuantity > 0 ? 'במלאי' : 'אזל מהמלאי'}</p>
-            <div className="price-container" style={{ marginBottom: '20px', marginTop: '15px' }}>
-                <span className="original-price" style={{ marginRight: '10px' }}>
+            <p>{totalQuantity > 0 ? 'In Stock' : 'Out of Stock'}</p>
+            <div className="price-container">
+                <span className="original-price">
                     ${(selectedVariant?.price * 1.2).toFixed(2)}
                 </span>
                 <span className="discounted-price">
@@ -89,6 +89,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
                             onClick={() => setSelectedColor(color.name)}
                             style={{ backgroundColor: getColorCode(color.name) }}
                             aria-label={color.name} // נגישות
+                            title={color.name} // Tooltip
                         >
                             {/* אין טקסט */}
                         </button>
@@ -97,7 +98,7 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
             )}
             <button className="add-to-cart-button" onClick={handleAddToCart} disabled={!selectedVariant || totalQuantity === 0}>
                 <FiShoppingCart />
-                הוסף לעגלה
+                Add to Cart
             </button>
         </div>
     );

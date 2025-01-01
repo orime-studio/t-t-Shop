@@ -44,6 +44,8 @@
         border: 1px solid #ccc; /* Initial border */
         background-color: #f9f9f9;
         transition: transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+        margin-top: 20px;
+
 
         &.selected {
             border-color: #888; /* Lighter border color */
@@ -82,5 +84,23 @@
         svg {
             margin-right: 8px;
         }
+    }
+}
+
+
+@media (max-width: 600px) {
+    .size-buttons-product-container,
+    .color-buttons-product-container {
+        gap: 8px;
+    }
+
+    .color-buttons-product-container {
+        margin-top: 8px; /* Reduced space between size and color buttons */
+        margin-bottom: 10px; /* Adjusted space between color buttons and Add to Cart */
+    }
+
+    .add-to-cart-button {
+        padding: 8px 16px;
+        font-size: 14px;
     }
 }
