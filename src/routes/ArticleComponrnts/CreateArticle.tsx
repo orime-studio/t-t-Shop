@@ -88,8 +88,8 @@ const CreateArticle = () => {
         <section className="article-section">
           <input
             className="article-input"
-            placeholder="Author"
-            {...register("source", { required: "Author is required" })}
+            placeholder="Source"
+            {...register("source", { required: "Source is required" })}
           />
           {errors.source && <p className="errorMessage">{errors.source.message}</p>}
         </section>
