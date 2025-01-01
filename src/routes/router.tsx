@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
         element: <Root />,
         errorElement: <Error />,
         children: [
-            { index: true, element: <><CarouselComponent /><Products /><CarouselNew /> </> },
+            { index: true, element: <><CarouselComponent /><Products />{/* <CarouselNew /> */} </> },
             { path: "/register", element: <Register /> },
             { path: "/login", element: <Login /> },
             { path: "/products/:id", element: <Product /> },
