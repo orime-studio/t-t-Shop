@@ -7,23 +7,23 @@ const Categories = () => {
     <div className="categories-container">
       <h2 className="categories-title">Shop by Category</h2>
       <div className="categories">
-        <Link to="/category/bags" className="category">
+        <Link to="/?category=Bags" className="category">
           <img src="img/homePage/BAGS.jpg" alt="BAGS" />
           <h3 className="category-title">BAGS</h3>
         </Link>
-        <Link to="/category/tops" className="category">
+        <Link to="/?category=Jacket" className="category">
           <img src="img/homePage/TOPS.jpg" alt="TOPS" />
           <h3 className="category-title">TOPS</h3>
         </Link>
-        <Link to="/category/outerwear" className="category">
+        <Link to="/?category=Coats" className="category">
           <img src="img/homePage/OUTERWEAR.jpg" alt="OUTERWEAR" />
           <h3 className="category-title">OUTERWEAR</h3>
         </Link>
-        <Link to="/category/shoes" className="category">
+        <Link to="/?category=Shoes" className="category">
           <img src="img/homePage/SHOES.jpg" alt="SHOES" />
           <h3 className="category-title">SHOES</h3>
         </Link>
-        <Link to="/category/jewelry" className="category">
+        <Link to="/?category=Jewelry" className="category">
           <img src="img/homePage/JEWELRY.jpg" alt="JEWELRY" />
           <h3 className="category-title">JEWELRY</h3>
         </Link>

@@ -1,7 +1,7 @@
 // Products.tsx
 import { FC, useEffect, useState } from 'react';
 import { Card } from 'flowbite-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { IProduct } from '../@Types/productType';
 import AddToCartButton from '../components/AddToCartButton';
 import { useSearch } from '../hooks/useSearch';
@@ -15,6 +15,8 @@ const Products: FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<Error | null>(null);
     const { searchTerm, minPrice, maxPrice, selectedSizes } = useSearch();
+    const [searchParams] = useSearchParams();
+    const category = searchParams.get('category');
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -24,6 +26,7 @@ const Products: FC = () => {
                     maxPrice,
                     sizes: selectedSizes,
                     searchTerm,
+                    category,
                 });
                 setProducts(response.data);
             } catch (error: any) {
@@ -34,7 +37,7 @@ const Products: FC = () => {
         };
 
         fetchProducts();
-    }, [minPrice, maxPrice, selectedSizes, searchTerm]);
+    }, [minPrice, maxPrice, selectedSizes, searchTerm, category]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;

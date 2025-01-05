@@ -12,6 +12,8 @@ export const getAllProducts = (filters?: {
     maxPrice?: number;
     sizes?: string[];
     searchTerm?: string;
+    category?: string; // <-- נוסיף כאן
+
 }) => {
     const queryParams = new URLSearchParams();
 
@@ -23,6 +25,9 @@ export const getAllProducts = (filters?: {
         queryParams.append("size", filters.sizes.join(','));
     if (filters?.searchTerm)
         queryParams.append("searchTerm", filters.searchTerm);
+    if (filters?.category) {
+        queryParams.append("category", filters.category);
+      }
 
     const url = `${baseUrl}?${queryParams.toString()}`;
     return axios.get(url);
