@@ -1,0 +1,48 @@
+.categories-title {
+  color: #000;
+  text-align: center;
+  font-family: Playfair;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.1em;
+  margin-top: 64px;
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin: 20px auto 64px;
+  /* הוספת margin-top של 20 פיקסלים */
+  max-width: 1920px;
+  box-sizing: border-box;
+
+  .category {
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 16px;
+    }
+
+    .category-title {
+      color: #000;
+      text-align: center;
+      font-family: Poppins;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      align-self: stretch;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+}

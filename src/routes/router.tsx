@@ -4,7 +4,12 @@ import BeitChabadLayout from "../layout/BeitChabadLayout";
 import Root from "../layout/root";
 import About from "./About";
 import AdminDashboard from "./AdminDashboard";
-import CreateParasha from "./BeitHabad/CreateParashatShavua";
+import ArticleList from "./ArticleComponrnts/ArticleList";
+import ArticlePage from "./ArticleComponrnts/ArticlePage";
+import CreateArticle from "./ArticleComponrnts/CreateArticle";
+import EditArticle from "./ArticleComponrnts/EditArticle";
+import ChabadDashboard from "./BeitHabad/ChabadDashboard";
+import CreateNewParasha from "./BeitHabad/createNewParasha";
 import EditParasha from "./BeitHabad/EditParasha";
 import HomePage from "./BeitHabad/HomePage";
 import ParashaDetail from "./BeitHabad/ParashaDetail";
@@ -26,13 +31,7 @@ import Register from "./Register";
 import EditProduct from "./UpdateProduct";
 import UpdateUser from "./UpdateUser";
 import UserOrders from "./UserOrders";
-import ChabadDashboard from "./BeitHabad/ChabadDashboard";
-import CreateNewParasha from "./BeitHabad/createNewParasha";
-import CreateArticle from "./ArticleComponrnts/CreateArticle";
-import ArticlePage from "./ArticleComponrnts/ArticlePage";
-import ArticleList from "./ArticleComponrnts/ArticleList";
-import EditArticle from "./ArticleComponrnts/EditArticle";
-import CarouselNew from "../components/CarouselaNew";
+import MainPage from "./homePage/MainPage";
 
 export const router = createBrowserRouter([
     {
@@ -104,6 +103,9 @@ export const router = createBrowserRouter([
             {
                 path: "/edit-article/:id", element: <EditArticle />
             },
+            {
+                path: "home",element: <MainPage />
+            },
         ],
     },
     // ניתוב עצמאי ל-beitChabad עם Footer בלבד
@@ -144,7 +146,8 @@ export const router = createBrowserRouter([
                         <ChabadDashboard />
                     </ProtectedRouteAdmin>
                 ),
-            }
+            },
+         
         ],
     },
 ]);
