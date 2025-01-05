@@ -32,6 +32,7 @@ import EditProduct from "./UpdateProduct";
 import UpdateUser from "./UpdateUser";
 import UserOrders from "./UserOrders";
 import MainPage from "./homePage/MainPage";
+import ImpactReport from "./homePage/ImpactReport";
 
 export const router = createBrowserRouter([
     {
@@ -106,6 +107,10 @@ export const router = createBrowserRouter([
             {
                 path: "home",element: <MainPage />
             },
+            {
+                path: "/impact-report", element: <ImpactReport />
+            }
+          
         ],
     },
     // ניתוב עצמאי ל-beitChabad עם Footer בלבד

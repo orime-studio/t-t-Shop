@@ -21,23 +21,25 @@ const Articles = () => {
 
   return (
     <div className="articles">
-      <div className="articles-grid">
+   
+      <div className="articles-container">
         {lastArticles.length > 0 ? (
           lastArticles.map(article => (
-            <div className="article-card" key={article._id}>
-              {article.mainImage?.url && (
-                <div className="article-image-wrapper">
-                  <img
-                    src={article.mainImage.url}
-                    alt={article.mainImage.alt || article.title}
-                    className="article-image"
-                  />
-                  <div className="article-overlay">
-                    <h2 className="article-title">{article.title}</h2>
-                    <Link to={`/article/${article._id}`} className="read-more-button">Read More</Link>
-                  </div>
+            <div className="articles-section" key={article._id}>
+                 <h3 className="articles-card-title">{article.title}</h3>
+              <div className="articles-image-wrapper">
+                <img
+                  src={article.mainImage?.url || ''}
+                  alt={article.mainImage?.alt || article.title}
+                  className="articles-image"
+                />
+                <div className="articles-overlay">
+                  <h2 className="articles-article-title">{article.title}</h2>
+                  <Link to={`/article/${article._id}`} className="articles-button">
+                    Read More
+                  </Link>
                 </div>
-              )}
+              </div>
             </div>
           ))
         ) : (

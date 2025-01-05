@@ -1,7 +1,10 @@
+import Products from '../Products';
 import Articles from './Articles';
 import Categories from './Categories';
+import MainArticle from './MainArticle';
 import MainBanner from './MainBanner';
 import './MainPage.scss';
+import ProductsLimited from './ProductsLimited';
 
 const MainPage = () => {
     return (
@@ -9,6 +12,9 @@ const MainPage = () => {
             <MainBanner />
             <Categories />
             <Articles />
+           <MainArticle />
+         <ProductsLimited />
+       
         </div>
     );
 };
