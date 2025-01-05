@@ -53,7 +53,12 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
             'שחור': '#16140f',    // Black
             'לבן': '#FFFFFF',     // White
             'אפור': '#CCCCCC',    // Gray
-            // הוסיפי עוד צבעים לפי הצורך
+            'ורוד עתיק': '#D2A4A1', // Antique Pink (from the first image)
+            'תכלת': '#A3D4E7',    // Light Blue (from the second image)
+            'אדום': '#B23A48',    // Red (from the third image)
+            'אופרייט': '#AAAAAA', // Off-White (placeholder, refine if needed)
+            'כסף': '#C0C0C0',     // Silver
+            'זהב': '#FFD700',     // Gold
         };
         return colors[colorName.toLowerCase()] || '#CCCCCC'; // ברירת מחדל לאפור
     };
