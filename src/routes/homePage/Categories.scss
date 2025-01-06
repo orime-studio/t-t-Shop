@@ -1,50 +1,55 @@
-.categories-title {
-  color: #000;
+.categories-container {
+  margin: 32px 0;
+  width: 100%;
   text-align: center;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: 0.1em;
-  margin-top: 64px;
-  font-family: Playfair;
 
-}
+  .categories-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
 
-.categories {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  margin: 20px auto 64px;
-  /* הוספת margin-top של 20 פיקסלים */
-  max-width: 1920px;
-  box-sizing: border-box;
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 
-  .category {
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-
-    img {
-      width: 100%;
-      height: auto;
-      margin-bottom: 16px;
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(5, 1fr); /* שינוי ל-5 עמודות */
     }
 
-    .category-title {
-      color: #000;
-      text-align: center;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
-      align-self: stretch;
-      font-family: Poppins;
+    .category {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s;
 
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .category-title {
+        margin-top: 10px;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        align-self: stretch;
+     
+      }
+
+      &:hover {
+        transform: translateY(-5px);
+      }
     }
 
-    &:hover {
-      transform: translateY(-5px);
+    .category-jewelry {
+      @media (max-width: 767px) {
+        grid-column: span 2; /* תופס את כל הרוחב בשורה האחרונה */
+      }
     }
   }
 }

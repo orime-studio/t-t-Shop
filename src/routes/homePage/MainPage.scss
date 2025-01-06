@@ -4,7 +4,23 @@
     margin: 0 auto;
     padding: 32px;
 
+    h2{
+        font-family: Playfair;
+    }
+    p{
+        font-family: Poppins;
+
+    }
+
     @media (min-width: 1921px) {
         max-width: 1984px;
+    }
+
+    @media (max-width: 980px) {
+        padding: 20px;
+    }
+
+    @media (max-width: 500px) {
+        padding: 8px;
     }
 }
