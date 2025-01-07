@@ -5,12 +5,16 @@ import { AddToCartButtonProps, IVariant } from '../@Types/productType';
 import useCart from '../hooks/useCart';
 import dialogs from '../ui/dialogs';
 import { useAuth } from '../hooks/useAuth';
+import Alert from './Alert';
 
 const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title, image }) => {
     const [selectedVariant, setSelectedVariant] = useState<IVariant | null>(variants[0] || null);
     const [selectedColor, setSelectedColor] = useState<string | null>(selectedVariant?.colors[0]?.name || null);
     const { addToCart } = useCart();
     const { isLoggedIn } = useAuth();
+
+    const [alert, setAlert] = useState<{ show: boolean, type: string, message: string }>({ show: false, type: '', message: '' });
+
 
     // חישוב הכמות הכוללת מכל הצבעים
     const totalQuantity = selectedVariant?.colors.reduce((sum, color) => sum + color.quantity, 0) || 0;
@@ -28,22 +32,46 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
                 // הוספת המוצר לעגלה
                 await addToCart(productId, selectedVariant._id, title, 1, selectedVariant.size, selectedVariant.price, image, selectedColor);
 
-                dialogs.success(
-                    "Product Added",
-                    `<div style="display: flex; align-items: center;">
-                        <img src="${image.url}" alt="${title}" style="width: 50px; height: 50px; object-fit: cover; margin-right: 10px;" />
-                        <div>
-                            <p>${title} has been added to your cart.</p>
-                        </div>
-                    </div>`
-                );
+                setAlert({
+                    show: true,
+                    type: 'success',
+                    message: ` Product "${title}" was added to cart!`
+                });
+
+                setTimeout(() => {
+                    setAlert({ show: false, type: '', message: '' });
+                }, 3000);
+                
             } catch (error) {
                 console.error("Failed to add product to cart:", error);
-                dialogs.error("Error", "Failed to add the product to your cart.");
+                // הצגת Alert שגיאה
+                setAlert({
+                    show: true,
+                    type: 'error',
+                    message: 'Product was not added to cart. Please try again later.'
+                });
+
+                // סגירת Alert לאחר 3 שניות
+                setTimeout(() => {
+                    setAlert({ show: false, type: '', message: '' });
+                }, 3000);
             }
+        
         } else {
             console.error("No variant or color selected");
+            // הצגת Alert אזהרה אם אין וריאנט או צבע נבחר
+            setAlert({
+                show: true,
+                type: 'warning',
+                message: 'Please select a variant and color before adding to cart.'
+            });
+
+            // סגירת Alert לאחר 3 שניות
+            setTimeout(() => {
+                setAlert({ show: false, type: '', message: '' });
+            }, 3000);
         }
+   
     };
 
     const getColorCode = (colorName: string) => {
@@ -65,6 +93,13 @@ const AddToCartButton: FC<AddToCartButtonProps> = ({ productId, variants, title,
 
     return (
         <div className="add-to-cart-container">
+            {alert.show && (
+                <Alert
+                    type={alert.type}
+                    message={alert.message}
+                    onClose={() => setAlert({ show: false, type: '', message: '' })}
+                />
+            )}
             <p>{totalQuantity > 0 ? 'In Stock' : 'Out of Stock'}</p>
             <div className="price-container">
                 <span className="original-price">

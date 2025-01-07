@@ -1,0 +1,221 @@
+.new-gallery-wrapper {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+  
+    .new-gallery-heading {
+      text-align: center;
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 20px;
+    }
+  }
+  
+  /* רשת המוצרים: 4 בעמודה בדסקטופ, רספונסיבי */
+  .new-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    padding: 20px 0;
+  
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* כרטיס מוצר */
+  .new-gallery-item {
+    position: relative;
+    background-color: #fff;
+    /* אין מסגרת סביב הכרטיסייה */
+    border: none; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  /* תמונה + כפתור בהובר */
+  .new-gallery-image-container {
+    position: relative;
+    overflow: hidden; 
+  
+    .new-gallery-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+  
+    /* כפתור Quick Add */
+    .new-gallery-add-button {
+      position: absolute;
+      /* כעת נוסיף שוליים כך שלא יהיה צמוד לתחתית ולקצוות */
+      bottom: 1rem; 
+      left: 1rem; 
+      right: 1rem;
+      height: 50px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      color: #333;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0; 
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0 10px; /* מרווח בתוך הכפתור */
+  
+      .icon-plus {
+        margin-left: 8px;
+        font-size: 18px;
+      }
+  
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  
+    &:hover {
+      .new-gallery-image {
+        transform: scale(1.03);
+      }
+      .new-gallery-add-button {
+        opacity: 1;
+      }
+    }
+  }
+  
+  /* כותרת ומחירים בשורה אחת */
+  .new-gallery-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px 0;
+  
+    .new-gallery-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+    }
+  
+    .new-gallery-prices {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+  
+      .old-price {
+        text-decoration: line-through;
+        color: #888;
+        font-size: 0.9rem;
+      }
+      .new-price {
+        color: #000;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  /* בחירת צבע */
+  .new-gallery-colors {
+    padding: 10px 15px 0;
+  
+    .label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+      color: #333;
+      font-weight: 500;
+    }
+  
+    .color-buttons {
+      display: flex;
+      gap: 8px;
+  
+      .btn-color {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+  
+        &.selected {
+          box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+        }
+        &:hover {
+          transform: scale(1.08);
+        }
+      }
+    }
+  }
+  
+  /* בחירת מידה */
+  .new-gallery-sizes {
+    padding: 10px 15px 15px;
+  
+    .label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 5px;
+      color: #333;
+      font-weight: 500;
+    }
+  
+    .size-buttons {
+      display: flex;
+      gap: 8px;
+  
+      .btn-size {
+        padding: 6px 12px;
+        border: 1px solid #000;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        background-color: #fff; /* כברירת מחדל - לבן */
+        color: #000; /* טקסט שחור */
+  
+        &.selected {
+          background-color: #000; /* שחור */
+          color: #fff;           /* טקסט לבן */
+        }
+  
+        &:hover {
+          background-color: #000;
+          color: #fff;
+        }
+      }
+    }
+  }
+  
+  /* רספונסיביות נוספת */
+  @media (max-width: 600px) {
+    .new-gallery-heading {
+      font-size: 20px;
+    }
+    .new-gallery-item {
+      &:hover {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+    .new-gallery-image-container {
+      .new-gallery-add-button {
+       
+       opacity: 1; 
+      }
+    }
+  }
+  

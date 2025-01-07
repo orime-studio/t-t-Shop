@@ -33,6 +33,7 @@ import UpdateUser from "./UpdateUser";
 import UserOrders from "./UserOrders";
 import MainPage from "./homePage/MainPage";
 import ImpactReport from "./homePage/ImpactReport";
+import NewProductsGallery from "./NewProductsGallery";
 
 export const router = createBrowserRouter([
     {
@@ -40,7 +41,7 @@ export const router = createBrowserRouter([
         element: <Root />,
         errorElement: <Error />,
         children: [
-            { index: true, element: <><CarouselComponent /><Products />{/* <CarouselNew /> */} </> },
+            { index: true, element: <><CarouselComponent /><Products/>{/* <CarouselNew /> */} </> },
             { path: "/register", element: <Register /> },
             { path: "/login", element: <Login /> },
             { path: "/products/:id", element: <Product /> },
@@ -64,6 +65,9 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/cart", element: <Cart />,
+            },
+            {
+                path: "/products", element: <NewProductsGallery />,
             },
             {
                 path: "/order-confirmation/:orderId", element: <OrderConfirmation />
