@@ -8,6 +8,7 @@ import { CartProvider } from "./contexts/CartContext.tsx";
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import {  FilterProvider } from "./contexts/FilterContext.tsx";
+import { AlertProvider } from "./contexts/AlertContext.tsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -15,9 +16,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <FilterProvider>
     <SearchProvider>
       <CartProvider>
+      <AlertProvider>
         <DndProvider backend={HTML5Backend}>
     <RouterProvider router={router} />
         </DndProvider>
+        </AlertProvider>
       </CartProvider>
     </SearchProvider>
     </FilterProvider>

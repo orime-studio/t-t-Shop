@@ -8,9 +8,12 @@ import { useAuth } from '../hooks/useAuth';
 import useCart from '../hooks/useCart';
 import Filter from '../components/FilterComponent';
 import LatestArticles from './ArticleComponrnts/LatestArticle';
-import Alert from '../components/Alert';
-import './NewProductsGallery.scss';
 import { FiPlus } from 'react-icons/fi';
+
+// *** מייבאים את ה-hook הגלובלי מהקונטקסט של האלרט ***
+import { useAlert } from '../contexts/AlertContext';
+
+import './NewProductsGallery.scss';
 
 const NewProductsGallery: FC = () => {
   // מצב לנתוני מוצרים / טעינה / שגיאה
@@ -22,13 +25,7 @@ const NewProductsGallery: FC = () => {
   const { searchTerm, minPrice, maxPrice, selectedSizes } = useSearch();
   const [searchParams] = useSearchParams();
   const category = searchParams.get('category');
-
-  // מצב התראות (Alert)
-  const [alert, setAlert] = useState<{
-    show: boolean;
-    type: 'success' | 'error' | 'warning';
-    message: string;
-  }>({ show: false, type: 'success', message: '' });
+  
 
   // מיפוי של productId -> { selectedVariant, selectedColor }
   const [productSelections, setProductSelections] = useState<{
@@ -37,6 +34,9 @@ const NewProductsGallery: FC = () => {
       color: string | null;
     };
   }>({});
+
+  // פונקציה גלובלית להצגת אלרט:
+  const { showAlert } = useAlert();
 
   const { addToCart } = useCart();
   const { isLoggedIn } = useAuth();
@@ -55,7 +55,7 @@ const NewProductsGallery: FC = () => {
         const fetchedProducts: IProduct[] = res.data || [];
         setProducts(fetchedProducts);
 
-        // אתחול בחירת וריאנט וצבע
+        // אתחול בחירת וריאנט וצבע עבור כל מוצר
         const initialSelections: {
           [productId: string]: { variant: IVariant | null; color: string | null };
         } = {};
@@ -78,13 +78,6 @@ const NewProductsGallery: FC = () => {
     };
     fetchData();
   }, [minPrice, maxPrice, selectedSizes, searchTerm, category]);
-
-  // סגירת Alert אוטומטית
-  const hideAlertAfterTimeout = () => {
-    setTimeout(() => {
-      setAlert({ show: false, type: 'success', message: '' });
-    }, 3000);
-  };
 
   // בחירת וריאנט
   const handleSelectVariant = (productId: string, variant: IVariant) => {
@@ -132,36 +125,33 @@ const NewProductsGallery: FC = () => {
   // הוספה לסל
   const handleAddToCart = async (product: IProduct) => {
     if (!isLoggedIn) {
-      setAlert({
-        show: true,
-        type: 'warning',
-        message: 'Please log in before adding to cart.',
-      });
-      hideAlertAfterTimeout();
+      showAlert('warning', 'Please log in before adding to cart.');
       return;
     }
 
     const selection = productSelections[product._id];
     if (!selection || !selection.variant || !selection.color) {
-      setAlert({
-        show: true,
-        type: 'warning',
-        message: 'Please select a variant and color first.',
-      });
-      hideAlertAfterTimeout();
+      showAlert('warning', 'Please select a variant and color first.');
       return;
     }
 
-    const totalQuantity = selection.variant.colors.reduce((sum, c) => sum + c.quantity, 0);
+    const totalQuantity = selection.variant.colors.reduce(
+      (sum, c) => sum + c.quantity,
+      0
+    );
     if (totalQuantity === 0) {
-      setAlert({
-        show: true,
-        type: 'warning',
-        message: 'This item is out of stock.',
-      });
-      hideAlertAfterTimeout();
+      showAlert('warning', 'This item is out of stock.');
       return;
     }
+    
+    const selectedColorObj = selection.variant.colors.find(
+        (c) => c.name === selection.color
+      );
+
+    if (!selectedColorObj || selectedColorObj.quantity === 0) {
+        showAlert('warning', 'This item is out of stock in the selected size and color.');
+        return;
+      }
 
     try {
       await addToCart(
@@ -174,21 +164,10 @@ const NewProductsGallery: FC = () => {
         product.mainImage,
         selection.color
       );
-
-      setAlert({
-        show: true,
-        type: 'success',
-        message: `Product "${product.title}" added to cart!`,
-      });
-      hideAlertAfterTimeout();
+      showAlert('success', `Product "${product.title}" added to cart!`);
     } catch (err) {
       console.error('Failed to add product to cart', err);
-      setAlert({
-        show: true,
-        type: 'error',
-        message: 'Failed to add product to cart. Please try again.',
-      });
-      hideAlertAfterTimeout();
+      showAlert('error', 'Failed to add product to cart. Please try again.');
     }
   };
 
@@ -252,9 +231,7 @@ const NewProductsGallery: FC = () => {
                     {variant.colors.map((c) => (
                       <button
                         key={c.name}
-                        className={
-                          'btn-color' + (c.name === color ? ' selected' : '')
-                        }
+                        className={'btn-color' + (c.name === color ? ' selected' : '')}
                         style={{ backgroundColor: getColorCode(c.name) }}
                         onClick={() => handleSelectColor(product._id, c.name)}
                         title={c.name}
@@ -270,9 +247,7 @@ const NewProductsGallery: FC = () => {
                     {product.variants.map((v) => (
                       <button
                         key={v._id}
-                        className={
-                          'btn-size' + (v._id === variant._id ? ' selected' : '')
-                        }
+                        className={'btn-size' + (v._id === variant._id ? ' selected' : '')}
                         onClick={() => handleSelectVariant(product._id, v)}
                       >
                         {v.size}
@@ -286,17 +261,6 @@ const NewProductsGallery: FC = () => {
         )}
       </div>
 
-      {/* מאמרים/כתבות אחרונים */}
-      <LatestArticles />
-
-      {/* הודעות Alert */}
-      {alert.show && (
-        <Alert
-          type={alert.type}
-          message={alert.message}
-          onClose={() => setAlert({ show: false, type: 'success', message: '' })}
-        />
-      )}
     </div>
   );
 };
