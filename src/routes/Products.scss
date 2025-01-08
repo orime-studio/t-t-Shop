@@ -3,6 +3,11 @@
     max-width: 100%;
     margin: 0 auto;
     padding: 20px;
+
+    @media (max-width: 768px) {
+        padding: 0;
+        
+    }
 }
 
 .product-list-title {
@@ -19,12 +24,13 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
-    padding: 20px;
+   // padding: 20px;
     max-width: 100%;
     margin: 0 auto;
 
     @media (min-width: 768px) {
         grid-template-columns: repeat(2, 1fr);
+     
     }
 
     @media (min-width: 1024px) {

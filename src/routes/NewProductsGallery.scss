@@ -10,6 +10,12 @@
       margin-bottom: 20px;
     }
   }
+  .alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    }
   
   /* רשת המוצרים: 4 בעמודה בדסקטופ, רספונסיבי */
   .new-gallery-grid {
@@ -181,12 +187,13 @@
   
       .btn-size {
         padding: 6px 12px;
-        border: 1px solid #000;
+        border: 1px solid #EBEAEA;
         font-size: 0.8rem;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         background-color: #fff; /* כברירת מחדל - לבן */
         color: #000; /* טקסט שחור */
+        
   
         &.selected {
           background-color: #000; /* שחור */
@@ -219,4 +226,5 @@
       }
     }
   }
+
   
