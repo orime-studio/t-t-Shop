@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { IProductInput } from "../@Types/productType"; // Assuming the types are imported correctly
 import { useAuth } from "../hooks/useAuth";
 import { createNewProduct } from "../services/product-service";
-import dialogs from "../ui/dialogs";
+
 import "./CreateProduct.scss";
+import { useAlert } from "../contexts/AlertContext";
 
 const CreateProduct = () => {
   const { token } = useAuth();
+   const { showAlert } = useAlert();
   const navigate = useNavigate();
   const { control, handleSubmit, register, formState: { errors }, getValues, setValue } = useForm<IProductInput>({
     defaultValues: {
@@ -51,15 +53,15 @@ const CreateProduct = () => {
 
   const onSubmit = async (data: IProductInput) => {
     if (!token) {
-      dialogs.error("Error", "No authentication token found.");
+      showAlert("error", "No authentication token found.");
       return;
     }
     if (!mainImage) {
-      dialogs.error("Error", "Please select a main image.");
+      showAlert("error", "Please select a main image.");
       return;
     }
     if (!data.variants.length) {
-      dialogs.error("Error", "Please add at least one variant.");
+      showAlert("error", "Please add at least one variant.");
       return;
     }
 
@@ -94,10 +96,11 @@ const CreateProduct = () => {
 
     try {
       await createNewProduct(formData);
-      dialogs.success("Success", "Product Created Successfully")
-        .then(() => navigate("/"));
+      
+      showAlert("success", "Product Created Successfully");
+      navigate("/");
     } catch (error: any) {
-      dialogs.error("Error", error.response?.data?.message || "Failed to create product");
+      showAlert("error", error.response?.data?.message || "Failed to create product");
     }
   };
 

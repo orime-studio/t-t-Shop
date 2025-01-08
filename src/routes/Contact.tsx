@@ -8,7 +8,7 @@ import "./CreateProduct.scss";
 
 const Contact = () => {
     const navigate = useNavigate();
-  const { showAlert } = useAlert();
+    const { showAlert } = useAlert();
     const {
         register,
         handleSubmit,
@@ -23,7 +23,7 @@ const Contact = () => {
         console.log("Send data:", data);
         sendMessage(data)
             .then(() => {
-             showAlert("success", "Your message has been sent successfully");
+                showAlert("success", "Your message has been sent successfully");
                 navigate("/");
             })
             .catch((error) => {
