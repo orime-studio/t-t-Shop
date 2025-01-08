@@ -111,7 +111,7 @@
     padding: 10px 15px 0;
   
     .new-gallery-title {
-      font-size: 1rem;
+      font-size: .9rem;
       font-weight: 600;
       margin: 0;
     }
@@ -124,11 +124,11 @@
       .old-price {
         text-decoration: line-through;
         color: #888;
-        font-size: 0.9rem;
+        font-size: 0.7rem;
       }
       .new-price {
         color: #000;
-        font-size: 1rem;
+        font-size: .9rem;
         font-weight: 500;
       }
     }
@@ -136,13 +136,13 @@
   
   /* בחירת צבע */
   .new-gallery-colors {
-    padding: 10px 15px 0;
+    padding: 1px 15px 0;
   
     .label {
       display: block;
       font-size: 0.8rem;
       margin-bottom: 5px;
-      color: #333;
+      color: #737373;
       font-weight: 500;
     }
   
@@ -154,12 +154,13 @@
         width: 24px;
         height: 24px;
         border-radius: 50%;
-        border: 1px solid #ccc;
+        border: 2px solid #ccc;
         cursor: pointer;
         
   
         &.selected {
-            border-color: #888;
+            border-color: #0b0808;
+            
            
         }
         &:hover {
@@ -177,7 +178,7 @@
       display: block;
       font-size: 0.8rem;
       margin-bottom: 5px;
-      color: #333;
+      color: #737373;
       font-weight: 500;
     }
   
@@ -187,7 +188,7 @@
   
       .btn-size {
         padding: 6px 12px;
-        border: 1px solid #EBEAEA;
+        border: 1px solid #E1E0E0;
         font-size: 0.8rem;
         cursor: pointer;
         transition: background-color 0.3s, color 0.3s, border-color 0.3s;
