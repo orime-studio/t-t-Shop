@@ -5,9 +5,12 @@ import patterns from "../validations/patterns";
 import { sendMessage } from "../services/message-service";
 import dialogs from "../ui/dialogs";
 import { IMessage } from "../@Types/types";
+import Alert from "../components/Alert";
+import { useAlert } from "../contexts/AlertContext";
 
 const Contact = () => {
     const navigate = useNavigate();
+  const { showAlert } = useAlert();
     const {
         register,
         handleSubmit,
@@ -22,7 +25,7 @@ const Contact = () => {
         console.log("Send data:", data);
         sendMessage(data)
             .then(() => {
-                dialogs.success("Message Sent", "Your message has been sent successfully.");
+             showAlert("success", "Your message has been sent successfully");
                 navigate("/");
             })
             .catch((error) => {
@@ -74,6 +77,7 @@ const Contact = () => {
                         placeholder="Phone"
                         type="tel"
                         {...register("phone", {
+                            required: "This field is mandatory",
                             pattern: {
                                 value: patterns.phone,
                                 message: "Invalid phone number",
@@ -101,7 +105,7 @@ const Contact = () => {
                 </section>
 
 
-                <button disabled={!isValid} type="submit" className="bg-slate-600 text-white dark:bg-slate-900">Send</button>
+                <button type="submit" className="bg-slate-600 text-white dark:bg-slate-900">Send</button>
 
             </form>
         </div>
