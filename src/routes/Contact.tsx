@@ -1,12 +1,10 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import "./CreateProduct.scss";
-import patterns from "../validations/patterns";
-import { sendMessage } from "../services/message-service";
-import dialogs from "../ui/dialogs";
+import { useNavigate } from "react-router-dom";
 import { IMessage } from "../@Types/types";
-import Alert from "../components/Alert";
 import { useAlert } from "../contexts/AlertContext";
+import { sendMessage } from "../services/message-service";
+import patterns from "../validations/patterns";
+import "./CreateProduct.scss";
 
 const Contact = () => {
     const navigate = useNavigate();
@@ -29,7 +27,7 @@ const Contact = () => {
                 navigate("/");
             })
             .catch((error) => {
-                dialogs.error("Message Error", error.response.data);
+                showAlert("error", error.response.data);
             });
     }
 
