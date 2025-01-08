@@ -33,11 +33,11 @@
     background-color: #fff;
     /* אין מסגרת סביב הכרטיסייה */
     border: none; 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
   
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
     }
   }
   
@@ -150,10 +150,11 @@
         border-radius: 50%;
         border: 1px solid #ccc;
         cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.2s;
+        
   
         &.selected {
-          box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+            border-color: #888;
+           
         }
         &:hover {
           transform: scale(1.08);
@@ -208,7 +209,7 @@
     .new-gallery-item {
       &:hover {
         transform: none;
-        box-shadow: none;
+      
       }
     }
     .new-gallery-image-container {

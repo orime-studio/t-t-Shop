@@ -1,16 +1,14 @@
 // src/routes/NewProductsGallery.tsx
+
 import React, { FC, useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { IProduct, IVariant } from '../@Types/productType';
 import { useSearch } from '../hooks/useSearch';
 import { getAllProducts } from '../services/product-service';
-import { useAuth } from '../hooks/useAuth';
 import useCart from '../hooks/useCart';
 import Filter from '../components/FilterComponent';
 import LatestArticles from './ArticleComponrnts/LatestArticle';
 import { FiPlus } from 'react-icons/fi';
-
-// *** מייבאים את ה-hook הגלובלי מהקונטקסט של האלרט ***
 import { useAlert } from '../contexts/AlertContext';
 
 import './NewProductsGallery.scss';
@@ -25,7 +23,6 @@ const NewProductsGallery: FC = () => {
   const { searchTerm, minPrice, maxPrice, selectedSizes } = useSearch();
   const [searchParams] = useSearchParams();
   const category = searchParams.get('category');
-  
 
   // מיפוי של productId -> { selectedVariant, selectedColor }
   const [productSelections, setProductSelections] = useState<{
@@ -35,11 +32,11 @@ const NewProductsGallery: FC = () => {
     };
   }>({});
 
-  // פונקציה גלובלית להצגת אלרט:
+  // פונקציה גלובלית להצגת אלרט
   const { showAlert } = useAlert();
 
+  // הוק הוספה לסל
   const { addToCart } = useCart();
-  const { isLoggedIn } = useAuth();
 
   // הבאת מוצרים
   useEffect(() => {
@@ -79,7 +76,25 @@ const NewProductsGallery: FC = () => {
     fetchData();
   }, [minPrice, maxPrice, selectedSizes, searchTerm, category]);
 
-  // בחירת וריאנט
+  // פונקציית עזר למפת הצבעים באנגלית
+  const getColorCode = (colorName: string) => {
+    const colors: { [key: string]: string } = {
+      beige: '#d1b69b',
+      brown: '#9b694b',
+      black: '#16140f',
+      white: '#FFFFFF',
+      gray: '#CCCCCC',
+      'antique pink': '#D2A4A1',
+      'light blue': '#A3D4E7',
+      red: '#B23A48',
+      'off-white': '#AAAAAA',
+      silver: '#C0C0C0',
+      gold: '#FFD700',
+    };
+    return colors[colorName.toLowerCase()] || '#CCCCCC';
+  };
+
+  // בחירת מידה (וריאנט)
   const handleSelectVariant = (productId: string, variant: IVariant) => {
     setProductSelections((prev) => {
       const newSelections = { ...prev };
@@ -104,54 +119,22 @@ const NewProductsGallery: FC = () => {
     });
   };
 
-  // מפת צבעים
-  const getColorCode = (colorName: string) => {
-    const colors: { [key: string]: string } = {
-      "בז'": '#d1b69b',
-      'חום': '#9b694b',
-      'שחור': '#16140f',
-      'לבן': '#FFFFFF',
-      'אפור': '#CCCCCC',
-      'ורוד עתיק': '#D2A4A1',
-      'תכלת': '#A3D4E7',
-      'אדום': '#B23A48',
-      'אופרייט': '#AAAAAA',
-      'כסף': '#C0C0C0',
-      'זהב': '#FFD700',
-    };
-    return colors[colorName.toLowerCase()] || '#CCCCCC';
-  };
-
   // הוספה לסל
   const handleAddToCart = async (product: IProduct) => {
-    if (!isLoggedIn) {
-      showAlert('warning', 'Please log in before adding to cart.');
-      return;
-    }
-
     const selection = productSelections[product._id];
     if (!selection || !selection.variant || !selection.color) {
-      showAlert('warning', 'Please select a variant and color first.');
+      showAlert('warning', 'Please select a size (variant) and color first.');
       return;
     }
 
-    const totalQuantity = selection.variant.colors.reduce(
-      (sum, c) => sum + c.quantity,
-      0
-    );
-    if (totalQuantity === 0) {
-      showAlert('warning', 'This item is out of stock.');
-      return;
-    }
-    
+    // בודקים מלאי לצבע+מידה הנבחרים
     const selectedColorObj = selection.variant.colors.find(
-        (c) => c.name === selection.color
-      );
-
+      (c) => c.name === selection.color
+    );
     if (!selectedColorObj || selectedColorObj.quantity === 0) {
-        showAlert('warning', 'This item is out of stock in the selected size and color.');
-        return;
-      }
+      showAlert('warning', 'This item is out of stock in the selected size and color.');
+      return;
+    }
 
     try {
       await addToCart(
@@ -224,34 +207,42 @@ const NewProductsGallery: FC = () => {
                   </div>
                 </div>
 
-                {/* בחירת צבע */}
-                <div className="new-gallery-colors">
-                  <span className="label">Color</span>
-                  <div className="color-buttons">
-                    {variant.colors.map((c) => (
-                      <button
-                        key={c.name}
-                        className={'btn-color' + (c.name === color ? ' selected' : '')}
-                        style={{ backgroundColor: getColorCode(c.name) }}
-                        onClick={() => handleSelectColor(product._id, c.name)}
-                        title={c.name}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                {/* בחירת מידה */}
+                {/* קודם בחירת מידה */}
                 <div className="new-gallery-sizes">
-                  <span className="label">Size</span>
+                  <span className="label">
+                    Size: {variant.size}
+                  </span>
                   <div className="size-buttons">
                     {product.variants.map((v) => (
                       <button
                         key={v._id}
-                        className={'btn-size' + (v._id === variant._id ? ' selected' : '')}
+                        className={
+                          'btn-size' + (v._id === variant._id ? ' selected' : '')
+                        }
                         onClick={() => handleSelectVariant(product._id, v)}
                       >
                         {v.size}
                       </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* אחר כך בחירת צבע */}
+                <div className="new-gallery-colors">
+                  <span className="label">
+                    Color: {color}
+                  </span>
+                  <div className="color-buttons">
+                    {variant.colors.map((c) => (
+                      <button
+                        key={c.name}
+                        className={
+                          'btn-color' + (c.name === color ? ' selected' : '')
+                        }
+                        style={{ backgroundColor: getColorCode(c.name) }}
+                        onClick={() => handleSelectColor(product._id, c.name)}
+                        title={c.name}
+                      />
                     ))}
                   </div>
                 </div>
@@ -261,6 +252,8 @@ const NewProductsGallery: FC = () => {
         )}
       </div>
 
+      {/* מאמרים/כתבות אחרונים */}
+      <LatestArticles />
     </div>
   );
 };
