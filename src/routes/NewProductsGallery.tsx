@@ -226,7 +226,7 @@ const NewProductsGallery: FC = () => {
 
                 {/* בחירת צבע */}
                 <div className="new-gallery-colors">
-                  <span className="label">Color</span>
+                  <span className="label">{color}</span>
                   <div className="color-buttons">
                     {variant.colors.map((c) => (
                       <button
