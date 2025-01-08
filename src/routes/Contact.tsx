@@ -68,6 +68,23 @@ const Contact = () => {
                     )}
                 </section>
 
+                {/* Phone */}
+                <section>
+                    <input
+                        placeholder="Phone"
+                        type="tel"
+                        {...register("phone", {
+                            pattern: {
+                                value: patterns.phone,
+                                message: "Invalid phone number",
+                            },
+                        })}
+                    />
+                    {errors.phone && (
+                        <p className="text-red-500">{errors.phone?.message}</p>
+                    )}
+                </section>
+
                 {/* Message */}
                 <section>
                     <textarea
@@ -82,6 +99,7 @@ const Contact = () => {
                         <p className="text-red-500">{errors.message?.message}</p>
                     )}
                 </section>
+
 
                 <button disabled={!isValid} type="submit" className="bg-slate-600 text-white dark:bg-slate-900">Send</button>
 
