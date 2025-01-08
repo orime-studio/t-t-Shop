@@ -202,8 +202,8 @@ const NewProductsGallery: FC = () => {
                 <div className="new-gallery-title-row">
                   <h5 className="new-gallery-title">{product.title}</h5>
                   <div className="new-gallery-prices">
-                    <span className="old-price">₪{originalPrice}</span>
-                    <span className="new-price">₪{discountedPrice}</span>
+                    <span className="old-price">${originalPrice}</span>
+                    <span className="new-price">${discountedPrice}</span>
                   </div>
                 </div>
 
