@@ -9,9 +9,14 @@ body {
     font-family: 'Montserrat', sans-serif;
 } */
 
+html {
+    scroll-behavior: smooth;
+} 
+
 
 body {
     font-family: 'Montserrat', sans-serif;
+    
 }
 
 /* h1 {

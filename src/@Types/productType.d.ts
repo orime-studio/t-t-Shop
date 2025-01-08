@@ -172,3 +172,9 @@ export type Article = ArticleInput & {
     updatedAt: string;
     __v: number;
 };
+export type AlertType = 'success' | 'error' | 'warning' | 'info';
+
+// הגדרת הממשק של ה-Context
+export interface AlertContextProps {
+  showAlert: (type: AlertType, message: string) => void;
+}

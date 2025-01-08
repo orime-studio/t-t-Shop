@@ -1,27 +1,17 @@
 // src/contexts/AlertContext.tsx
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 import Alert from '../components/Alert';
-
-// הגדרת סוגי האלרטים
-type AlertType = 'success' | 'error' | 'warning' | 'info';
-
-// הגדרת הממשק של ה-Context
-interface AlertContextProps {
-  showAlert: (type: AlertType, message: string) => void;
-}
+import { ContextProviderProps } from '../@Types/types';
+import { AlertContextProps, AlertType } from '../@Types/productType';
 
 // יצירת ה-Context עם ערך ברירת מחדל (פונקציה ריקה)
 const AlertContext = createContext<AlertContextProps>({
   showAlert: () => {}, // פונקציה ריקה כברירת מחדל
 });
 
-// הגדרת הפרופס של ה-Provider
-interface AlertProviderProps {
-  children: ReactNode;
-}
 
 // יצירת ה-Provider
-export const AlertProvider: React.FC<AlertProviderProps> = ({ children }) => {
+export const AlertProvider: React.FC<ContextProviderProps> = ({ children }) => {
   const [alert, setAlert] = useState<{ show: boolean; type: AlertType; message: string }>({
     show: false,
     type: 'info',

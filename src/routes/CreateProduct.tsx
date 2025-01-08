@@ -10,7 +10,7 @@ import { useAlert } from "../contexts/AlertContext";
 
 const CreateProduct = () => {
   const { token } = useAuth();
-   const { showAlert } = useAlert();
+  const { showAlert } = useAlert();
   const navigate = useNavigate();
   const { control, handleSubmit, register, formState: { errors }, getValues, setValue } = useForm<IProductInput>({
     defaultValues: {
@@ -96,7 +96,7 @@ const CreateProduct = () => {
 
     try {
       await createNewProduct(formData);
-      
+
       showAlert("success", "Product Created Successfully");
       navigate("/");
     } catch (error: any) {
@@ -149,16 +149,16 @@ const CreateProduct = () => {
           <input placeholder="Alt" />
           {errors.alt && <p className="text-red-500">{errors.alt.message}</p>}
         </section>
-        
+
         {/* Main Category Section */}
         <section>
           <input placeholder="Main Category" {...register("mainCategory", { required: "Main Category is required" })} />
           {errors.mainCategory && <p className="text-red-500">{errors.mainCategory.message}</p>}
         </section>
-        
-        {/* Tags Section */}  
+
+        {/* Tags Section */}
         <section>
-          <input placeholder="Tags"/>
+          <input placeholder="Tags" />
           {errors.tags && <p className="text-red-500">{errors.tags.message}</p>}
         </section>
 

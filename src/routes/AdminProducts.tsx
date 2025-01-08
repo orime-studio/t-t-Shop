@@ -23,7 +23,7 @@ const AdminProducts = () => {
         product.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const onDelete = (id: string) => {
+    const onDelete = (id: string) => {    
         dialogs.confirm("Are you sure?", "Do you want to delete this product?")
             .then((result) => {
                 if (result.isConfirmed) {
@@ -38,6 +38,16 @@ const AdminProducts = () => {
             .catch(err => setError(err));
     };
 
+    // קיבוץ מוצרים לפי קטגוריות
+    const groupedProducts = filteredProducts.reduce((acc, product) => {
+        const category = product.mainCategory || 'Uncategorized';
+        if (!acc[category]) {
+            acc[category] = [];
+        }
+        acc[category].push(product);
+        return acc;
+    }, {} as { [key: string]: IProduct[] });
+
     return (
         <div className="admin-products-container">
             <h2 className='text-4xl text-gray-800 mb-4 text-center'>Products</h2>
@@ -50,29 +60,85 @@ const AdminProducts = () => {
                 </Tooltip>
             </div>
             {error && <div className="text-red-500 text-center mb-4">{error.message}</div>}
-            <Table hoverable className="hidden md:table">
-                <Table.Head>
-                    <Table.HeadCell>Image & Title</Table.HeadCell>
-                    <Table.HeadCell>Variants</Table.HeadCell>
-                    <Table.HeadCell>Total Quantity</Table.HeadCell>
-                    <Table.HeadCell>Edit</Table.HeadCell>
-                    <Table.HeadCell>
-                        <span className="sr-only">Edit</span>
-                    </Table.HeadCell>
-                </Table.Head>
-                <Table.Body className="divide-y">
-                    {filteredProducts.map((product) => (
-                        <Table.Row key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                            <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center gap-3">
-                                <div className="flex space-x-2">
+
+            {/* מיני Navbar לקטגוריות */}
+            <div className="categories-navbar mb-4">
+                {Object.keys(groupedProducts).map(category => (
+                    <a key={category} href={`#${category}`} className="category-link">
+                        {category}
+                    </a>
+                ))}
+            </div>
+
+            {Object.keys(groupedProducts).map(category => (
+                <div key={category} id={category} className="category-group">
+                    <h3 className="text-2xl text-gray-700 mb-4">{category}</h3>
+                    <Table hoverable className="hidden md:table">
+                        <Table.Head>
+                            <Table.HeadCell>Image & Title</Table.HeadCell>
+                            <Table.HeadCell>Variants</Table.HeadCell>
+                            <Table.HeadCell>Total Quantity</Table.HeadCell>
+                            <Table.HeadCell>Edit</Table.HeadCell>
+                            <Table.HeadCell>
+                                <span className="sr-only">Edit</span>
+                            </Table.HeadCell>
+                        </Table.Head>
+                        <Table.Body className="divide-y">
+                            {groupedProducts[category].map((product) => (
+                                <Table.Row key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                    <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white flex items-center gap-3">
+                                        <div className="flex space-x-2">
+                                            <img src={product.mainImage.url} alt={product.mainImage.alt} className="h-12 w-12 object-cover rounded-full" />
+                                        </div>
+                                        <div className="flex flex-col gap-2">
+                                            <span>{product.title}</span>
+                                        </div>
+                                    </Table.Cell>
+                                    <Table.Cell className="whitespace-nowrap">
+                                        <div className="flex flex-wrap gap-2">
+                                            {product.variants.map((variant, index) => (
+                                                <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
+                                                    <p className="text-sm">Size: {variant.size}</p>
+                                                    <p className="text-sm">Price: ${variant.price}</p>
+                                                    {variant.colors.map((color, colorIndex) => (
+                                                        <p key={colorIndex} className="text-sm">
+                                                            Color: {color.name}, Quantity: {color.quantity}
+                                                        </p>
+                                                    ))}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        {product.variants.reduce((total, variant) => 
+                                            total + variant.colors.reduce((colorTotal, color) => colorTotal + color.quantity, 0), 0)}
+                                    </Table.Cell>
+                                    <Table.Cell>
+                                        <div className="table-actions flex gap-3">
+                                            <Link to={`/admin/products/${product._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
+                                                Edit
+                                            </Link>
+                                            <button onClick={() => onDelete(product._id)} className="text-red-600 hover:text-red-800">
+                                                <FiTrash2 size={20} />
+                                            </button>
+                                        </div>
+                                    </Table.Cell>
+                                </Table.Row>
+                            ))}
+                        </Table.Body>
+                    </Table>
+
+                    {/* Mobile View */}
+                    <div className="grid md:hidden gap-4">
+                        {groupedProducts[category].map((product) => (
+                            <div key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800 p-4 rounded-lg shadow-md">
+                                <div className="flex items-center mb-4 gap-3">
                                     <img src={product.mainImage.url} alt={product.mainImage.alt} className="h-12 w-12 object-cover rounded-full" />
+                                    <div>
+                                        <p className="font-medium text-gray-900 dark:text-white">{product.title}</p>
+                                    </div>
                                 </div>
-                                <div className="flex flex-col gap-2">
-                                    <span>{product.title}</span>
-                                </div>
-                            </Table.Cell>
-                            <Table.Cell className="whitespace-nowrap">
-                                <div className="flex flex-wrap gap-2">
+                                <div className="mb-4">
                                     {product.variants.map((variant, index) => (
                                         <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
                                             <p className="text-sm">Size: {variant.size}</p>
@@ -85,14 +151,7 @@ const AdminProducts = () => {
                                         </div>
                                     ))}
                                 </div>
-                            </Table.Cell>
-                            <Table.Cell>
-                                {/* חישוב הכמות הכוללת של כל הצבעים בכל הווריאנטים */}
-                                {product.variants.reduce((total, variant) => 
-                                    total + variant.colors.reduce((colorTotal, color) => colorTotal + color.quantity, 0), 0)}
-                            </Table.Cell>
-                            <Table.Cell>
-                                <div className="table-actions flex gap-3">
+                                <div className="flex justify-between items-center">
                                     <Link to={`/admin/products/${product._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                                         Edit
                                     </Link>
@@ -100,46 +159,11 @@ const AdminProducts = () => {
                                         <FiTrash2 size={20} />
                                     </button>
                                 </div>
-                            </Table.Cell>
-                        </Table.Row>
-                    ))}
-                </Table.Body>
-            </Table>
-
-            {/* Mobile View */}
-            <div className="grid md:hidden gap-4">
-                {filteredProducts.map((product) => (
-                    <div key={product._id} className="bg-white dark:border-gray-700 dark:bg-gray-800 p-4 rounded-lg shadow-md">
-                        <div className="flex items-center mb-4 gap-3">
-                            <img src={product.mainImage.url} alt={product.mainImage.alt} className="h-12 w-12 object-cover rounded-full" />
-                            <div>
-                                <p className="font-medium text-gray-900 dark:text-white">{product.title}</p>
                             </div>
-                        </div>
-                        <div className="mb-4">
-                            {product.variants.map((variant, index) => (
-                                <div key={index} className="bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2">
-                                    <p className="text-sm">Size: {variant.size}</p>
-                                    <p className="text-sm">Price: ${variant.price}</p>
-                                    {variant.colors.map((color, colorIndex) => (
-                                        <p key={colorIndex} className="text-sm">
-                                            Color: {color.name}, Quantity: {color.quantity}
-                                        </p>
-                                    ))}
-                                </div>
-                            ))}
-                        </div>
-                        <div className="flex justify-between items-center">
-                            <Link to={`/admin/products/${product._id}`} className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                                Edit
-                            </Link>
-                            <button onClick={() => onDelete(product._id)} className="text-red-600 hover:text-red-800">
-                                <FiTrash2 size={20} />
-                            </button>
-                        </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
     );
 }
