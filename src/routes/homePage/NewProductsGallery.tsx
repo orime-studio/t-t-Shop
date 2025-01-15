@@ -1,4 +1,3 @@
-// src/routes/NewProductsGallery.tsx
 
 import React, { FC, useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
@@ -158,13 +157,13 @@ const NewProductsGallery: FC = () => {
 
   return (
     <div className="new-gallery-wrapper">
-      {/* פילטר */}
+   
       <Filter />
 
-      {/* כותרת (לא חובה) */}
+      
       <h2 className="new-gallery-heading">Our Products</h2>
 
-      {/* רשת מוצרים */}
+     
       <div className="new-gallery-grid">
         {products.length === 0 ? (
           <p>No products found</p>
@@ -206,7 +205,7 @@ const NewProductsGallery: FC = () => {
                   </div>
                 </div>
 
-                {/* קודם בחירת מידה */}
+          
                 <div className="new-gallery-sizes">
                   <span className="label">
                     Size: {variant.size}
@@ -226,7 +225,7 @@ const NewProductsGallery: FC = () => {
                   </div>
                 </div>
 
-                {/* אחר כך בחירת צבע */}
+            
                 <div className="new-gallery-colors">
                   <span className="label">
                     Color: {color}

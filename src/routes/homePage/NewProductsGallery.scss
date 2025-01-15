@@ -65,13 +65,17 @@
       object-fit: cover;
       transition: transform 0.3s ease;
 
-      @media (min-width: 375px) {
+    /*   @media (min-width: 375px) {
         width: 180px;
         height: 239px;
       }
       @media (min-width: 1000px) {
         width: 223px;
         height: 297px;
+      }
+      @media (min-width: 1200px) {
+        width: 280px;
+        height: 380px;
       }
       @media (min-width: 1400px) {
         width: 322px;
@@ -80,7 +84,7 @@
       @media (min-width: 1900px) {
         width: 452px;
         height: 602px;
-      }
+      } */
     }
   
     /* כפתור Quick Add */
