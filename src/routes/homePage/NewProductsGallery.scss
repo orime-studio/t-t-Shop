@@ -1,7 +1,7 @@
 .new-gallery-wrapper {
     max-width: 100%;
     margin: 0 auto;
-    padding: 10px;
+    padding: 0px 8px;
   
     .new-gallery-heading {
       text-align: center;
@@ -22,7 +22,7 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
-    padding: 20px 0;
+    padding: 8px 0;
   
     @media (min-width: 768px) {
       grid-template-columns: repeat(2, 1fr);
@@ -42,7 +42,8 @@
     background-color: #fff;
     /* אין מסגרת סביב הכרטיסייה */
     border: none; 
-    
+    margin-top: 8px;
+    margin-bottom: 8px;
   
     &:hover {
       transform: translateY(-2px);
@@ -135,7 +136,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px 0;
+    padding: 5px 4px 0;
   
     .new-gallery-title {
       font-size: 14px;
@@ -175,7 +176,7 @@
   
   /* בחירת צבע */
   .new-gallery-colors {
-    padding: 1px 15px 0;
+    padding: 1px 4px 0;
   
     .label {
       display: block;
@@ -216,7 +217,7 @@
   
   /* בחירת מידה */
   .new-gallery-sizes {
-    padding: 10px 15px 15px;
+    padding: 10px 4px 15px;
   
     .label {
       display: block;
