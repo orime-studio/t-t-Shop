@@ -156,7 +156,7 @@ const NewProductsGallery: FC = () => {
   if (error) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="new-gallery-wrapper">
+    <div className="new-gallery-wrapper category-wrapper">
    
       <Filter />
 
