@@ -1,0 +1,73 @@
+.sale-banner-container {
+    width: 100%;
+    height: 400px;
+    background-image: url('public/img/homePage/carousellla.jpg'); 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: flex-start; // מיושר לשמאל
+    align-items: center;
+    margin: 64px 0;
+
+    @media (max-width: 768px) {
+        height: auto; /* מתאים למכשירים ניידים */
+        margin: 32px 0;
+    }
+}
+
+.sale-banner-content {
+    width: 100%;
+    max-width: 800px;
+    color: #262626;
+    padding: 80px 25px 70px 80px;
+    border-radius: 5px;
+    text-align: left; // מיושר לשמאל
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // מיושר לשמאל
+
+    .sale-banner-title {
+        color: #262626;
+        text-align: left;
+        font-size: 28px;
+        font-weight: 400;
+        line-height: normal;
+
+        @media (max-width: 768px) {
+            font-size: 22px;
+        }
+    }
+
+    .sale-banner-description {
+        color: #262626;
+        text-align: left;
+        font-size: 60px;
+        font-weight: 400;
+        line-height: normal;
+        font-family: Playfair;
+        margin-bottom: 20px; /* רווח בין התיאור לכפתורים */
+    }
+
+    .sale-banner-buttons {
+        display: flex;
+        gap: 10px; /* רווח בין הכפתורים */
+    }
+
+    .sale-banner-button {
+        width: 154px;
+        padding: 11px 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        background: #FFF;
+        color: #000;
+        font-size: 12px;
+        font-weight: 400;
+        text-decoration: none;
+
+        &:hover {
+            background: #f0f0f0; /* אפקט ריחוף */
+        }
+    }
+}
