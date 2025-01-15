@@ -2,15 +2,14 @@
 
 import React, { FC, useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { IProduct, IVariant } from '../@Types/productType';
-import { useSearch } from '../hooks/useSearch';
-import { getAllProducts } from '../services/product-service';
-import useCart from '../hooks/useCart';
-import Filter from '../components/FilterComponent';
-import LatestArticles from './ArticleComponrnts/LatestArticle';
+import { IProduct, IVariant } from '../../@Types/productType';
+import { useSearch } from '../../hooks/useSearch';
+import { getAllProducts } from '../../services/product-service';
+import useCart from '../../hooks/useCart';
+import Filter from '../../components/FilterComponent';
+import LatestArticles from '../ArticleComponrnts/LatestArticle';
 import { FiPlus } from 'react-icons/fi';
-import { useAlert } from '../contexts/AlertContext';
-
+import { useAlert } from '../../contexts/AlertContext';
 import './NewProductsGallery.scss';
 
 const NewProductsGallery: FC = () => {
@@ -252,8 +251,6 @@ const NewProductsGallery: FC = () => {
         )}
       </div>
 
-      {/* מאמרים/כתבות אחרונים */}
-      <LatestArticles />
     </div>
   );
 };

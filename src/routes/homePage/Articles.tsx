@@ -26,7 +26,7 @@ const Articles = () => {
         {lastArticles.length > 0 ? (
           lastArticles.map(article => (
             <div className="articles-section" key={article._id}>
-                 <h3 className="articles-card-title">{article.title}</h3>
+                {/*  <h3 className="articles-card-title">{article.title}</h3> */}
               <div className="articles-image-wrapper">
                 <img
                   src={article.mainImage?.url || ''}

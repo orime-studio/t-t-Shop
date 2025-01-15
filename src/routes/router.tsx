@@ -33,7 +33,7 @@ import UpdateUser from "./UpdateUser";
 import UserOrders from "./UserOrders";
 import MainPage from "./homePage/MainPage";
 import ImpactReport from "./homePage/ImpactReport";
-import NewProductsGallery from "./NewProductsGallery";
+import NewProductsGallery from "./homePage/NewProductsGallery";
 
 export const router = createBrowserRouter([
     {
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
         element: <Root />,
         errorElement: <Error />,
         children: [
-            { index: true, element: <><CarouselComponent /><Products />{/* <CarouselNew /> */} </> },
+            { index: true, element: <MainPage /> },
             { path: "/register", element: <Register /> },
             { path: "/login", element: <Login /> },
             { path: "/products/:id", element: <Product /> },
@@ -109,12 +109,12 @@ export const router = createBrowserRouter([
                 path: "/edit-article/:id", element: <EditArticle />
             },
             {
-                path: "home",element: <MainPage />
+                path: "home", element: <MainPage />
             },
             {
                 path: "/impact-report", element: <ImpactReport />
             }
-          
+
         ],
     },
     // ניתוב עצמאי ל-beitChabad עם Footer בלבד
@@ -132,14 +132,14 @@ export const router = createBrowserRouter([
                     </ProtectedRouteAdmin>
                 ),
             },
-          {
+            {
                 path: "admin/parasha/edit/:id",
                 element: (
                     <ProtectedRouteAdmin>
                         <EditParasha />
                     </ProtectedRouteAdmin>
                 ),
-            }, 
+            },
             {
                 path: "parasha/:id",
                 element: <ParashaDetail />,
@@ -156,7 +156,7 @@ export const router = createBrowserRouter([
                     </ProtectedRouteAdmin>
                 ),
             },
-         
+
         ],
     },
 ]);
