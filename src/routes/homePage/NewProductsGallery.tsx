@@ -162,7 +162,7 @@ const NewProductsGallery: FC = () => {
       <Filter />
 
       {/* כותרת (לא חובה) */}
-      <h2 className="new-gallery-heading">Our Bestsellers</h2>
+      <h2 className="new-gallery-heading">Our Products</h2>
 
       {/* רשת מוצרים */}
       <div className="new-gallery-grid">
