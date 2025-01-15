@@ -45,7 +45,11 @@
         font-weight: 400;
         line-height: normal;
         font-family: Playfair;
-        margin-bottom: 20px; /* רווח בין התיאור לכפתורים */
+        margin-bottom: 20px; 
+
+        @media (max-width: 768px) {
+            font-size: 35px;
+        }
     }
 
     .sale-banner-buttons {
