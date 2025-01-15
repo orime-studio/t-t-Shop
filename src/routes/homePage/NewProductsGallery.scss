@@ -164,6 +164,9 @@
         @media (min-width: 375px) {
           font-size: 11px;
         }
+        @media (min-width: 1000px) {
+          font-size: 14px;
+        }
       }
       .new-price {
         color: #000;
@@ -172,6 +175,9 @@
 
         @media (min-width: 375px) {
           font-size: 11px;
+        }
+        @media (min-width: 1000px) {
+          font-size: 14px;
         }
       }
     }
