@@ -98,7 +98,7 @@ const Nav = () => {
                 )}
 
                 <Navbar.Toggle />
-                <DarkThemeToggle />
+               {/*  <DarkThemeToggle /> */}
             
             </div>
             <Navbar.Collapse>
