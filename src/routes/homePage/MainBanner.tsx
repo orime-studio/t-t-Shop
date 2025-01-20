@@ -4,7 +4,7 @@ import './MainBanner.scss';
 const MainBanner = () => {
   return (
     <div className="banner">
-        <img src="img/homePage/MainBanner.png" alt="Main Banner" />
+        <img src="/img/homePage/Main_bannerS.jpg" alt="Main Banner" />
     </div>
   );
 }
