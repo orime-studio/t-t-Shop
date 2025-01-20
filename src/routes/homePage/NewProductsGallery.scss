@@ -95,7 +95,6 @@
       } */
     }
   
-    /* כפתור Quick Add */
     
     /* כפתור Quick Add */
     .new-gallery-add-button {
@@ -135,13 +134,14 @@
           display: none;
         }
 
-        width: 40px;
-        height: 40px;
+        width: 28px;
+        height: 28px;
         border-radius: 50%;
+        border-color: none;
         justify-content: center;
         padding: 0;
         left: auto;
-        right: 1rem;
+        right: 11px;
 
         .icon-plus {
           position: static;
