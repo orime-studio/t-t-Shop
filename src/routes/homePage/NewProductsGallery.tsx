@@ -188,12 +188,12 @@ const NewProductsGallery: FC = () => {
                   </Link>
                   {/* כפתור Quick Add בהובר */}
                   <button
-                    className="new-gallery-add-button"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    QUICK ADD
-                    <FiPlus className="icon-plus" />
-                  </button>
+  className="new-gallery-add-button"
+  onClick={() => handleAddToCart(product)}
+>
+  <span className="button-text">QUICK ADD</span>
+  <FiPlus className="icon-plus" />
+</button>
                 </div>
 
                 {/* כותרת + מחירים בשורה אחת */}
