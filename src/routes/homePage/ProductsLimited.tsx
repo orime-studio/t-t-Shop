@@ -171,13 +171,13 @@ const FourProductsGallery: FC = () => {
                       className="new-gallery-image"
                     />
                   </Link>
-                  <button
-                    className="new-gallery-add-button"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    QUICK ADD
-                    <FiPlus className="icon-plus" />
-                  </button>
+                   <button
+                   className="new-gallery-add-button"
+                   onClick={() => handleAddToCart(product)}
+                 >
+                   <span className="button-text">QUICK ADD</span>
+                   <FiPlus className="icon-plus" />
+                 </button>
                 </div>
 
                 <div className="new-gallery-title-row">
