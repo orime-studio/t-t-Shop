@@ -172,6 +172,7 @@ const NewProductsGallery: FC = () => {
             const { variant, color } = productSelections[product._id] || {};
             if (!variant) return null;
 
+
             const originalPrice = (variant.price * 1.2).toFixed(2);
             const discountedPrice = variant.price.toFixed(2);
 

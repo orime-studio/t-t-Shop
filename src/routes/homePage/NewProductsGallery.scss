@@ -3,6 +3,14 @@
     max-width: 1984px !important;
     margin: 0 auto;
     padding: 32px !important;
+
+    @media (min-width: 768px){
+      padding-top: 32px !important;
+      padding-right: 8px !important;
+      padding-left: 8px !important;
+
+    }
+
    
 }
 
@@ -176,8 +184,9 @@
   
     .new-gallery-title {
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 400;
       margin: 0;
+
 
       @media (min-width: 375px) {
         font-size: 11px;

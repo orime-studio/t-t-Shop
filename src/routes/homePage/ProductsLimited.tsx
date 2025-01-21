@@ -148,9 +148,9 @@ const FourProductsGallery: FC = () => {
   return (
     <div className="new-gallery-wrapper">
      {/*  <Filter /> */}
-      <h2 className="new-gallery-heading">Our Bestsellers </h2>
+      <h2 className="new-gallery-heading k">Our Bestsellers </h2>
 
-      <div className="new-gallery-grid">
+      <div className="new-gallery-grid"> 
         {fourProducts.length === 0 ? (
           <p>No products found</p>
         ) : (
